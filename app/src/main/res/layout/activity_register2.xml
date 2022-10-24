@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:visibility="visible"
+    tools:context=".MainActivity">
+
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="680dp"
+        android:layout_height="260dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/runway_logo_50" />
+
+    <TextView
+        android:id="@+id/register_2_Txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:text="Register"
+        android:textColor="@color/white"
+        android:textSize="35dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/reg2ExpTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/register_2_Txt"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        android:text="Please enter your details below."
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        android:textStyle="normal" />
+
+    <EditText
+        android:id="@+id/regEmail"
+        android:layout_width="358dp"
+        android:layout_height="43dp"
+        android:layout_below="@id/reg2ExpTxt"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="45dp"
+        android:background="@color/cardview_light_background"
+        android:hint="Email"
+        android:padding="5dp"
+        android:drawableLeft="@drawable/ic_baseline_mail_outline_24"
+        android:drawablePadding="10dp"
+        android:inputType="textPassword"
+        />
+
+    <TextView
+        android:id="@+id/pwdExpTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/regEmail"
+        android:layout_margin="12dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
+        android:text="Please choose a password greater than 10 letters long, that you have never used before. A strong password is a momorable sentence put together with no spaces using numbers, mixed capitalisation and symbols. "
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        android:textStyle="normal" />
+
+    <EditText
+        android:id="@+id/regPwd"
+        android:layout_width="358dp"
+        android:layout_height="43dp"
+        android:layout_below="@id/pwdExpTxt"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="45dp"
+        android:background="@color/cardview_light_background"
+        android:hint="Password"
+        android:padding="5dp"
+        android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
+        android:drawablePadding="10dp"
+        android:inputType="textPassword"
+        />
+
+    <EditText
+        android:id="@+id/regReEntPwd"
+        android:layout_width="358dp"
+        android:layout_height="43dp"
+        android:layout_below="@id/regPwd"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="45dp"
+        android:background="@color/cardview_light_background"
+        android:hint="Re-enter Password"
+        android:padding="5dp"
+        android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
+        android:drawablePadding="10dp"
+        android:inputType="textPassword"
+        />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/vouchBtn"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/regReEntPwd"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="150dp"
+        android:backgroundTint="@color/cardview_light_background"
+        android:text="Register"
+        android:textColor="@color/black" />
+
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/regTxt"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@id/loginBtn"-->
+    <!--        android:layout_margin="15dp"-->
+    <!--        android:layout_marginStart="58dp"-->
+    <!--        android:layout_marginTop="58dp"-->
+    <!--        android:layout_marginEnd="58dp"-->
+    <!--        android:layout_marginBottom="58dp"-->
+    <!--        android:gravity="center"-->
+    <!--        android:text="or Register here"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        android:textSize="15dp"-->
+    <!--        android:textStyle="normal" />-->
+
+
+
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content">-->
+
+    <!--        <com.google.android.material.textfield.TextInputEditText-->
+    <!--&lt;!&ndash;            android:id="@+id/username"&ndash;&gt;-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_below="@id/loginTxt"-->
+    <!--            android:layout_marginLeft="20dp"-->
+    <!--            android:layout_marginRight="20dp"-->
+    <!--            android:hint="Username"-->
+
+    <!--            />-->
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/socialicons"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        android:gravity="center">-->
+
+    <!--        <ImageView-->
+    <!--            android:layout_width="48dp"-->
+    <!--            android:layout_height="48dp"-->
+    <!--            android:layout_margin="20dp"-->
+    <!--            android:src="@drawable/img_2220" />-->
+
+    <!--        <ImageView-->
+    <!--            android:layout_width="48dp"-->
+    <!--            android:layout_height="48dp"-->
+    <!--            android:layout_margin="20dp"-->
+    <!--            android:src="@drawable/fb" />-->
+
+    <!--        <ImageView-->
+    <!--            android:layout_width="48dp"-->
+    <!--            android:layout_height="48dp"-->
+    <!--            android:layout_margin="20dp"-->
+    <!--            android:src="@drawable/insta" />-->
+    <!--    </LinearLayout>-->
+
+</RelativeLayout>
