@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "450206207674",
+    "firebase_url": "https://runwayproject-39823-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "runwayproject-39823",
+    "storage_bucket": "runwayproject-39823.appspot.com"
+  }
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450206207674:android:11227d67bf8ea2cce0bc83",
+        "android_client_info": {
+          "package_name": "com.example.gen_roll_pwd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450206207674-buht1isohkqdoko6dkqke4rsdrtov18v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs5teXzgrvX99pP1K9KJacJPDP66BRKsQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450206207674-buht1isohkqdoko6dkqke4rsdrtov18v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450206207674:android:84fb63568e79e827e0bc83",
+        "android_client_info": {
+          "package_name": "com.example.generatedrollingpassword"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450206207674-buht1isohkqdoko6dkqke4rsdrtov18v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs5teXzgrvX99pP1K9KJacJPDP66BRKsQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450206207674-buht1isohkqdoko6dkqke4rsdrtov18v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450206207674:android:b2eef6e77a51f9cde0bc83",
+        "android_client_info": {
+          "package_name": "com.example.runway_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450206207674-buht1isohkqdoko6dkqke4rsdrtov18v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs5teXzgrvX99pP1K9KJacJPDP66BRKsQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450206207674-buht1isohkqdoko6dkqke4rsdrtov18v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

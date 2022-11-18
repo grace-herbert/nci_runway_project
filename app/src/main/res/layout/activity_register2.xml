@@ -106,7 +106,7 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/vouchBtn"
+        android:id="@+id/reg2Btn"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/regReEntPwd"

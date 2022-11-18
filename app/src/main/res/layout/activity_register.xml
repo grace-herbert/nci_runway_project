@@ -44,21 +44,43 @@
 
     <EditText
         android:id="@+id/voucherNo"
-        android:layout_width="358dp"
-        android:layout_height="43dp"
+        android:layout_width="289dp"
+        android:layout_height="44dp"
         android:layout_below="@id/regExpTxt"
-        android:layout_marginTop="15dp"
         android:layout_marginStart="45dp"
-        android:layout_marginEnd="45dp"
+        android:layout_marginTop="15dp"
+
         android:background="@color/cardview_light_background"
-        android:hint="Voucher No."
-        android:padding="5dp"
         android:drawableLeft="@drawable/ic_baseline_local_offer_24"
         android:drawablePadding="10dp"
+        android:hint="Voucher No."
         android:inputType="textPassword"
+        android:padding="5dp"
+
         />
 
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/showBtn"
+        android:layout_width="24dp"
+        android:layout_height="44dp"
+        android:layout_alignBaseline="@id/voucherNo"
+        android:layout_toRightOf="@id/voucherNo"
+        android:background="@color/cardview_light_background"
+        android:drawableRight="@drawable/ic_baseline_visibility_off_24"
+        android:visibility="visible"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/hideBtn"
+        android:layout_width="24dp"
+        android:layout_height="44dp"
+        android:layout_alignBaseline="@id/voucherNo"
+        android:layout_toRightOf="@id/voucherNo"
+        android:background="@color/cardview_light_background"
+        android:drawableRight="@drawable/ic_baseline_visibility_24"
+        android:visibility="invisible"
+        />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/vouchBtn"
@@ -71,6 +93,18 @@
         android:backgroundTint="@color/cardview_light_background"
         android:text="Enter"
         android:textColor="@color/black" />
+
+<!--    <ImageView-->
+<!--        android:id="@+id/Hide"-->
+<!--        android:layout_width="44dp"-->
+<!--        android:layout_height="44dp"-->
+<!--        android:background="@color/cardview_light_background"-->
+<!--        android:drawableRight="@drawable/ic_baseline_visibility_off_24"-->
+<!--        />-->
+
+
+
+
 
 
 <!--    <TextView-->
