@@ -1,9 +1,12 @@
 package com.example.runway_project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,11 +22,40 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
-    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://runwayproject-b5853-default-rtdb.europe-west1.firebasedatabase.app/");
+    Database db =  new Database();
+    DatabaseReference dbRef = db.getRefDB();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        AppCompatButton showLPwdBtn = this.findViewById(R.id.showLPwd);
+        AppCompatButton hideLPwdBtn = this.findViewById(R.id.hideLPwd);
+
+        EditText email = this.findViewById(R.id.email);
+        EditText pwd = this.findViewById(R.id.password);
+        MaterialButton loginBtn = this.findViewById(R.id.loginBtn);
+
+        showLPwdBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                showLPwdBtn.setVisibility(View.INVISIBLE);
+                hideLPwdBtn.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        hideLPwdBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                hideLPwdBtn.setVisibility(View.INVISIBLE);
+                showLPwdBtn.setVisibility(View.VISIBLE);
+
+            }
+        });
 
 
 
@@ -34,9 +66,7 @@ public class MainActivity extends AppCompatActivity {
 //        myRef.setValue("Hello, World!");
 
         // set usable variables for the edittexts
-        EditText email = this.findViewById(R.id.email);
-        EditText pwd = this.findViewById(R.id.password);
-        MaterialButton loginBtn = this.findViewById(R.id.loginBtn);
+
 
         //get the texts from the edittexts and set them toString
         final String emailStrg = email.getText().toString();

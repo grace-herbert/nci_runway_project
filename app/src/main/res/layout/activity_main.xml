@@ -89,6 +89,28 @@
         android:textStyle="normal" />
 
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/showLPwd"
+        android:layout_width="24dp"
+        android:layout_height="44dp"
+        android:layout_alignBaseline="@id/password"
+        android:layout_marginLeft="-72dp"
+        android:layout_toRightOf="@id/password"
+        android:background="@color/cardview_light_background"
+        android:drawableRight="@drawable/ic_baseline_visibility_off_24"
+        android:visibility="visible" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/hideLPwd"
+        android:layout_width="19dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/password"
+        android:layout_marginLeft="-64dp"
+        android:layout_toRightOf="@id/password"
+        android:background="@color/cardview_light_background"
+        android:drawableRight="@drawable/ic_baseline_visibility_24"
+        android:visibility="invisible" />
+
 
     <!--    <com.google.android.material.textfield.TextInputLayout-->
     <!--        android:layout_width="match_parent"-->

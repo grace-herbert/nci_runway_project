@@ -1,6 +1,7 @@
 package com.example.runway_project;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.graphics.drawable.DrawableWrapper;
 import androidx.appcompat.widget.AppCompatButton;
@@ -17,6 +18,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 import java.util.Timer;
@@ -24,7 +30,16 @@ import java.util.TimerTask;
 
 public class Register_1 extends AppCompatActivity {
 
-        @Override
+    private Database db;
+    private DatabaseReference dbRef;
+
+    public Register_1(){
+        this.db =  new Database();
+        this.dbRef = db.getRefDB();
+    }
+
+
+    @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_register);
@@ -32,7 +47,7 @@ public class Register_1 extends AppCompatActivity {
             AppCompatButton showBtn = this.findViewById(R.id.showBtn);
             AppCompatButton hideBtn = this.findViewById(R.id.hideBtn);
             EditText voucher = this.findViewById(R.id.voucherNo);
-//            ImageView hideImg = this.findViewById(R.id.Hide);
+
 
             showBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -66,16 +81,23 @@ public class Register_1 extends AppCompatActivity {
                 public void onClick(View v) {
                     final String VNo = voucher.getText().toString();
                     if (count < 3) {
-                        if (VNo.equals("test")) {
-//                            String gg = g.getGen();
-//                            System.out.println("gen: " + gg);
-                            Intent intent = new Intent(Register_1.this, Register_2.class);
-                            startActivity(intent);
-                        } else {
-                            count++;
-                            Toast.makeText(Register_1.this, "Wrong Voucher No.", Toast.LENGTH_SHORT).show();
-                            System.out.println("VNo: "+VNo);
-                        }
+                        dbRef.child("voucher").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if(snapshot.getValue().equals(VNo)){
+                                    System.out.println("True " + VNo);
+                                    Intent intent = new Intent(Register_1.this, Register_2.class);
+                                    startActivity(intent);
+                                }else{
+                                    count++;
+                                    Toast.makeText(Register_1.this, "Wrong Voucher No.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                count++;
+                            }
+                        });
                     } else {
                         Toast.makeText(Register_1.this, "Wrong Voucher No. entered. Please try again later.", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Register_1.this, Locked.class);
@@ -83,8 +105,6 @@ public class Register_1 extends AppCompatActivity {
                         //vouchBtn.setEnabled(false);
                     }
                 }
-
-
             });
         }
     }
