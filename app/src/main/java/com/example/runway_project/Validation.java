@@ -1,6 +1,8 @@
 package com.example.runway_project;
 
+import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -28,25 +30,25 @@ public class Validation extends Register_2 {
         this.dbRef = db.getRefDB();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register2);
-
-    }
-
-    Register_2 r2 = new Register_2();
-    EditText regEmail = r2.findViewById(R.id.regEmail);
-    EditText pwd = r2.findViewById(R.id.regPwd);
-    EditText pwdConf = r2.findViewById(R.id.regReEntPwd);
-    MaterialButton reg2Btn = r2.findViewById(R.id.reg2Btn);
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_register2);
 //
-////    Context context = this;
+//    }
 //
-    final String rgEmail = regEmail.getText().toString();
-    final String rgPwd = pwd.getText().toString();
-    final String rgPwdConf = pwdConf.getText().toString();
-
+//    Register_2 r2 = new Register_2();
+//    EditText regEmail = r2.findViewById(R.id.regEmail);
+//    EditText pwd = r2.findViewById(R.id.regPwd);
+//    EditText pwdConf = r2.findViewById(R.id.regReEntPwd);
+//    MaterialButton reg2Btn = r2.findViewById(R.id.reg2Btn);
+////
+    Context context = this;
+////
+//    final String rgEmail = regEmail.getText().toString();
+//    final String rgPwd = pwd.getText().toString();
+//    final String rgPwdConf = pwdConf.getText().toString();
+//
     boolean isValid;
 
         public void testThis() {
@@ -68,62 +70,114 @@ public class Validation extends Register_2 {
 //
 //    }
 
-        public void emailHasValidFormat() {
-//        boolean emailIsValid;
-//        String regex = "[a-zA-Z]";
-//        emailIsValid = Pattern.matches(regex, email);
-//        Matcher mtr = ptn.matcher(email);
-//        emailIsValid = mtr.find();
-            System.out.println("email");
+//    public static boolean emailHasValidFormat(String email){
+//            String emlRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+//            Pattern ptn = Pattern.compile(emlRegex, Pattern.CASE_INSENSITIVE);
+//            Matcher mtr = ptn.matcher(email);
+//            return mtr.find();
+//    }
 
+        //regex pattern found from https://www.youtube.com/watch?v=OOdO785p3Qo
+        public static boolean emailHasValidFormat(String email) {
+            System.out.println(email);
+        boolean emailIsValid;
+        String regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+        Pattern ptn = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+//        emailIsValid = ptn.matcher(email).matches();
+        Matcher mtr = ptn.matcher(email);
+        emailIsValid = mtr.matches();
+            System.out.println("Format was found to be: " + emailIsValid);
+            return emailIsValid;
         }
 
-//        public boolean validEmail() {
-//
-//            if (!regEmail.equals(" ")) {
-//                dbRef.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        String emailCk = snapshot.child("email").getValue().toString();
-//                        if (emailCk.equals(rgEmail)) {
-//                            isValid = false;
-//                        } else {
-//                            isValid = true;
-//                        }
-//                    }@Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//                            isValid = false;
-//                    }
-//                });
-//                }else{
-//                Toast.makeText(this, "Please enter your email and password.", Toast.LENGTH_SHORT).show();
-//                            isValid = false;
-//                }
-//            return isValid;
-//        }
+        public boolean validEmail(String email) {
+
+            if (!email.equals(" ")) {
+                dbRef.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String emailCk = snapshot.child("email").getValue().toString();
+                        if (emailCk.equals(email)) {
+                            isValid = false;
+                            System.out.println("Match was found in DB");
+                        } else {
+                            isValid = true;
+                            System.out.println("This is a valid email, it was not empty and was not found in the DB");
+                        }
+                    }@Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                            isValid = false;
+                        System.out.println("Twas cancelled.");
+                    }
+                });
+                }else{
+                Toast.makeText(this, "Please enter your email and password.", Toast.LENGTH_SHORT).show();
+                            isValid = false;
+                }
+            return isValid;
+        }
 
         //Pwd and pwdConf match
         //neither are empty
         //pwds contain what they need to
-//        public boolean passwordValid(String pwd1, String pwd2){
-//            boolean pwdIsValid = false;
-//            if(!pwd1.equals(" ") || !pwd2.equals(" ")){
-//                if(pwd1.equals(pwd2)){
-//                    if (rgPwd.matches("^[a-zA-Z .]*$")){
-//                        pwdIsValid = true;
-//                        System.out.println("Valid Password");
-//                    }else{
-//                        pwdIsValid = false;
-//                        System.out.println("Invalid Password: Characters");
-//                    }
-//                }else{
-//                    pwdIsValid = false;
-//                    System.out.println("Invalid Password: Passwords don't match");
-//    //                Toast.makeText(this, "Please make sure the passwords match.", Toast.LENGTH_SHORT).show();
-//                }
-//                System.out.println("Password box null");
-//            }return pwdIsValid;
-//
-//        }
+        public boolean passwordValid(String pwd1, String pwd2){
+            boolean pwdIsValid = false;
+            if(!pwd1.equals(" ") || !pwd2.equals(" ")){
+                if(pwd1.equals(pwd2)){
+                    if (pwd1.matches("^[a-zA-Z .]*$")){
+                        pwdIsValid = true;
+                        System.out.println("Valid Password- Goes through");
+                    }else{
+                        pwdIsValid = false;
+                        System.out.println("Invalid Password: Characters");
+                    }
+                }else{
+                    pwdIsValid = false;
+                    System.out.println("Invalid Password: Passwords don't match");
+    //                Toast.makeText(this, "Please make sure the passwords match.", Toast.LENGTH_SHORT).show();
+                }
+            }return pwdIsValid;
+
+        }
+
+//    if inputs are valid
+    public void validateAndSend(boolean format, boolean vEmail, boolean vPwd, String email, String pwd) {
+        if (format && vEmail && vPwd) {
+            //Generator object
+            Gen g = new Gen();
+            //Generate ID
+            g.setIds();
+            String id = g.computeGen();
+            System.out.println(id);
+            //Determine if ID already exists, if it doesn't set the values in the DB and enter home
+            dbRef.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.child("iD").getValue().equals(id)) {
+//                        Toast.makeText(context, "Error. Please try again", Toast.LENGTH_SHORT).show();
+                        System.out.println("ID found in DB");
+                    } else {
+                        dbRef.child("email").setValue(email);
+                        dbRef.child("hk").setValue(pwd);
+                        dbRef.child("id").setValue(id);
+                        System.out.println("Sent to DB");
+//                        Toast.makeText(context, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context, Home.class);
+                        startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+//                    Toast.makeText(context, "Error: " + error, Toast.LENGTH_SHORT).show();
+                    System.out.println("Error: " + error);
+                }
+            });
+
+        } else {
+//            Toast.makeText(context, "Invalid information, please try again.", Toast.LENGTH_SHORT).show();
+            System.out.println("Invalid information, please try again.");
+        }
+    }
 
 }
