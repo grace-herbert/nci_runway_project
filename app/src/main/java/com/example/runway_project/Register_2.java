@@ -134,14 +134,9 @@ public class Register_2 extends AppCompatActivity {
 
                 String rgEmail = regEmail.getText().toString();
                 // check email is valid
-                   do {
-                       emailIsValid = val.validEmail(rgEmail);
-                       System.out.println("In class email validity found to be: " + emailIsValid);
-                       System.out.println(rgEmail);
-                   }while(emailIsValid == true);
-//                        methodCalled = true;
-
-
+                    emailIsValid = val.validEmail(rgEmail);
+                    System.out.println("In class email validity found to be: " + emailIsValid);
+                    System.out.println(rgEmail);
 
                     eValidFormat = val.emailHasValidFormat(rgEmail);
                     System.out.println("In class email format found to be: " + eValidFormat);
