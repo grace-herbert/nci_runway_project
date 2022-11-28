@@ -19,33 +19,28 @@ import org.mockito.MockitoAnnotations;
 
 public class ValidationTest extends TestCase {
 
-//    Database mockDb = new Database();
-//    DatabaseReference mockDbRef;
-//    Validation v;
-//    String mockRgPwd;
-//
-//
-//    @Mock
-//    private String rgPwd = v.findViewById(R.id.regPwd).toString();
-//
-//    @Before
-//    public void setUp() {
-//        mockDb = mock(Database.class);
-//        DatabaseReference mockDbRef = mock(DatabaseReference.class);
-//        String mockRgPwd = mock(String.class);
-//        v = new Validation();
-//
-//    }
-//
-//    @Test
-//    public void testValidatePwd(){
-//        when(mockRgPwd).thenReturn("test");
-//        String rgPwd = "test";
-//        String rgPwdConf = "test";
-//        v.passwordValid(rgPwd,rgPwdConf);
-//        assertEquals(true, v.passwordValid(rgPwd,rgPwdConf));
-//
-//
-//    }
+    Database mockDb = new Database();
+    DatabaseReference mockDbRef;
+    Validation v;
+
+
+
+    @Before
+    public void setUp() {
+        mockDb = mock(Database.class);
+        DatabaseReference mockDbRef = mock(DatabaseReference.class);
+        v = new Validation();
+
+    }
+
+    @Test
+    public void testValidatePwd(){
+        String rgPwd = "test";
+        String rgPwdConf = "test";
+        v.passwordValid(rgPwd,rgPwdConf);
+        assertEquals(true, v.passwordValid(rgPwd,rgPwdConf));
+
+
+    }
 
 }
