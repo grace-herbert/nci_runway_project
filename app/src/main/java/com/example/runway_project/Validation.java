@@ -49,7 +49,7 @@ public class Validation extends Register_2 {
 //    final String rgPwd = pwd.getText().toString();
 //    final String rgPwdConf = pwdConf.getText().toString();
 //
-    boolean isValid;
+//    boolean isValid;
 
         public void testThis() {
             System.out.println("How about now?");
@@ -78,7 +78,7 @@ public class Validation extends Register_2 {
 //    }
 
         //regex pattern found from https://www.youtube.com/watch?v=OOdO785p3Qo
-        public static boolean emailHasValidFormat(String email) {
+        public boolean emailHasValidFormat(String email) {
             System.out.println(email);
         boolean emailIsValid;
         String regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
@@ -90,6 +90,28 @@ public class Validation extends Register_2 {
             return emailIsValid;
         }
 
+        boolean isValid;
+//    public boolean validEmail(String email) {
+//
+//            dbRef.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    String emailCk = snapshot.child("email").getValue().toString();
+//                    if (emailCk.equals(email)) {
+//                        isValid = false;
+//                        System.out.println("Match was found in DB");
+//                    } else {
+//                        isValid = true;
+//                        System.out.println("This is a valid email, it was not empty and was not found in the DB");
+//                    }
+//                }@Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//                    isValid = false;
+//                    System.out.println("Twas cancelled.");
+//                }
+//            });
+//            return isValid;
+//        }
         public boolean validEmail(String email) {
 
             if (!email.equals(" ")) {
