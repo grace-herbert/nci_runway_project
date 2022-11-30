@@ -134,19 +134,32 @@ public class Register_2 extends AppCompatActivity {
 
                 String rgEmail = regEmail.getText().toString();
                 // check email is valid
-                    emailIsValid = val.validEmail(rgEmail);
+
+                try {
+                    emailIsValid = val.validEmail(rgEmail, new Thread());
                     System.out.println("In class email validity found to be: " + emailIsValid);
                     System.out.println(rgEmail);
+                } catch (IllegalMonitorStateException e) {
+                    e.printStackTrace();
+                    System.out.println("Email validation method throwing Illegal Monitor State Exception");
+                }
 
-                    eValidFormat = val.emailHasValidFormat(rgEmail);
-                    System.out.println("In class email format found to be: " + eValidFormat);
-                    validPwd = val.passwordValid(rgPwd, rgPwdConf);
-                    System.out.println("In class pwd validity found to be: " + validPwd);
+
+//                    System.out.println("In class email validity found to be: " + emailIsValid);
+//                    System.out.println(rgEmail);
+
+                eValidFormat = val.emailHasValidFormat(rgEmail);
+                System.out.println("In class email format found to be: " + eValidFormat);
+                validPwd = val.passwordValid(rgPwd, rgPwdConf);
+                System.out.println("In class pwd validity found to be: " + validPwd);
 
 
-                        val.validateAndSend(eValidFormat, emailIsValid, validPwd, rgEmail, rgPwd);
-                        System.out.println("Validate and send carried out.");
-
+                try {
+                    val.validateAndSend(eValidFormat, emailIsValid, validPwd, rgEmail, rgPwd, new Thread());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Validate and send carried out.");
 
 
 

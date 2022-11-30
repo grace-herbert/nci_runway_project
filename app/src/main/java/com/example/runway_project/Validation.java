@@ -112,8 +112,9 @@ public class Validation extends Register_2 {
 //            });
 //            return isValid;
 //        }
-        public boolean validEmail(String email) {
-
+        public synchronized boolean validEmail(String email, Thread thread) {
+            thread = new Thread();
+            thread.setPriority(10);
             if (!email.equals(" ")) {
                 dbRef.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -125,17 +126,19 @@ public class Validation extends Register_2 {
                         } else {
                             isValid = true;
                             System.out.println("This is a valid email, it was not empty and was not found in the DB");
+                            notifyAll();
                         }
                     }@Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                            isValid = false;
+                        isValid = false;
                         System.out.println("Twas cancelled.");
                     }
                 });
-                }else{
+            }else{
                 Toast.makeText(this, "Please enter your email and password.", Toast.LENGTH_SHORT).show();
-                            isValid = false;
-                }
+                isValid = false;
+            }
+            thread.notifyAll();
             return isValid;
         }
 
@@ -163,7 +166,10 @@ public class Validation extends Register_2 {
         }
 
 //    if inputs are valid
-    public void validateAndSend(boolean format, boolean vEmail, boolean vPwd, String email, String pwd) {
+    public synchronized void validateAndSend(boolean format, boolean vEmail, boolean vPwd, String email, String pwd, Thread thread) throws InterruptedException {
+        wait();
+        thread = new Thread();
+        thread.setPriority(1);
         if (format && vEmail && vPwd) {
             //Generator object
             Gen g = new Gen();
@@ -176,14 +182,14 @@ public class Validation extends Register_2 {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.child("iD").getValue().equals(id)) {
-//                        Toast.makeText(context, "Error. Please try again", Toast.LENGTH_SHORT).show();
+    //                        Toast.makeText(context, "Error. Please try again", Toast.LENGTH_SHORT).show();
                         System.out.println("ID found in DB");
                     } else {
                         dbRef.child("email").setValue(email);
                         dbRef.child("hk").setValue(pwd);
                         dbRef.child("id").setValue(id);
                         System.out.println("Sent to DB");
-//                        Toast.makeText(context, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+    //                        Toast.makeText(context, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(context, Home.class);
                         startActivity(intent);
                     }
@@ -191,13 +197,13 @@ public class Validation extends Register_2 {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-//                    Toast.makeText(context, "Error: " + error, Toast.LENGTH_SHORT).show();
+    //                    Toast.makeText(context, "Error: " + error, Toast.LENGTH_SHORT).show();
                     System.out.println("Error: " + error);
                 }
             });
 
         } else {
-//            Toast.makeText(context, "Invalid information, please try again.", Toast.LENGTH_SHORT).show();
+    //            Toast.makeText(context, "Invalid information, please try again.", Toast.LENGTH_SHORT).show();
             System.out.println("Invalid information, please try again.");
         }
     }
