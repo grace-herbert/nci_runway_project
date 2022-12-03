@@ -33,14 +33,14 @@ public class ValidationTest extends TestCase {
 
     }
 
-    @Test
-    public void testValidatePwd(){
-        String rgPwd = "test";
-        String rgPwdConf = "test";
-        v.passwordValid(rgPwd,rgPwdConf);
-        assertEquals(true, v.passwordValid(rgPwd,rgPwdConf));
-
-
-    }
+//    @Test
+//    public void testValidatePwd(){
+//        String rgPwd = "test";
+//        String rgPwdConf = "test";
+//        v.passwordValid(rgPwd,rgPwdConf);
+//        assertEquals(true, v.passwordValid(rgPwd,rgPwdConf));
+//
+//
+//    }
 
 }

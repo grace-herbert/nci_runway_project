@@ -8,6 +8,13 @@
     android:visibility="visible"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/tempButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Temp"
+        />
+
 
     <ImageView
         android:id="@+id/logo"

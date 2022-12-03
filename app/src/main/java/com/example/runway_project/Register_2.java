@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -114,7 +115,7 @@ public class Register_2 extends AppCompatActivity {
             }
         });
 
-
+        final String rgEmail = regEmail.getText().toString();
         final String rgPwd = pwd.getText().toString();
         final String rgPwdConf = pwdConf.getText().toString();
 
@@ -131,35 +132,11 @@ public class Register_2 extends AppCompatActivity {
             public void onClick(View v) {
 //                final boolean emailIsValid;
                 Validation val = new Validation();
-
-                String rgEmail = regEmail.getText().toString();
+                String test = "test";
                 // check email is valid
+                Log.v("Debug", "Test: " + test);
+                val.validateAndSend(rgEmail, rgPwd, rgPwdConf);
 
-                try {
-                    emailIsValid = val.validEmail(rgEmail, new Thread());
-                    System.out.println("In class email validity found to be: " + emailIsValid);
-                    System.out.println(rgEmail);
-                } catch (IllegalMonitorStateException e) {
-                    e.printStackTrace();
-                    System.out.println("Email validation method throwing Illegal Monitor State Exception");
-                }
-
-
-//                    System.out.println("In class email validity found to be: " + emailIsValid);
-//                    System.out.println(rgEmail);
-
-                eValidFormat = val.emailHasValidFormat(rgEmail);
-                System.out.println("In class email format found to be: " + eValidFormat);
-                validPwd = val.passwordValid(rgPwd, rgPwdConf);
-                System.out.println("In class pwd validity found to be: " + validPwd);
-
-
-                try {
-                    val.validateAndSend(eValidFormat, emailIsValid, validPwd, rgEmail, rgPwd, new Thread());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("Validate and send carried out.");
 
 
 

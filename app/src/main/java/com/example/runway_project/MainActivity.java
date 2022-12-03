@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,15 @@ public class MainActivity extends AppCompatActivity {
         EditText email = this.findViewById(R.id.email);
         EditText pwd = this.findViewById(R.id.password);
         MaterialButton loginBtn = this.findViewById(R.id.loginBtn);
+        Button tempBtn = this.findViewById(R.id.tempButton);
+
+        tempBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Vault.class);
+                startActivity(intent);
+            }
+        });
 
         showLPwdBtn.setOnClickListener(new View.OnClickListener() {
             @Override

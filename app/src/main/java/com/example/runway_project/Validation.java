@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -78,7 +79,7 @@ public class Validation extends Register_2 {
 //    }
 
         //regex pattern found from https://www.youtube.com/watch?v=OOdO785p3Qo
-        public boolean emailHasValidFormat(String email) {
+        private boolean emailHasValidFormat(String email) {
             System.out.println(email);
         boolean emailIsValid;
         String regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
@@ -90,7 +91,7 @@ public class Validation extends Register_2 {
             return emailIsValid;
         }
 
-        boolean isValid;
+//        boolean isValid;
 //    public boolean validEmail(String email) {
 //
 //            dbRef.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -112,10 +113,10 @@ public class Validation extends Register_2 {
 //            });
 //            return isValid;
 //        }
-        public synchronized boolean validEmail(String email, Thread thread) {
-            thread = new Thread();
-            thread.setPriority(10);
-            if (!email.equals(" ")) {
+        boolean isValid;
+        private boolean validEmail(String email) {
+
+            if (!email.isEmpty() || email != null) {
                 dbRef.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -126,7 +127,6 @@ public class Validation extends Register_2 {
                         } else {
                             isValid = true;
                             System.out.println("This is a valid email, it was not empty and was not found in the DB");
-                            notifyAll();
                         }
                     }@Override
                     public void onCancelled(@NonNull DatabaseError error) {
@@ -138,14 +138,13 @@ public class Validation extends Register_2 {
                 Toast.makeText(this, "Please enter your email and password.", Toast.LENGTH_SHORT).show();
                 isValid = false;
             }
-            thread.notifyAll();
             return isValid;
         }
 
         //Pwd and pwdConf match
         //neither are empty
         //pwds contain what they need to
-        public boolean passwordValid(String pwd1, String pwd2){
+        private boolean passwordValid(String pwd1, String pwd2){
             boolean pwdIsValid = false;
             if(!pwd1.equals(" ") || !pwd2.equals(" ")){
                 if(pwd1.equals(pwd2)){
@@ -166,46 +165,64 @@ public class Validation extends Register_2 {
         }
 
 //    if inputs are valid
-    public synchronized void validateAndSend(boolean format, boolean vEmail, boolean vPwd, String email, String pwd, Thread thread) throws InterruptedException {
-        wait();
-        thread = new Thread();
-        thread.setPriority(1);
-        if (format && vEmail && vPwd) {
-            //Generator object
-            Gen g = new Gen();
-            //Generate ID
-            g.setIds();
-            String id = g.computeGen();
-            System.out.println(id);
-            //Determine if ID already exists, if it doesn't set the values in the DB and enter home
+    public void validateAndSend(String email, String pwd, String pwdC) {
+        Log.v("Debug", "Pwd: " + pwd);
             dbRef.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.child("iD").getValue().equals(id)) {
-    //                        Toast.makeText(context, "Error. Please try again", Toast.LENGTH_SHORT).show();
-                        System.out.println("ID found in DB");
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!email.isEmpty() || email != null || emailHasValidFormat(email)){
+                    String emailChk = snapshot.child("email").getValue().toString();
+                    if (emailChk.equals(email)) {
+                        System.out.println("emailChk.equals(email)= " + emailChk.equals(email));
+                        System.out.println(email);
+                        System.out.println("Match was found in DB");
                     } else {
-                        dbRef.child("email").setValue(email);
-                        dbRef.child("hk").setValue(pwd);
-                        dbRef.child("id").setValue(id);
-                        System.out.println("Sent to DB");
-    //                        Toast.makeText(context, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(context, Home.class);
-                        startActivity(intent);
+                        if(passwordValid(pwd, pwdC)){
+                            System.out.println("This is a valid email, it was not empty and was not found in the DB. The password was also valid");
+                            //Generator object
+                            Gen g = new Gen();
+                            //Generate ID
+                            g.setIds();
+                            String id = g.computeGen();
+                            System.out.println(id);
+                            //Determine if ID already exists, if it doesn't set the values in the DB and enter home
+                            if (snapshot.child("iD").getValue().equals(id)) {
+                                //  Toast.makeText(context, "Error. Please try again", Toast.LENGTH_SHORT).show();
+                                System.out.println("ID found in DB");
+                            }else {
+                                dbRef.child("email").setValue(email);
+                                dbRef.child("hk").setValue(pwd);
+                                dbRef.child("id").setValue(id);
+                                System.out.println("Sent to DB");
+                                //                        Toast.makeText(context, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(context, Home.class);
+                                startActivity(intent);
+                            }
+                        }
+
                     }
+                }else {
+                    // Toast.makeText(context, "Invalid information, please try again.", Toast.LENGTH_SHORT).show();
+                    System.out.println("Invalid information, please try again.");
                 }
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-    //                    Toast.makeText(context, "Error: " + error, Toast.LENGTH_SHORT).show();
-                    System.out.println("Error: " + error);
-                }
-            });
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                //                    Toast.makeText(context, "Error: " + error, Toast.LENGTH_SHORT).show();
+                System.out.println("Error: " + error);
+            }
+        });
 
-        } else {
-    //            Toast.makeText(context, "Invalid information, please try again.", Toast.LENGTH_SHORT).show();
-            System.out.println("Invalid information, please try again.");
-        }
     }
 
 }
+
+//
+//    Boolean format = emailHasValidFormat(email);
+//                System.out.println(email);
+//                System.out.println("Email format: " + format);
+//                Boolean vEmail = validEmail(email);
+//                System.out.println("Valid email: " + vEmail);
+//                Boolean vPwd = passwordValid(pwd, pwdC);
+//                System.out.println("Valid pwd: " + vPwd + ". and Password 1. " + pwd + " and Password 2. " + pwdC);
