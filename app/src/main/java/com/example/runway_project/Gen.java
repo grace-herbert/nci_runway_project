@@ -50,10 +50,10 @@ public class Gen {
 
 
     String computeGen(){
-        Double randNo =  Math.floor(Math.random()*(81-0+1)+1);
-        Double randNo1 =  Math.floor(Math.random()*(35-0+1)+1);
-        Double randNo2 =  Math.floor(Math.random()*(41-0+1)+1);
-        String genString = ((idS2 + randNo) + (idS + randNo1) + (idS1 +randNo2)) + idI;
+        int randNo =  (int) Math.floor(Math.random()*(81-0+1)+1);
+        int randNo1 =  (int) Math.floor(Math.random()*(35-0+1)+1);
+        int randNo2 =  (int) Math.floor(Math.random()*(41-0+1)+1);
+        String genString = ((idS2 + randNo) + (idS1 +randNo2)) + idI;
         System.out.println("genString " + genString);
         return genString;
 

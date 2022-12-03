@@ -31,44 +31,72 @@ import java.util.Locale;
 
 public class Upload {
 
-//    private String imgName;
-//    private Uri imgUri;
-//    private ImageView imageView;
-//
-//    private Database db = new Database();
-//    private StorageReference storage;
-//
-//    //constructors
-//
-//    public Upload(){
-//        imgName = null;
-//
-//    }
-//
-//    public Upload(String imgName, Uri imgUri){
+    private String imgName;
+    private Uri imgUri;
+    private String imgUrl;
+    private String imgUriString;
+    private String date;
+    private ImageView imageView;
+    private String vaultID;
+    private Database db = new Database();
+    private StorageReference storage;
+
+
+    //constructors
+
+    public Upload(){
+        imgName = null;
+
+    }
+
+    public Upload(String imgUrl, String date, String imgName){
+        //this.vaultID = vaultID;
+        this.imgUrl = imgUrl;
+        this.date = date;
+        this.imgName = imgName;
+    }
+
+//    public Upload(String imgName, Uri imgUri, String imgUriString){
 //        this.imgName = imgName;
 //        this.imgUri = imgUri;
+//        this.imgUriString = imgUriString;
 //    }
-//
-//
-//    //Getters and Setters
-//
-//    public String getImgName() {
-//        return imgName;
-//    }
-//
-//    public void setImgName(String imgName) {
-//        this.imgName = imgName;
-//    }
-//
-//    public Uri getImgUri() {
-//        return imgUri;
-//    }
-//
-//    public void setImgUri(Uri imgUri) {
-//        this.imgUri = imgUri;
-//    }
-//
+
+
+    //Getters and Setters
+
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+
+    public String getImgName() {
+        return imgName;
+    }
+
+    public void setImgName(String imgName) {
+        this.imgName = imgName;
+    }
+
+    public Uri getImgUri(Uri imgUri) {
+        return imgUri;
+    }
+
+    public String getImgUriString(String imgUriString) {
+        return imgUriString;
+    }
+
+    public void setImgUri(Uri imgUri) {
+        this.imgUri = imgUri;
+    }
+
+
+
 ////    private String getFileExtension(Uri uri){
 ////        ContentResolver cR = getContentResolver();
 ////        MimeTypeMap mime = MimeTypeMap.getSingleton();

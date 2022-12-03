@@ -27,13 +27,16 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class Vault extends AppCompatActivity {
 
@@ -46,10 +49,18 @@ public class Vault extends AppCompatActivity {
     private ImageView imageView;
     private String imgName;
     private Uri imgUri;
+    private String imgUriString;
     private StorageReference cldStorageRef;
     private Database db = new Database();
-    private DatabaseReference dbV;
+    private DatabaseReference dbVltRef;
     private StorageReference storageRef;
+    private String vaultID;
+
+    private String getVaultID(){
+        Gen genV = new Gen();
+        vaultID = genV.computeGen();
+        return vaultID;
+    }
 
 
 
@@ -81,8 +92,7 @@ public class Vault extends AppCompatActivity {
         imageView = findViewById(R.id.imagesView);
 
         cldStorageRef = FirebaseStorage.getInstance().getReference("Vault");
-        dbV = db.getDBV();
-
+        dbVltRef = db.getDBV();
 
 
         chooseImgBtn.setOnClickListener(new View.OnClickListener() {
@@ -119,8 +129,44 @@ public class Vault extends AppCompatActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 imgView.setImageURI(null);
+                progressBar.setProgress(0);
                 Log.v("Debug", "Successful upload");
                 Toast.makeText(Vault.this, "Image successfully uploaded", Toast.LENGTH_SHORT).show();
+                imgUriString = imgUri.toString();
+                Log.v("Debug", "ImgUriString: " + imgUriString);
+                vaultID = getVaultID();
+//                dbVltRef.setValue(vaultID);
+                String dUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                Log.v("Debug", "ldUrl: " + dUrl);
+                Log.v("Debug", "ImgName: " + imgName);
+                Upload uploadObj = new Upload(dUrl, imgName, imgUriString);
+                String upObjDate = uploadObj.getDate();
+                String upObjUrl = uploadObj.getImgUrl();
+                String upObjName = uploadObj.getImgName();
+                System.out.println("Date: " + upObjDate + ". Url: " + upObjUrl + ". Name: " + upObjName);
+
+//                Map<String, Upload> vault = new HashMap<>();
+                //get the location to push to (key)
+                //this is going to the db Vault
+                String putVltID = dbVltRef.push().getKey();
+                dbVltRef.child(putVltID).push().setValue(uploadObj);
+//                //we need another key location to push other info to. This in theory should be pushing to vaultID location
+//                String putImgInfo = dbVltRef.child("vaultID : " + vaultID).push().getKey();
+//                dbVltRef.child("vaultID : " + vaultID).child(putImgInfo).setValue(upld);
+//                Log.v("Debug", imgName);
+//                dbVltRef.child(putVltID).setValue(upld);
+                // the db vault is getting a child with the value of vaultID
+//                dbVltRef.child(putVltID).setValue("vaultID : " + vaultID);
+//                //we need another key location to push other info to. This in theory should be pushing to vaultID location
+//                String putImgInfo = dbVltRef.child("vaultID : " + vaultID).push().getKey();
+//                dbVltRef.child("vaultID : " + vaultID).child(putImgInfo).setValue(upld);
+//                Log.v("Debug", imgName);
+//                dbVltRef.child(putImgInfo).setValue(upld);
+//                vault.put(vaultID, new Upload(taskSnapshot.getMetadata().getReference().getDownloadUrl().toString(), imgName, imgUriString));
+                //String uID = dbVltRef.push(dbVltRef.push(vaultID, new Upload(taskSnapshot.getMetadata().getReference().getDownloadUrl().toString(), imgName, imgUriString)).key();
+                //dbVltRef..setValue(vault);
+//                String uID = dbVltRef.push().getKey();
+//                dbVltRef.child(vaultID).child(uID).setValue(upld);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -135,6 +181,13 @@ public class Vault extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this,"Upload failed",Toast.LENGTH_SHORT).show();
 
 
+            }
+            //https://www.youtube.com/watch?v=lPfQN-Sfnjw&list=RDCMUC_Fh8kvtkVPkeihBs42jGcA&start_radio=1
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                double prgrs = 100.0 * snapshot.getBytesTransferred()/snapshot.getTotalByteCount();
+                progressBar.setProgress((int) prgrs);
             }
         });
 
