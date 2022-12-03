@@ -25,10 +25,12 @@ import java.util.regex.Pattern;
 public class Validation extends Register_2 {
     Database db;
     DatabaseReference dbRef;
+    DatabaseReference dbU;
 
     public Validation() {
         this.db = new Database();
         this.dbRef = db.getRefDB();
+        this.dbU = db.getDBU();
     }
 
 //    @Override
@@ -167,11 +169,15 @@ public class Validation extends Register_2 {
 //    if inputs are valid
     public void validateAndSend(String email, String pwd, String pwdC) {
         Log.v("Debug", "Pwd: " + pwd);
-            dbRef.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
+            dbU.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //Generator object
+                Gen g = new Gen();
+                //Generate ID
+                String userID = g.computeGen();
                 if (!email.isEmpty() || email != null || emailHasValidFormat(email)){
-                    String emailChk = snapshot.child("email").getValue().toString();
+                    String emailChk = snapshot.child("userID").child("email").getValue().toString();
                     if (emailChk.equals(email)) {
                         System.out.println("emailChk.equals(email)= " + emailChk.equals(email));
                         System.out.println(email);
@@ -179,20 +185,18 @@ public class Validation extends Register_2 {
                     } else {
                         if(passwordValid(pwd, pwdC)){
                             System.out.println("This is a valid email, it was not empty and was not found in the DB. The password was also valid");
-                            //Generator object
-                            Gen g = new Gen();
-                            //Generate ID
-                            g.setIds();
-                            String id = g.computeGen();
-                            System.out.println(id);
+                            // get vaultID
+                            String vaultId = g.computeGen();
+                            System.out.println(vaultId);
                             //Determine if ID already exists, if it doesn't set the values in the DB and enter home
-                            if (snapshot.child("iD").getValue().equals(id)) {
+                           // if (snapshot.child("iD").getValue().equals(id)) {
+                            if (snapshot.getValue().equals(userID)) {
                                 //  Toast.makeText(context, "Error. Please try again", Toast.LENGTH_SHORT).show();
                                 System.out.println("ID found in DB");
                             }else {
-                                dbRef.child("email").setValue(email);
-                                dbRef.child("hk").setValue(pwd);
-                                dbRef.child("id").setValue(id);
+                                User user = new User(email, pwd, vaultId);
+                                String pushUser = dbU.push().getKey();
+                                dbU.child(pushUser).push().setValue(user);
                                 System.out.println("Sent to DB");
                                 //                        Toast.makeText(context, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(context, Home.class);

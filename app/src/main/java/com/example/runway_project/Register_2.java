@@ -26,7 +26,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Register_2 extends AppCompatActivity {
-
+    private String email;
+    private String hk;
+    private String vaultID;
     Database db;
     DatabaseReference dbRef;
 
@@ -115,9 +117,7 @@ public class Register_2 extends AppCompatActivity {
             }
         });
 
-        final String rgEmail = regEmail.getText().toString();
-        final String rgPwd = pwd.getText().toString();
-        final String rgPwdConf = pwdConf.getText().toString();
+
 
 
         reg2Btn.setOnClickListener(new View.OnClickListener() {
@@ -130,11 +130,15 @@ public class Register_2 extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                final String rgEmail = regEmail.getText().toString();
+                final String rgPwd = pwd.getText().toString();
+                final String rgPwdConf = pwdConf.getText().toString();
 //                final boolean emailIsValid;
                 Validation val = new Validation();
                 String test = "test";
                 // check email is valid
                 Log.v("Debug", "Test: " + test);
+                Log.v("Debug", "rgEmail: " + rgEmail + "\nrgPwd: " + rgPwd + "\nrgPwdConf: " + rgPwdConf);
                 val.validateAndSend(rgEmail, rgPwd, rgPwdConf);
 
 

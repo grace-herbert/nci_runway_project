@@ -7,6 +7,7 @@ public class Database {
 
     private DatabaseReference dbRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://runwayproject-39823-default-rtdb.europe-west1.firebasedatabase.app/");
     private DatabaseReference dbV = FirebaseDatabase.getInstance().getReferenceFromUrl("https://runwayproject-39823-default-rtdb.europe-west1.firebasedatabase.app/Vault");
+    private DatabaseReference dbU = FirebaseDatabase.getInstance().getReferenceFromUrl("https://runwayproject-39823-default-rtdb.europe-west1.firebasedatabase.app/users");
 
     public DatabaseReference getRefDB(){
         this.dbRef = dbRef;
@@ -18,6 +19,12 @@ public class Database {
         this.dbV = dbV;
 
         return dbV;
+    }
+
+    public DatabaseReference getDBU(){
+        this.dbU = dbU;
+
+        return dbU;
     }
 
 

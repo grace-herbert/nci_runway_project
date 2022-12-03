@@ -23,6 +23,10 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
+    private String hEmail;
+    private String hk;
+    private String vaultID;
+
     Database db =  new Database();
     DatabaseReference dbRef = db.getRefDB();
 
@@ -87,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
             int count = 0;
             @Override
             public void onClick(View v) {
+
                 //if count is below 3
                 if (count < 3) {
                     //if email or hk strings are empty send msg and count 1 and clear edittexts
