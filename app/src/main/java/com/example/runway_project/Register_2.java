@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -36,6 +37,17 @@ public class Register_2 extends AppCompatActivity {
     public Register_2() {
         this.db = new Database();
         this.dbRef = db.getRefDB();
+    }
+
+    Context context;
+    @Override
+    public Context getApplicationContext() {
+        context = this;
+        return context;
+    }
+
+    public Context getContext(){
+        return this.context;
     }
 
     @Override

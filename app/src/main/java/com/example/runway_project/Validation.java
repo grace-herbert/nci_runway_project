@@ -1,22 +1,15 @@
 package com.example.runway_project;
 
-import android.app.Application;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.ContentView;
 import androidx.annotation.NonNull;
 
-import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.regex.Matcher;
@@ -26,12 +19,15 @@ public class Validation extends Register_2 {
     Database db;
     DatabaseReference dbRef;
     DatabaseReference dbU;
+//    Class<Register_2> context = Register_2.class;
 
     public Validation() {
         this.db = new Database();
         this.dbRef = db.getRefDB();
         this.dbU = db.getDBU();
     }
+
+//    Context context = getContext();
 
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +42,7 @@ public class Validation extends Register_2 {
 //    EditText pwdConf = r2.findViewById(R.id.regReEntPwd);
 //    MaterialButton reg2Btn = r2.findViewById(R.id.reg2Btn);
 ////
-    Context context = this;
+//    Context context = this;
 ////
 //    final String rgEmail = regEmail.getText().toString();
 //    final String rgPwd = pwd.getText().toString();
@@ -150,7 +146,12 @@ public class Validation extends Register_2 {
             boolean pwdIsValid = false;
             if(!pwd1.equals(" ") || !pwd2.equals(" ")){
                 if(pwd1.equals(pwd2)){
-                    if (pwd1.matches("^[a-zA-Z .]*$")){
+                    String regex = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+                    Pattern ptn = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+                    Matcher mtr = ptn.matcher(pwd1);
+                    boolean pwdMatches = mtr.matches();
+                    if (pwdMatches){
+//                    if (pwd1.matches("^[a-zA-Z .]*$")){
                         pwdIsValid = true;
                         System.out.println("Valid Password- Goes through");
                     }else{
@@ -168,7 +169,6 @@ public class Validation extends Register_2 {
 
 //    if inputs are valid
     public void validateAndSend(String email, String pwd, String pwdC) {
-        Log.v("Debug", "Pwd: " + pwd);
             dbU.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -198,8 +198,9 @@ public class Validation extends Register_2 {
                                 String pushUser = dbU.push().getKey();
                                 dbU.child(pushUser).push().setValue(user);
                                 System.out.println("Sent to DB");
-                                //                        Toast.makeText(context, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(context, Home.class);
+                                //Toast.makeText(this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+                                Register_2 r2 = new Register_2();
+                                Intent intent = new Intent(r2.getContext(), Home.class);
                                 startActivity(intent);
                             }
                         }
