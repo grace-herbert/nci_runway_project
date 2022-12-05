@@ -3,6 +3,7 @@ package com.example.runway_project;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,62 +20,13 @@ public class Validation extends Register_2 {
     Database db;
     DatabaseReference dbRef;
     DatabaseReference dbU;
-//    Class<Register_2> context = Register_2.class;
+
 
     public Validation() {
         this.db = new Database();
         this.dbRef = db.getRefDB();
         this.dbU = db.getDBU();
     }
-
-//    Context context = getContext();
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_register2);
-//
-//    }
-//
-//    Register_2 r2 = new Register_2();
-//    EditText regEmail = r2.findViewById(R.id.regEmail);
-//    EditText pwd = r2.findViewById(R.id.regPwd);
-//    EditText pwdConf = r2.findViewById(R.id.regReEntPwd);
-//    MaterialButton reg2Btn = r2.findViewById(R.id.reg2Btn);
-////
-//    Context context = this;
-////
-//    final String rgEmail = regEmail.getText().toString();
-//    final String rgPwd = pwd.getText().toString();
-//    final String rgPwdConf = pwdConf.getText().toString();
-//
-//    boolean isValid;
-
-        public void testThis() {
-            System.out.println("How about now?");
-        }
-
-
-        //check email address is valid email
-        //check is not empty
-        //check is not in the system
-
-//    public void emailHasValidFormat(String email){
-//        boolean emailIsValid;
-//        String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
-//        Pattern ptn = Pattern.compile(regex);
-//        Matcher mtr = ptn.matcher(email);
-//        emailIsValid = mtr.matches();
-//        System.out.println(mtr.matches());
-//
-//    }
-
-//    public static boolean emailHasValidFormat(String email){
-//            String emlRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
-//            Pattern ptn = Pattern.compile(emlRegex, Pattern.CASE_INSENSITIVE);
-//            Matcher mtr = ptn.matcher(email);
-//            return mtr.find();
-//    }
 
         //regex pattern found from https://www.youtube.com/watch?v=OOdO785p3Qo
         private boolean emailHasValidFormat(String email) {
@@ -89,28 +41,7 @@ public class Validation extends Register_2 {
             return emailIsValid;
         }
 
-//        boolean isValid;
-//    public boolean validEmail(String email) {
-//
-//            dbRef.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                    String emailCk = snapshot.child("email").getValue().toString();
-//                    if (emailCk.equals(email)) {
-//                        isValid = false;
-//                        System.out.println("Match was found in DB");
-//                    } else {
-//                        isValid = true;
-//                        System.out.println("This is a valid email, it was not empty and was not found in the DB");
-//                    }
-//                }@Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//                    isValid = false;
-//                    System.out.println("Twas cancelled.");
-//                }
-//            });
-//            return isValid;
-//        }
+
         boolean isValid;
         private boolean validEmail(String email) {
 
@@ -167,6 +98,14 @@ public class Validation extends Register_2 {
 
         }
 
+//        private boolean isValidated;
+//        private void setIsValidated(boolean isValid){
+//            this.isValidated = isValid;
+//        }
+//
+//        public boolean getIsValidated(){
+//            return this.isValidated;
+//        }
 //    if inputs are valid
     public void validateAndSend(String email, String pwd, String pwdC) {
             dbU.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -194,14 +133,29 @@ public class Validation extends Register_2 {
                                 //  Toast.makeText(context, "Error. Please try again", Toast.LENGTH_SHORT).show();
                                 System.out.println("ID found in DB");
                             }else {
-                                User user = new User(email, pwd, vaultId);
-                                String pushUser = dbU.push().getKey();
-                                dbU.child(pushUser).push().setValue(user);
-                                System.out.println("Sent to DB");
-                                //Toast.makeText(this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
-                                Register_2 r2 = new Register_2();
-                                Intent intent = new Intent(r2.getContext(), Home.class);
-                                startActivity(intent);
+                                Thread thread = new MyThread();
+                                thread.start();
+                                thread.setPriority(10);
+                                while(thread.isAlive()) {
+                                    Register_2 r2 = new Register_2();
+                                    r2.setIsValidated(true);
+                                    Log.v("Debug", "getIsValidated from thread= " + r2.getIsValidated());
+                                    thread.interrupt();
+                                }
+
+                                if(!thread.isAlive()) {
+                                    User user = new User(email, pwd, vaultId);
+                                    String pushUser = dbU.push().getKey();
+                                    dbU.child(pushUser).push().setValue(user);
+                                    System.out.println("Sent to DB");
+//                                setIsValidated(true);
+//                                Log.v("Debug", "R2 Is validated? " + isValidated);
+                                    //startActivity(intent);
+                                    //Toast.makeText(this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+//                                Intent intent = new Intent(String.valueOf(Home.class));
+//                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                                startActivity(intent);
+                                }
                             }
                         }
 
@@ -218,7 +172,7 @@ public class Validation extends Register_2 {
                 System.out.println("Error: " + error);
             }
         });
-
+//        return isValidated;
     }
 
 }
@@ -231,3 +185,84 @@ public class Validation extends Register_2 {
 //                System.out.println("Valid email: " + vEmail);
 //                Boolean vPwd = passwordValid(pwd, pwdC);
 //                System.out.println("Valid pwd: " + vPwd + ". and Password 1. " + pwd + " and Password 2. " + pwdC);
+
+//    Class<Register_2> context = Register_2.class;
+//    Context context;
+//
+//
+//    public Context getContext(){
+//        Register_2 r = new Register_2();
+//        context = r.getApplicationContext();
+//        return context;
+//    }
+
+//    Context context = getContext();
+
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_register2);
+//
+//    }
+//
+//    Register_2 r2 = new Register_2();
+//    EditText regEmail = r2.findViewById(R.id.regEmail);
+//    EditText pwd = r2.findViewById(R.id.regPwd);
+//    EditText pwdConf = r2.findViewById(R.id.regReEntPwd);
+//    MaterialButton reg2Btn = r2.findViewById(R.id.reg2Btn);
+////
+//    Context context = this;
+////
+//    final String rgEmail = regEmail.getText().toString();
+//    final String rgPwd = pwd.getText().toString();
+//    final String rgPwdConf = pwdConf.getText().toString();
+//
+//    boolean isValid;
+
+//    public void testThis() {
+//        System.out.println("How about now?");
+//    }
+
+
+//check email address is valid email
+//check is not empty
+//check is not in the system
+
+//    public void emailHasValidFormat(String email){
+//        boolean emailIsValid;
+//        String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+//        Pattern ptn = Pattern.compile(regex);
+//        Matcher mtr = ptn.matcher(email);
+//        emailIsValid = mtr.matches();
+//        System.out.println(mtr.matches());
+//
+//    }
+
+//    public static boolean emailHasValidFormat(String email){
+//            String emlRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+//            Pattern ptn = Pattern.compile(emlRegex, Pattern.CASE_INSENSITIVE);
+//            Matcher mtr = ptn.matcher(email);
+//            return mtr.find();
+//    }
+//        boolean isValid;
+//    public boolean validEmail(String email) {
+//
+//            dbRef.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    String emailCk = snapshot.child("email").getValue().toString();
+//                    if (emailCk.equals(email)) {
+//                        isValid = false;
+//                        System.out.println("Match was found in DB");
+//                    } else {
+//                        isValid = true;
+//                        System.out.println("This is a valid email, it was not empty and was not found in the DB");
+//                    }
+//                }@Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//                    isValid = false;
+//                    System.out.println("Twas cancelled.");
+//                }
+//            });
+//            return isValid;
+//        }

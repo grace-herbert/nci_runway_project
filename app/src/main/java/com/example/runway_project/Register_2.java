@@ -30,6 +30,7 @@ public class Register_2 extends AppCompatActivity {
     private String email;
     private String hk;
     private String vaultID;
+    private boolean isValidated;
     Database db;
     DatabaseReference dbRef;
 
@@ -39,16 +40,47 @@ public class Register_2 extends AppCompatActivity {
         this.dbRef = db.getRefDB();
     }
 
-    Context context;
-    @Override
-    public Context getApplicationContext() {
-        context = this;
-        return context;
+    public void setIsValidated(boolean bool){
+        this.isValidated = bool;
     }
 
-    public Context getContext(){
-        return this.context;
+    @Override
+    protected void onDestroy(){
+        if(isValidated){
+            Log.v("Debug", " R validation bool Destroy: " + isValidated);
+            Toast.makeText(Register_2.this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Register_2.this,Home.class);
+            startActivity(intent);
+            super.onDestroy();
+        }
     }
+
+    private void checkValidation(String email, String pwd, String pwdC){
+        Validation validate = new Validation();
+        validate.validateAndSend(email, pwd, pwdC);
+        onDestroy();
+    }
+
+
+
+    public boolean getIsValidated(){
+        return this.isValidated;
+    }
+
+    private synchronized void nextPage(){
+//        Validation validate = new Validation();
+//        validate.validateAndSend(email, pwd, pwdC);
+        boolean isValid = getIsValidated();
+        Log.v("Debug", " R validation bool 1: " + isValid);
+        if(isValid){
+            Toast.makeText(Register_2.this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Register_2.this,Home.class);
+            startActivity(intent);
+        }else{
+            Toast.makeText(Register_2.this, "Something went wrong! Account did not register.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,8 +162,6 @@ public class Register_2 extends AppCompatActivity {
         });
 
 
-
-
         reg2Btn.setOnClickListener(new View.OnClickListener() {
 
 
@@ -139,6 +169,8 @@ public class Register_2 extends AppCompatActivity {
             boolean eValidFormat;
             boolean validPwd;
             boolean methodCalled;
+//            boolean isValidated;
+
 
             @Override
             public void onClick(View v) {
@@ -146,14 +178,34 @@ public class Register_2 extends AppCompatActivity {
                 final String rgPwd = pwd.getText().toString();
                 final String rgPwdConf = pwdConf.getText().toString();
 //                final boolean emailIsValid;
-                Validation val = new Validation();
-                String test = "test";
-                // check email is valid
-                Log.v("Debug", "Test: " + test);
+//                Validation val = new Validation();
+//                String test = "test";
+//                // check email is valid
+//                Log.v("Debug", "Test: " + test);
                 Log.v("Debug", "rgEmail: " + rgEmail + "\nrgPwd: " + rgPwd + "\nrgPwdConf: " + rgPwdConf);
-                val.validateAndSend(rgEmail, rgPwd, rgPwdConf);
+
+//                @Override
+//                public void onComplete(checkValidation(rgEmail, rgPwd, rgPwdConf)) {
+//                    nextPage();
+//                }
+//
+                checkValidation(rgEmail, rgPwd, rgPwdConf);
+//                nextPage();
+                Log.v("Debug", " R validation bool 2: " + emailIsValid);
 
 
+////                boolean isValidated = val.getIsValidated();
+//                Log.v("Debug", " R validation bool: " + isValidated);
+//                if(isValidated){
+//                    Toast.makeText(Register_2.this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(Register_2.this,Home.class);
+//                    startActivity(intent);
+//                }else{
+//                    Toast.makeText(Register_2.this, "Something went wrong! Account did not register.", Toast.LENGTH_SHORT).show();
+//                }
+//test14@test.ie
+                //TestThisN0w!
+                //3718.0SitG2180.0
 
 
 //
@@ -261,9 +313,11 @@ public class Register_2 extends AppCompatActivity {
 //                    }
 //                }
             }
-        });
-    }
 
+
+        });
+
+    }
 }
 
 //    public void emailHasValidFormat() {
