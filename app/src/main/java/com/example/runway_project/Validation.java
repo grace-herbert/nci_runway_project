@@ -77,7 +77,7 @@ public class Validation extends Register_2 {
             boolean pwdIsValid = false;
             if(!pwd1.equals(" ") || !pwd2.equals(" ")){
                 if(pwd1.equals(pwd2)){
-                    String regex = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+                    String regex = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$";
                     Pattern ptn = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
                     Matcher mtr = ptn.matcher(pwd1);
                     boolean pwdMatches = mtr.matches();
@@ -98,6 +98,17 @@ public class Validation extends Register_2 {
 
         }
 
+    private boolean isValidatedS;
+        private void sendValidationBool(){
+            Register_2 r2 = new Register_2();
+            r2.setIsValidated(true);
+            Log.v("Debug", "getIsValidated from thread= " + r2.getIsValidated());
+            isValidatedS = true;
+        }
+        private boolean getIsValidatedS(){
+            return this.isValidatedS;
+        }
+
 //        private boolean isValidated;
 //        private void setIsValidated(boolean isValid){
 //            this.isValidated = isValid;
@@ -111,15 +122,16 @@ public class Validation extends Register_2 {
             dbU.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Hashing hsh = new Hashing(email, pwd, pwdC);
                 //Generator object
                 Gen g = new Gen();
                 //Generate ID
                 String userID = g.computeGen();
                 if (!email.isEmpty() || email != null || emailHasValidFormat(email)){
                     String emailChk = snapshot.child("userID").child("email").getValue().toString();
-                    if (emailChk.equals(email)) {
-                        System.out.println("emailChk.equals(email)= " + emailChk.equals(email));
-                        System.out.println(email);
+                    if (emailChk.equals(hsh.getHashEmail())) {
+                        System.out.println("emailChk.equals(email)= " + emailChk.equals(hsh.getHashEmail()));
+                        System.out.println(hsh.getHashEmail());
                         System.out.println("Match was found in DB");
                     } else {
                         if(passwordValid(pwd, pwdC)){
@@ -133,21 +145,21 @@ public class Validation extends Register_2 {
                                 //  Toast.makeText(context, "Error. Please try again", Toast.LENGTH_SHORT).show();
                                 System.out.println("ID found in DB");
                             }else {
-                                Thread thread = new MyThread();
-                                thread.start();
-                                thread.setPriority(10);
-                                while(thread.isAlive()) {
-                                    Register_2 r2 = new Register_2();
-                                    r2.setIsValidated(true);
-                                    Log.v("Debug", "getIsValidated from thread= " + r2.getIsValidated());
-                                    thread.interrupt();
-                                }
 
-                                if(!thread.isAlive()) {
-                                    User user = new User(email, pwd, vaultId);
-                                    String pushUser = dbU.push().getKey();
-                                    dbU.child(pushUser).push().setValue(user);
-                                    System.out.println("Sent to DB");
+                                        User user = new User(hsh.getHashEmail(), hsh.getHk(), vaultId);
+                                        String pushUser = dbU.push().getKey();
+                                        dbU.child(pushUser).push().setValue(user);
+                                        System.out.println("Sent to DB");
+                                //                        Toast.makeText(context, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+//                                Intent intent = new Intent(getApplicationContext(), Home.class);
+//                                //Toast.makeText(this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+//                                Register_2 r2 = new Register_2();
+//                                Intent intent = new Intent(r2.getApplicationContext(), Home.class);
+//                                startActivity(intent);
+
+
+
+
 //                                setIsValidated(true);
 //                                Log.v("Debug", "R2 Is validated? " + isValidated);
                                     //startActivity(intent);
@@ -155,7 +167,7 @@ public class Validation extends Register_2 {
 //                                Intent intent = new Intent(String.valueOf(Home.class));
 //                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 //                                startActivity(intent);
-                                }
+
                             }
                         }
 

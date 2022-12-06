@@ -177,6 +177,7 @@ public class Register_2 extends AppCompatActivity {
                 final String rgEmail = regEmail.getText().toString();
                 final String rgPwd = pwd.getText().toString();
                 final String rgPwdConf = pwdConf.getText().toString();
+
 //                final boolean emailIsValid;
 //                Validation val = new Validation();
 //                String test = "test";
@@ -190,7 +191,7 @@ public class Register_2 extends AppCompatActivity {
 //                }
 //
                 checkValidation(rgEmail, rgPwd, rgPwdConf);
-//                nextPage();
+                nextPage();
                 Log.v("Debug", " R validation bool 2: " + emailIsValid);
 
 
