@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Home" android:id="@+id/emHomeItem" android:icon="@drawable/ic_baseline_home_24"/>
+    <item android:title="Vault" android:id="@+id/emVaultItem" android:icon="@drawable/ic_baseline_screen_lock_portrait_24"/>
+<!--    <item android:title="Emergency Info"  android:id="@+id/emEmergInfoItem" android:icon="@drawable/ic_baseline_emergency_24"/>-->
+    <item android:title="Get Help" android:id="@+id/emGetHelpItem" android:icon="@drawable/ic_baseline_perm_device_information_24"/>
+    <item android:title="Logout" android:id="@+id/emLogoutItem" android:icon="@drawable/ic_baseline_logout_24"/>
+</menu>

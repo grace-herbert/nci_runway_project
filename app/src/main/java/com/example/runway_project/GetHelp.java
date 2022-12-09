@@ -1,7 +1,5 @@
 package com.example.runway_project;
 
-import static java.lang.String.valueOf;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,13 +10,11 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
-import android.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class Home extends AppCompatActivity {
+public class GetHelp extends AppCompatActivity {
     private DrawerLayout drawerL;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
@@ -26,7 +22,7 @@ public class Home extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -35,15 +31,15 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_get_help);
         //change colour of actionbar
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
         //remove name from Actionbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //Navigation
-        navigationView = findViewById(R.id.homeNav);
-        drawerL = findViewById(R.id.drawerLayout);
+        navigationView = findViewById(R.id.ghNav);
+        drawerL = findViewById(R.id.ghDrawerLayout);
         //Open and close toggle
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerL, R.string.open_menu, R.string.close_menu);
         drawerL.addDrawerListener(actionBarDrawerToggle);
@@ -55,35 +51,35 @@ public class Home extends AppCompatActivity {
                 item.getItemId();
                 Intent intent;
 
-                 switch (item.getItemId()){
-                     case R.id.vaultItem:
+                switch (item.getItemId()) {
+                    case R.id.ghHomeItem:
                         drawerL.closeDrawer(GravityCompat.START);
-                        intent = new Intent(Home.this, Vault.class);
+                        intent = new Intent(GetHelp.this, Home.class);
+                        startActivity(intent);
+                        Log.v("Debug", "Home menu item clicked");
+                        break;
+                    case R.id.ghVaultItem:
+                        drawerL.closeDrawer(GravityCompat.START);
+                        intent = new Intent(GetHelp.this, Vault.class);
                         startActivity(intent);
                         Log.v("Debug", "Vault menu item clicked");
                         break;
-                     case R.id.emergInfoItem:
+                    case R.id.ghEmergInfoItem:
                         drawerL.closeDrawer(GravityCompat.START);
-                        intent = new Intent(Home.this, EmergencyInformation.class);
-                        startActivity(intent);
-                        Log.v("Debug", "Emergency info menu item clicked");
-                        break;
-                    case R.id.getHelpItem:
-                        drawerL.closeDrawer(GravityCompat.START);
-                        intent = new Intent(Home.this, GetHelp.class);
+                        intent = new Intent(GetHelp.this, EmergencyInformation.class);
                         startActivity(intent);
                         Log.v("Debug", "Get help info menu item clicked");
                         break;
-                     case R.id.logoutItem:
+                    case R.id.ghLogoutItem:
                         drawerL.closeDrawer(GravityCompat.START);
-                        intent = new Intent(Home.this, MainActivity.class);
+                        intent = new Intent(GetHelp.this, MainActivity.class);
                         startActivity(intent);
                         Log.v("Debug", "Emergency info menu item clicked");
                         break;
                 }
 
-                    return true;
-                }
+                return true;
+            }
 
         });
     }

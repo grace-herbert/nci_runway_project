@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">runway_project</string>
+    <string name="app_name">Runway</string>
+    <string name="open_menu">Open</string>
+    <string name="close_menu">Close</string>
 </resources>

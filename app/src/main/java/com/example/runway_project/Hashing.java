@@ -14,6 +14,10 @@ class Hashing {
         computeBcrypt(email, pwd , pwdC);
     }
 
+    public Hashing(String email, String pwd){
+        computeBcrypt(email, pwd );
+    }
+
     public Hashing(String imgName){
         computeBcrypt(imgName);
     }
@@ -23,6 +27,11 @@ class Hashing {
         this.hashEmail = BCrypt.hashpw(email, BCrypt.gensalt(11));
         this.hk = BCrypt.hashpw(pwd, BCrypt.gensalt(12));
         this.hkC = BCrypt.hashpw(pwdC, BCrypt.gensalt(12));
+    }
+
+    private void computeBcrypt(String email, String pwd){
+        this.hashEmail = BCrypt.hashpw(email, BCrypt.gensalt(11));
+        this.hk = BCrypt.hashpw(pwd, BCrypt.gensalt(12));
     }
 
     private void computeBcrypt(String imgName){

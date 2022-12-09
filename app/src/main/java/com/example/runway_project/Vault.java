@@ -7,13 +7,18 @@ import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +30,7 @@ import android.widget.Toast;
 import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -39,6 +45,9 @@ import java.util.Locale;
 import java.util.Map;
 
 public class Vault extends AppCompatActivity {
+    private DrawerLayout drawerL;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+    private NavigationView navigationView;
 
     private static final int CHOOSE_IMG_REQ = 1;
     private Button chooseImgBtn;
@@ -55,6 +64,15 @@ public class Vault extends AppCompatActivity {
     private DatabaseReference dbVltRef;
     private StorageReference storageRef;
     private String vaultID;
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private String getVaultID(){
         Gen genV = new Gen();
@@ -83,6 +101,10 @@ public class Vault extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vault);
+        //change colour of actionbar
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
+        //remove name from Actionbar
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         chooseImgBtn = findViewById(R.id.chooseImgBtn);
         inputTitle = findViewById(R.id.enter_file_name);
@@ -116,6 +138,50 @@ public class Vault extends AppCompatActivity {
             }
         });
 
+        //Navigation
+        navigationView = findViewById(R.id.vaultNav);
+        drawerL = findViewById(R.id.vaultDrawerLayout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerL, R.string.open_menu, R.string.close_menu);
+        drawerL.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                item.getItemId();
+                Intent intent;
+
+                switch (item.getItemId()) {
+                    case R.id.vltHomeMenu:
+                        drawerL.closeDrawer(GravityCompat.START);
+                        intent = new Intent(Vault.this, Home.class);
+                        startActivity(intent);
+                        Log.v("Debug", "Home menu item clicked");
+                        break;
+                    case R.id.vltEmergInfo:
+                        drawerL.closeDrawer(GravityCompat.START);
+                        intent = new Intent(Vault.this, EmergencyInformation.class);
+                        startActivity(intent);
+                        Log.v("Debug", "Emergency info menu item clicked");
+                        break;
+                    case R.id.vltGetHelpMenu:
+                        drawerL.closeDrawer(GravityCompat.START);
+                        intent = new Intent(Vault.this, GetHelp.class);
+                        startActivity(intent);
+                        Log.v("Debug", "Get help info menu item clicked");
+                        break;
+                    case R.id.vltLogoutMenu:
+                        drawerL.closeDrawer(GravityCompat.START);
+                        intent = new Intent(Vault.this, MainActivity.class);
+                        startActivity(intent);
+                        Log.v("Debug", "Emergency info menu item clicked");
+                        break;
+                }
+
+                return true;
+            }
+
+        });
 
     }
 
@@ -203,6 +269,8 @@ ActivityResultLauncher<Intent> chooseImgLauncher = registerForActivityResult(new
 
                 }
             }
+
+
         });
 
         private void chooseImg(){

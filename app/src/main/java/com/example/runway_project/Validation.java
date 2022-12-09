@@ -1,8 +1,5 @@
 package com.example.runway_project;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -20,94 +17,105 @@ public class Validation extends Register_2 {
     Database db;
     DatabaseReference dbRef;
     DatabaseReference dbU;
+    ValidateCallback callback;
+
+//    public void setCallback(ValidateCallback callback) {
+//        this.callback = callback;
+//    }
 
 
     public Validation() {
-        this.db = new Database();
-        this.dbRef = db.getRefDB();
-        this.dbU = db.getDBU();
+//        this.db = new Database();
+//        this.dbRef = db.getRefDB();
+//        this.dbU = db.getDBU();
     }
 
-        //regex pattern found from https://www.youtube.com/watch?v=OOdO785p3Qo
-        private boolean emailHasValidFormat(String email) {
-            System.out.println(email);
+    //regex pattern found from https://www.youtube.com/watch?v=OOdO785p3Qo
+    boolean emailHasValidFormat(String email) {
+        System.out.println(email);
         boolean emailIsValid;
         String regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
         Pattern ptn = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
 //        emailIsValid = ptn.matcher(email).matches();
         Matcher mtr = ptn.matcher(email);
         emailIsValid = mtr.matches();
-            System.out.println("Format was found to be: " + emailIsValid);
-            return emailIsValid;
-        }
+        System.out.println("Format was found to be: " + emailIsValid);
+        return emailIsValid;
+    }
 
 
-        boolean isValid;
-        private boolean validEmail(String email) {
+    boolean isValid;
 
-            if (!email.isEmpty() || email != null) {
-                dbRef.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String emailCk = snapshot.child("email").getValue().toString();
-                        if (emailCk.equals(email)) {
-                            isValid = false;
-                            System.out.println("Match was found in DB");
-                        } else {
-                            isValid = true;
-                            System.out.println("This is a valid email, it was not empty and was not found in the DB");
-                        }
-                    }@Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+    boolean validEmail(String email) {
+
+        if (!email.isEmpty() || email != null) {
+            dbRef.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String emailCk = snapshot.child("email").getValue().toString();
+                    if (emailCk.equals(email)) {
                         isValid = false;
-                        System.out.println("Twas cancelled.");
+                        System.out.println("Match was found in DB");
+                    } else {
+                        isValid = true;
+                        System.out.println("This is a valid email, it was not empty and was not found in the DB");
                     }
-                });
-            }else{
-                Toast.makeText(this, "Please enter your email and password.", Toast.LENGTH_SHORT).show();
-                isValid = false;
-            }
-            return isValid;
-        }
-
-        //Pwd and pwdConf match
-        //neither are empty
-        //pwds contain what they need to
-        private boolean passwordValid(String pwd1, String pwd2){
-            boolean pwdIsValid = false;
-            if(!pwd1.equals(" ") || !pwd2.equals(" ")){
-                if(pwd1.equals(pwd2)){
-                    String regex = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$";
-                    Pattern ptn = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-                    Matcher mtr = ptn.matcher(pwd1);
-                    boolean pwdMatches = mtr.matches();
-                    if (pwdMatches){
-//                    if (pwd1.matches("^[a-zA-Z .]*$")){
-                        pwdIsValid = true;
-                        System.out.println("Valid Password- Goes through");
-                    }else{
-                        pwdIsValid = false;
-                        System.out.println("Invalid Password: Characters");
-                    }
-                }else{
-                    pwdIsValid = false;
-                    System.out.println("Invalid Password: Passwords don't match");
-    //                Toast.makeText(this, "Please make sure the passwords match.", Toast.LENGTH_SHORT).show();
                 }
-            }return pwdIsValid;
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    isValid = false;
+                    System.out.println("Twas cancelled.");
+                }
+            });
+        } else {
+            Toast.makeText(this, "Please enter your email and password.", Toast.LENGTH_SHORT).show();
+            isValid = false;
         }
+        return isValid;
+    }
+
+    //Pwd and pwdConf match
+    //neither are empty
+    //pwds contain what they need to
+    boolean passwordValid(String pwd1, String pwd2) {
+        boolean pwdIsValid = false;
+        if (!pwd1.equals(" ") || !pwd2.equals(" ")) {
+            if (pwd1.equals(pwd2)) {
+                String regex = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$";
+                Pattern ptn = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+                Matcher mtr = ptn.matcher(pwd1);
+                boolean pwdMatches = mtr.matches();
+                if (pwdMatches) {
+//                    if (pwd1.matches("^[a-zA-Z .]*$")){
+                    pwdIsValid = true;
+                    System.out.println("Valid Password- Goes through");
+                } else {
+                    pwdIsValid = false;
+                    System.out.println("Invalid Password: Characters");
+                }
+            } else {
+                pwdIsValid = false;
+                System.out.println("Invalid Password: Passwords don't match");
+                //                Toast.makeText(this, "Please make sure the passwords match.", Toast.LENGTH_SHORT).show();
+            }
+        }
+        return pwdIsValid;
+
+    }
 
     private boolean isValidatedS;
-        private void sendValidationBool(){
-            Register_2 r2 = new Register_2();
-            r2.setIsValidated(true);
-            Log.v("Debug", "getIsValidated from thread= " + r2.getIsValidated());
-            isValidatedS = true;
-        }
-        private boolean getIsValidatedS(){
-            return this.isValidatedS;
-        }
+
+    private void sendValidationBool() {
+        Register_2 r2 = new Register_2();
+        r2.setIsValidated(true);
+        Log.v("Debug", "getIsValidated from thread= " + r2.getIsValidated());
+        isValidatedS = true;
+    }
+
+    private boolean getIsValidatedS() {
+        return this.isValidatedS;
+    }
 
 //        private boolean isValidated;
 //        private void setIsValidated(boolean isValid){
@@ -118,77 +126,162 @@ public class Validation extends Register_2 {
 //            return this.isValidated;
 //        }
 //    if inputs are valid
-    public void validateAndSend(String email, String pwd, String pwdC) {
-            dbU.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Hashing hsh = new Hashing(email, pwd, pwdC);
-                //Generator object
-                Gen g = new Gen();
-                //Generate ID
-                String userID = g.computeGen();
-                if (!email.isEmpty() || email != null || emailHasValidFormat(email)){
-                    String emailChk = snapshot.child("userID").child("email").getValue().toString();
-                    if (emailChk.equals(hsh.getHashEmail())) {
-                        System.out.println("emailChk.equals(email)= " + emailChk.equals(hsh.getHashEmail()));
-                        System.out.println(hsh.getHashEmail());
-                        System.out.println("Match was found in DB");
-                    } else {
-                        if(passwordValid(pwd, pwdC)){
-                            System.out.println("This is a valid email, it was not empty and was not found in the DB. The password was also valid");
-                            // get vaultID
-                            String vaultId = g.computeGen();
-                            System.out.println(vaultId);
-                            //Determine if ID already exists, if it doesn't set the values in the DB and enter home
-                           // if (snapshot.child("iD").getValue().equals(id)) {
-                            if (snapshot.getValue().equals(userID)) {
-                                //  Toast.makeText(context, "Error. Please try again", Toast.LENGTH_SHORT).show();
-                                System.out.println("ID found in DB");
-                            }else {
+//    public void validateAndSend(String email, String pwd, String pwdC, ValidateCallback callback) {
+//            dbU.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                Hashing hsh = new Hashing(email, pwd, pwdC);
+//                //Generator object
+//                Gen g = new Gen();
+//                //Generate ID
+//                String userID = g.computeGen();
+//                if (!email.isEmpty() || email != null || emailHasValidFormat(email)){
+//                    String emailChk = snapshot.child("userID").child("email").getValue().toString();
+//                    if (emailChk.equals(hsh.getHashEmail())) {
+//                        System.out.println("emailChk.equals(email)= " + emailChk.equals(hsh.getHashEmail()));
+//                        System.out.println(hsh.getHashEmail());
+//                        System.out.println("Match was found in DB");
+//                    } else {
+//                        if(passwordValid(pwd, pwdC)){
+//                            System.out.println("This is a valid email, it was not empty and was not found in the DB. The password was also valid");
+//                            // get vaultID
+//                            String vaultId = g.computeGen();
+//                            System.out.println(vaultId);
+//                            //Determine if ID already exists, if it doesn't set the values in the DB and enter home
+//                           // if (snapshot.child("iD").getValue().equals(id)) {
+//                            if (snapshot.getValue().equals(userID)) {
+//                                //  Toast.makeText(context, "Error. Please try again", Toast.LENGTH_SHORT).show();
+//                                System.out.println("ID found in DB");
+//                            }else {
+//                                        Register_2 r2 = new Register_2();
+//                                        r2.setIsValidated(true);
+//                                        User user = new User(hsh.getHashEmail(), hsh.getHk(), vaultId);
+//                                        String pushUser = dbU.push().getKey();
+//                                        dbU.child(pushUser).push().setValue(user);
+//                                        System.out.println("Sent to DB");
+//                                //                        Toast.makeText(context, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+////                                Intent intent = new Intent(getApplicationContext(), Home.class);
+////                                //Toast.makeText(this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+////                                Register_2 r2 = new Register_2();
+////                                Intent intent = new Intent(r2.getApplicationContext(), Home.class);
+////                                startActivity(intent);
+//
+//
+//
+//
+////                                setIsValidated(true);
+////                                Log.v("Debug", "R2 Is validated? " + isValidated);
+//                                    //startActivity(intent);
+//                                    //Toast.makeText(this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+////                                Intent intent = new Intent(String.valueOf(Home.class));
+////                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+////                                startActivity(intent);
+//
+//                            }
+//                        }
+//
+//                    }
+//                }else {
+//                    // Toast.makeText(context, "Invalid information, please try again.", Toast.LENGTH_SHORT).show();
+//                    System.out.println("Invalid information, please try again.");
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                //                    Toast.makeText(context, "Error: " + error, Toast.LENGTH_SHORT).show();
+//                System.out.println("Error: " + error);
+//            }
+//        });
+////        return isValidated;
+//    }
 
-                                        User user = new User(hsh.getHashEmail(), hsh.getHk(), vaultId);
-                                        String pushUser = dbU.push().getKey();
-                                        dbU.child(pushUser).push().setValue(user);
-                                        System.out.println("Sent to DB");
-                                //                        Toast.makeText(context, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
-//                                Intent intent = new Intent(getApplicationContext(), Home.class);
-//                                //Toast.makeText(this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+//    @Override
+//    public void onPointerCaptureChanged(boolean hasCapture) {
+//        super.onPointerCaptureChanged(hasCapture);
+//    }
+
+//    @Override
+//    public Boolean validatAndSend(String email, String pwd, String pwdC, Boolean bool) {
+//        dbU.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                Hashing hsh = new Hashing(email, pwd, pwdC);
+//                //Generator object
+//                Gen g = new Gen();
+//                //Generate ID
+//                String userID = g.computeGen();
+//                if (!email.isEmpty() || email != null || emailHasValidFormat(email)) {
+//                    String emailChk = snapshot.child("userID").child("email").getValue().toString();
+//                    if (emailChk.equals(hsh.getHashEmail())) {
+//                        System.out.println("emailChk.equals(email)= " + emailChk.equals(hsh.getHashEmail()));
+//                        System.out.println(hsh.getHashEmail());
+//                        System.out.println("Match was found in DB");
+//                    } else {
+//                        if (passwordValid(pwd, pwdC)) {
+//                            System.out.println("This is a valid email, it was not empty and was not found in the DB. The password was also valid");
+//                            // get vaultID
+//                            String vaultId = g.computeGen();
+//                            System.out.println(vaultId);
+//                            //Determine if ID already exists, if it doesn't set the values in the DB and enter home
+//                            // if (snapshot.child("iD").getValue().equals(id)) {
+//                            // So if dbU
+//                            if (snapshot.getValue().equals(userID)) {
+//                                //  Toast.makeText(context, "Error. Please try again", Toast.LENGTH_SHORT).show();
+//                                System.out.println("ID found in DB");
+//                            } else {
+//                                bool = true;
 //                                Register_2 r2 = new Register_2();
-//                                Intent intent = new Intent(r2.getApplicationContext(), Home.class);
-//                                startActivity(intent);
+//                                r2.setIsValidated(true);
+//                                User user = new User(hsh.getHashEmail(), hsh.getHk(), vaultId);
+//                                String pushUser = dbU.push().getKey();
+////                                System.out.println(pushUser);
+//                                dbU.child(pushUser).push().setValue(user);
+//                                System.out.println("Sent to DB");
+//                                //                        Toast.makeText(context, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+////                                Intent intent = new Intent(getApplicationContext(), Home.class);
+////                                //Toast.makeText(this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+////                                Register_2 r2 = new Register_2();
+////                                Intent intent = new Intent(r2.getApplicationContext(), Home.class);
+////                                startActivity(intent);
+//
+//
+////                                setIsValidated(true);
+////                                Log.v("Debug", "R2 Is validated? " + isValidated);
+//                                //startActivity(intent);
+//                                //Toast.makeText(this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+////                                Intent intent = new Intent(String.valueOf(Home.class));
+////                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+////                                startActivity(intent);
+//
+//                            }
+//                        }
+//
+//                    }
+//                } else {
+//                    // Toast.makeText(context, "Invalid information, please try again.", Toast.LENGTH_SHORT).show();
+//                    System.out.println("Invalid information, please try again.");
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                //                    Toast.makeText(context, "Error: " + error, Toast.LENGTH_SHORT).show();
+//                System.out.println("Error: " + error);
+//            }
+//        });
+//        return bool;
+//    }
 
+//    public Boolean validateCallback(Boolean bool) {
+//        return bool;
+//    }
 
-
-
-//                                setIsValidated(true);
-//                                Log.v("Debug", "R2 Is validated? " + isValidated);
-                                    //startActivity(intent);
-                                    //Toast.makeText(this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
-//                                Intent intent = new Intent(String.valueOf(Home.class));
-//                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                                startActivity(intent);
-
-                            }
-                        }
-
-                    }
-                }else {
-                    // Toast.makeText(context, "Invalid information, please try again.", Toast.LENGTH_SHORT).show();
-                    System.out.println("Invalid information, please try again.");
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                //                    Toast.makeText(context, "Error: " + error, Toast.LENGTH_SHORT).show();
-                System.out.println("Error: " + error);
-            }
-        });
-//        return isValidated;
-    }
-
+//    @Override
+//    public ValidateCallback validateCallback(boolean bool) {
+//        return null;
+//    }
 }
-
 //
 //    Boolean format = emailHasValidFormat(email);
 //                System.out.println(email);

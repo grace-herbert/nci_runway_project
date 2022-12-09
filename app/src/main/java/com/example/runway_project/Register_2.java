@@ -1,12 +1,9 @@
 package com.example.runway_project;
 
-import static android.text.TextUtils.isEmpty;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -20,66 +17,65 @@ import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-public class Register_2 extends AppCompatActivity {
+public class Register_2 extends AppCompatActivity  {
     private String email;
     private String hk;
     private String vaultID;
     private boolean isValidated;
     Database db;
     DatabaseReference dbRef;
+    DatabaseReference dbU;
+//    ValidateCallback callback;
 
 
     public Register_2() {
         this.db = new Database();
         this.dbRef = db.getRefDB();
+        this.dbU = db.getDBU();
     }
 
-    public void setIsValidated(boolean bool){
+    public void setIsValidated(boolean bool) {
         this.isValidated = bool;
     }
 
-    @Override
-    protected void onDestroy(){
-        if(isValidated){
-            Log.v("Debug", " R validation bool Destroy: " + isValidated);
-            Toast.makeText(Register_2.this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(Register_2.this,Home.class);
-            startActivity(intent);
-            super.onDestroy();
-        }
-    }
+//    @Override
+//    protected void onDestroy(){
+//        if(isValidated){
+//            Log.v("Debug", " R validation bool Destroy: " + isValidated);
+//            Toast.makeText(Register_2.this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+//            Intent intent = new Intent(Register_2.this,Home.class);
+//            startActivity(intent);
+//            super.onDestroy();
+//        }
+//    }
 
-    private void checkValidation(String email, String pwd, String pwdC){
-        Validation validate = new Validation();
-        validate.validateAndSend(email, pwd, pwdC);
-        onDestroy();
-    }
+//    private void checkValidation(String email, String pwd, String pwdC){
+////        Validation validate = new Validation();
+////        validate.validateAndSend(email, pwd, pwdC, Validate validate);
+//        onDestroy();
+//    }
 
 
-
-    public boolean getIsValidated(){
+    public boolean getIsValidated() {
         return this.isValidated;
     }
 
-    private synchronized void nextPage(){
-//        Validation validate = new Validation();
-//        validate.validateAndSend(email, pwd, pwdC);
-        boolean isValid = getIsValidated();
-        Log.v("Debug", " R validation bool 1: " + isValid);
-        if(isValid){
-            Toast.makeText(Register_2.this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(Register_2.this,Home.class);
-            startActivity(intent);
-        }else{
-            Toast.makeText(Register_2.this, "Something went wrong! Account did not register.", Toast.LENGTH_SHORT).show();
-        }
-    }
+//    private synchronized void nextPage(String email, String pwd, String pwdC, ValidateCallback callback){
+//        Validation vl = new Validation();
+//        vl.validate(email, pwd, pwdC, callback);
+//        vl.setCallback(this);
+//        boolean isValid = getIsValidated();
+//        Log.v("Debug", " R validation bool 1: " + isValid);
+//        if(isValid){
+//            Toast.makeText(Register_2.this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+//            Intent intent = new Intent(Register_2.this,Home.class);
+//            startActivity(intent);
+//        }else{
+//            Toast.makeText(Register_2.this, "Something went wrong! Account did not register.", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
 
     @Override
@@ -178,6 +174,9 @@ public class Register_2 extends AppCompatActivity {
                 final String rgPwd = pwd.getText().toString();
                 final String rgPwdConf = pwdConf.getText().toString();
 
+                validateAndSend(rgEmail,rgPwd,rgPwdConf);
+
+
 //                final boolean emailIsValid;
 //                Validation val = new Validation();
 //                String test = "test";
@@ -190,8 +189,8 @@ public class Register_2 extends AppCompatActivity {
 //                    nextPage();
 //                }
 //
-                checkValidation(rgEmail, rgPwd, rgPwdConf);
-                nextPage();
+//                checkValidation(rgEmail, rgPwd, rgPwdConf);
+//                nextPage(rgEmail, rgPwd, rgPwdConf, callback.validateCallback(false) );
                 Log.v("Debug", " R validation bool 2: " + emailIsValid);
 
 
@@ -319,7 +318,111 @@ public class Register_2 extends AppCompatActivity {
         });
 
     }
+
+    //@Override
+    private void validateAndSend(String email, String pwd, String pwdC) {
+        dbU.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Hashing hsh = new Hashing(email, pwd, pwdC);
+                //Generator object
+                Gen g = new Gen();
+                //Generate ID
+                String userID = g.computeGen();
+                Validation vl = new Validation();
+                if (!email.isEmpty() || email != null || vl.emailHasValidFormat(email) || vl.validEmail(email)) {
+                    String emailChk = snapshot.child("userID").child("email").getValue().toString();
+                    if (emailChk.equals(hsh.getHashEmail())) {
+                        System.out.println("emailChk.equals(email)= " + emailChk.equals(hsh.getHashEmail()));
+                        System.out.println(hsh.getHashEmail());
+                        System.out.println("Match was found in DB");
+                    } else {
+                        if (vl.passwordValid(pwd, pwdC)) {
+                            System.out.println("This is a valid email, it was not empty and was not found in the DB. The password was also valid");
+                            // get vaultID
+                            String vaultId = g.computeGen();
+                            System.out.println(vaultId);
+                            //Determine if ID already exists, if it doesn't set the values in the DB and enter home
+                            // if (snapshot.child("iD").getValue().equals(id)) {
+                            // So if dbU
+                            if (snapshot.getValue().equals(userID)) {
+                                //  Toast.makeText(context, "Error. Please try again", Toast.LENGTH_SHORT).show();
+                                System.out.println("ID found in DB");
+                            } else {
+//                                Register_2 r2 = new Register_2();
+//                                r2.setIsValidated(true);
+                                User user = new User(hsh.getHashEmail(), hsh.getHk(), vaultId);
+                                String pushUser = dbU.push().getKey();
+//                                System.out.println(pushUser);
+                                dbU.child(pushUser).push().setValue(user);
+                                System.out.println("Sent to DB");
+                                Toast.makeText(Register_2.this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(Register_2.this, Home.class);
+//                                //Toast.makeText(this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+//                                Register_2 r2 = new Register_2();
+//                                Intent intent = new Intent(r2.getApplicationContext(), Home.class);
+                                startActivity(intent);
+
+
+//                                setIsValidated(true);
+//                                Log.v("Debug", "R2 Is validated? " + isValidated);
+                                //startActivity(intent);
+                                //Toast.makeText(this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+//                                Intent intent = new Intent(String.valueOf(Home.class));
+//                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                                startActivity(intent);
+
+                            }
+                        }
+
+                    }
+                } else {
+                    // Toast.makeText(context, "Invalid information, please try again.", Toast.LENGTH_SHORT).show();
+                    System.out.println("Invalid information, please try again.");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                //                    Toast.makeText(context, "Error: " + error, Toast.LENGTH_SHORT).show();
+                System.out.println("Error: " + error);
+            }
+        });
+
+    }
 }
+
+//    @Override
+//    public ValidateCallback validate(String email, String pwd, String pwdC, ValidateCallback callback) {
+//        return null;
+//    }
+
+//    @Override
+//    public ValidateCallback validate(String email, String pwd, String pwdC, ValidateCallback callback) {
+//        return null;
+//    }
+//
+//    @Override
+//    public ValidateCallback validateCallback(boolean bool) {
+//        return null;
+//    }
+//
+//    @Override
+//    public void onPointerCaptureChanged(boolean hasCapture) {
+//        super.onPointerCaptureChanged(hasCapture);
+//    }
+
+//    @Override
+//    public ValidateCallback validate(String email, String pwd, String pwdC, ValidateCallback callback) {
+//
+//        return callback;
+//    }
+//
+//    @Override
+//    public void onPointerCaptureChanged(boolean hasCapture) {
+//        super.onPointerCaptureChanged(hasCapture);
+//    }
+
 
 //    public void emailHasValidFormat() {
 ////        boolean emailIsValid;
