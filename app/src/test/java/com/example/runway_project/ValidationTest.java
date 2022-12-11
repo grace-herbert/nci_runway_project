@@ -17,6 +17,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito.*;
 import org.mockito.MockitoAnnotations;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class ValidationTest extends TestCase {
 
     Database mockDb = new Database();
@@ -33,14 +36,26 @@ public class ValidationTest extends TestCase {
 
     }
 
-//    @Test
-//    public void testValidatePwd(){
-//        String rgPwd = "test";
-//        String rgPwdConf = "test";
-//        v.passwordValid(rgPwd,rgPwdConf);
-//        assertEquals(true, v.passwordValid(rgPwd,rgPwdConf));
-//
-//
-//    }
+    boolean emailHasValidFormat(String email) {
+        System.out.println(email);
+        boolean emailIsValid;
+        String regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+        Pattern ptn = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+//        emailIsValid = ptn.matcher(email).matches();
+        Matcher mtr = ptn.matcher(email);
+        emailIsValid = mtr.matches();
+        System.out.println("Format was found to be: " + emailIsValid);
+        return emailIsValid;
+    }
+
+    @Test
+    public void testValidatePwd(){
+        String rgPwd = "test";
+        String rgPwdConf = "test";
+        v.passwordValid(rgPwd,rgPwdConf);
+        assertEquals(true, v.passwordValid(rgPwd,rgPwdConf));
+
+
+    }
 
 }
