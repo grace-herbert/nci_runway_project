@@ -1,5 +1,7 @@
 package com.example.runway_project;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -13,7 +15,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +31,8 @@ public class Register_2 extends AppCompatActivity  {
     private String hk;
     private String vaultID;
     private boolean isValidated;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser fUser;
     Database db;
     DatabaseReference dbRef;
     DatabaseReference dbU;
@@ -193,10 +202,19 @@ public class Register_2 extends AppCompatActivity  {
 //                                System.out.println(pushUser);
                                 dbU.child(pushUser).push().setValue(user);
                                 System.out.println("Sent to DB");
-                                Toast.makeText(Register_2.this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(Register_2.this, Home.class);
-                                startActivity(intent);
-
+//                                Toast.makeText(Register_2.this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+//                                Intent intent = new Intent(Register_2.this, Home.class);
+//                                startActivity(intent);
+                                firebaseAuth = FirebaseAuth.getInstance();
+                                firebaseAuth.createUserWithEmailAndPassword(email, pwd);
+                                fUser = firebaseAuth.getCurrentUser();
+                                if(fUser != null){
+                                    fUser.sendEmailVerification();
+                                    Toast.makeText(Register_2.this, "Registered! And email verification sent.", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(Register_2.this, AwaitingVerification.class);
+                                    startActivity(intent);
+                                    System.out.println(fUser);
+                                }
 
                             }
                         }

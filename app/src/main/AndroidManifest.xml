@@ -15,6 +15,13 @@
         android:theme="@style/Theme.Runway_project"
         tools:targetApi="31">
         <activity
+            android:name=".AwaitingVerification"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".GetHelp"
             android:exported="false">
             <meta-data
