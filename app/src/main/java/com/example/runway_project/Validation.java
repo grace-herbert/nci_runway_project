@@ -88,6 +88,7 @@ public class Validation extends Register_2 {
         return pwdIsValid;
 
     }
+
 }
 
 //        }

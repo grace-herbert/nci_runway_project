@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.AuthResult;
@@ -153,7 +154,9 @@ public class Register_2 extends AppCompatActivity  {
                 final String rgPwdConf = pwdConf.getText().toString();
 
                 validateAndSend(rgEmail,rgPwd,rgPwdConf);
-
+                regEmail.setText(" ");
+                pwd.setText(" ");
+                pwdConf.setText(" ");
 
                 Log.v("Debug", "rgEmail: " + rgEmail + "\nrgPwd: " + rgPwd + "\nrgPwdConf: " + rgPwdConf);
                 Log.v("Debug", " R validation bool 2: " + emailIsValid);
@@ -164,6 +167,8 @@ public class Register_2 extends AppCompatActivity  {
         });
 
     }
+
+    private User user;
 
     //@Override
     private void validateAndSend(String email, String pwd, String pwdC) {
@@ -195,26 +200,23 @@ public class Register_2 extends AppCompatActivity  {
                                 //  Toast.makeText(context, "Error. Please try again", Toast.LENGTH_SHORT).show();
                                 System.out.println("ID found in DB");
                             } else {
-//                                Register_2 r2 = new Register_2();
-//                                r2.setIsValidated(true);
-                                User user = new User(hsh.getHashEmail(), hsh.getHk(), vaultId);
-                                String pushUser = dbU.push().getKey();
-//                                System.out.println(pushUser);
-                                dbU.child(pushUser).push().setValue(user);
-                                System.out.println("Sent to DB");
-//                                Toast.makeText(Register_2.this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
-//                                Intent intent = new Intent(Register_2.this, Home.class);
-//                                startActivity(intent);
                                 firebaseAuth = FirebaseAuth.getInstance();
-                                firebaseAuth.createUserWithEmailAndPassword(email, pwd);
-                                fUser = firebaseAuth.getCurrentUser();
-                                if(fUser != null){
-                                    fUser.sendEmailVerification();
-                                    Toast.makeText(Register_2.this, "Registered! And email verification sent.", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(Register_2.this, AwaitingVerification.class);
-                                    startActivity(intent);
-                                    System.out.println(fUser);
-                                }
+                                firebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                                    @Override
+                                    public void onSuccess(AuthResult authResult) {
+                                        Log.v("Debug", "Email and Password going into firebaseAuth: " + email + " + " + pwd);
+                                        fUser = firebaseAuth.getCurrentUser();
+                                        if(fUser != null){
+                                            fUser.sendEmailVerification();
+                                            Toast.makeText(Register_2.this, "Email verification has been sent. Please verify your email to continue.", Toast.LENGTH_LONG).show();
+                                            Log.v("Debug", "Email sent to " + fUser.getEmail());
+                                            Intent intent = new Intent(Register_2.this, AwaitingVerification.class);
+                                            startActivity(intent);
+                                            System.out.println(fUser);
+                                        }
+                                    }
+                                });
+
 
                             }
                         }
@@ -232,4 +234,81 @@ public class Register_2 extends AppCompatActivity  {
         });
 
     }
+
+    public User getUser(){
+        return this.user;
+    }
+
+    public FirebaseUser getFUser(){
+        return this.fUser;
+    }
 }
+
+//    //@Override
+//    private void validateAndSend(String email, String pwd, String pwdC) {
+//        dbU.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                Hashing hsh = new Hashing(email, pwd, pwdC);
+//                //Generator object
+//                Gen g = new Gen();
+//                //Generate ID
+//                String userID = g.computeGen();
+//                Validation vl = new Validation();
+//                if (!email.isEmpty() || email != null || vl.emailHasValidFormat(email) || vl.validEmail(email)) {
+//                    String emailChk = snapshot.child("userID").child("email").getValue().toString();
+//                    if (emailChk.equals(hsh.getHashEmail())) {
+//                        System.out.println("emailChk.equals(email)= " + emailChk.equals(hsh.getHashEmail()));
+//                        System.out.println(hsh.getHashEmail());
+//                        System.out.println("Match was found in DB");
+//                    } else {
+//                        if (vl.passwordValid(pwd, pwdC)) {
+//                            System.out.println("This is a valid email, it was not empty and was not found in the DB. The password was also valid");
+//                            // get vaultID
+//                            String vaultId = g.computeGen();
+//                            System.out.println(vaultId);
+//                            //Determine if ID already exists, if it doesn't set the values in the DB and enter home
+//                            // if (snapshot.child("iD").getValue().equals(id)) {
+//                            // So if dbU
+//                            if (snapshot.getValue().equals(userID)) {
+//                                //  Toast.makeText(context, "Error. Please try again", Toast.LENGTH_SHORT).show();
+//                                System.out.println("ID found in DB");
+//                            } else {
+////                                Register_2 r2 = new Register_2();
+////                                r2.setIsValidated(true);
+//                                User user = new User(hsh.getHashEmail(), hsh.getHk(), vaultId);
+//                                String pushUser = dbU.push().getKey();
+////                                System.out.println(pushUser);
+//                                dbU.child(pushUser).push().setValue(user);
+//                                System.out.println("Sent to DB");
+////                                Toast.makeText(Register_2.this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
+////                                Intent intent = new Intent(Register_2.this, Home.class);
+////                                startActivity(intent);
+//                                firebaseAuth = FirebaseAuth.getInstance();
+//                                firebaseAuth.createUserWithEmailAndPassword(email, pwd);
+//                                fUser = firebaseAuth.getCurrentUser();
+//                                if(fUser != null){
+//                                    fUser.sendEmailVerification();
+//                                    Toast.makeText(Register_2.this, "Registered! And email verification sent.", Toast.LENGTH_SHORT).show();
+//                                    Intent intent = new Intent(Register_2.this, AwaitingVerification.class);
+//                                    startActivity(intent);
+//                                    System.out.println(fUser);
+//                                }
+//
+//                            }
+//                        }
+//
+//                    }
+//                } else {
+//                    System.out.println("Invalid information, please try again.");
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                System.out.println("Error: " + error);
+//            }
+//        });
+//
+//    }
+//}
