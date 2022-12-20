@@ -12,6 +12,7 @@ public class User {
         this.vaultID = vaultID;
     }
 
+
     public String getEmail() {
         return email;
     }

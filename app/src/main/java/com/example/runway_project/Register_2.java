@@ -6,7 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -28,9 +30,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 public class Register_2 extends AppCompatActivity  {
-    private String email;
+    private String hshEmail;
     private String hk;
     private String vaultID;
+    private User user;
     private boolean isValidated;
     FirebaseAuth firebaseAuth;
     FirebaseUser fUser;
@@ -73,6 +76,9 @@ public class Register_2 extends AppCompatActivity  {
         EditText pwd = this.findViewById(R.id.regPwd);
         EditText pwdConf = this.findViewById(R.id.regReEntPwd);
         MaterialButton reg2Btn = this.findViewById(R.id.reg2Btn);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("SendPrefs", Context.MODE_PRIVATE);
+
 
         //Methods to show/hide buttons
 
@@ -153,6 +159,17 @@ public class Register_2 extends AppCompatActivity  {
                 final String rgPwd = pwd.getText().toString();
                 final String rgPwdConf = pwdConf.getText().toString();
 
+                Gen g = new Gen();
+                String vaultId = g.computeGen();
+
+                SharedPreferences.Editor sPEditor = sharedPreferences.edit();
+                Hashing hsh = new Hashing(rgEmail, rgPwd);
+                sPEditor.putString("hshEmail", hsh.getHashEmail());
+                sPEditor.putString("hshk", hsh.getHk());
+                sPEditor.putString("vaultID", vaultId);
+
+                sPEditor.commit();
+
                 validateAndSend(rgEmail,rgPwd,rgPwdConf);
                 regEmail.setText(" ");
                 pwd.setText(" ");
@@ -168,7 +185,6 @@ public class Register_2 extends AppCompatActivity  {
 
     }
 
-    private User user;
 
     //@Override
     private void validateAndSend(String email, String pwd, String pwdC) {
@@ -176,12 +192,13 @@ public class Register_2 extends AppCompatActivity  {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Hashing hsh = new Hashing(email, pwd, pwdC);
+//                String hshEmail = hsh.getHashEmail();
                 //Generator object
                 Gen g = new Gen();
                 //Generate ID
                 String userID = g.computeGen();
                 Validation vl = new Validation();
-                if (!email.isEmpty() || email != null || vl.emailHasValidFormat(email) || vl.validEmail(email)) {
+                if (!email.isEmpty() || email != null || vl.emailHasValidFormat(email) || vl.validEmail(hshEmail)) {
                     String emailChk = snapshot.child("userID").child("email").getValue().toString();
                     if (emailChk.equals(hsh.getHashEmail())) {
                         System.out.println("emailChk.equals(email)= " + emailChk.equals(hsh.getHashEmail()));
@@ -200,6 +217,7 @@ public class Register_2 extends AppCompatActivity  {
                                 //  Toast.makeText(context, "Error. Please try again", Toast.LENGTH_SHORT).show();
                                 System.out.println("ID found in DB");
                             } else {
+                                System.out.println("We're in.");
                                 firebaseAuth = FirebaseAuth.getInstance();
                                 firebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                     @Override
@@ -207,10 +225,15 @@ public class Register_2 extends AppCompatActivity  {
                                         Log.v("Debug", "Email and Password going into firebaseAuth: " + email + " + " + pwd);
                                         fUser = firebaseAuth.getCurrentUser();
                                         if(fUser != null){
+                                            Register_2 r2 = new Register_2();
+                                            r2.setHshEmail(hsh.getHashEmail());
+                                            System.out.println("r2 hshEm: " + hshEmail);
+//                                            setUser(hsh.getHashEmail(), hsh.getHk(), vaultId);
                                             fUser.sendEmailVerification();
                                             Toast.makeText(Register_2.this, "Email verification has been sent. Please verify your email to continue.", Toast.LENGTH_LONG).show();
                                             Log.v("Debug", "Email sent to " + fUser.getEmail());
                                             Intent intent = new Intent(Register_2.this, AwaitingVerification.class);
+                                            intent.putExtra("hshEmail", hshEmail);
                                             startActivity(intent);
                                             System.out.println(fUser);
                                         }
@@ -234,15 +257,29 @@ public class Register_2 extends AppCompatActivity  {
         });
 
     }
-
-    public User getUser(){
-        return this.user;
+    public void setHshEmail(String hshEm){
+        this.hshEmail = hshEm;
     }
 
-    public FirebaseUser getFUser(){
-        return this.fUser;
+
+    public String getHshEmail(){
+        return this.hshEmail;
     }
+
+//    public User getUser(){
+//        return this.user;
+//    }
+//
+//    private void setUser(String hshEm, String hshP, String vlt){
+//        this.user = new User(hshEm,hshP, vlt);
+//    }
+//
+//    public FirebaseUser getFUser(){
+//        return this.fUser;
+//    }
 }
+
+//user = new User(hsh.getHashEmail(), hsh.getHk(), vaultId);
 
 //    //@Override
 //    private void validateAndSend(String email, String pwd, String pwdC) {
