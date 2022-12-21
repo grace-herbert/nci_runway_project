@@ -15,9 +15,6 @@ import com.google.firebase.database.DatabaseReference;
 
 public class AwaitingVerification extends AppCompatActivity {
 
-//    private FirebaseUser fUser;
-    Register_2 r2 = new Register_2();
-    private User cUser;
     private boolean emailIsVerified;
     FirebaseAuth firebaseAuth;
     FirebaseUser fUser;
@@ -37,11 +34,6 @@ public class AwaitingVerification extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_awaiting_verification);
         refresh();
-//        Register_2 r2 = new Register_2();
-//        String hEmail = r2.getHshEmail();
-//        Intent intent2 = getIntent();
-//        String hEmail = intent2.getStringExtra("hshEmail");
-
     }
 
     private void refresh(){
@@ -63,8 +55,6 @@ public class AwaitingVerification extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         fUser = firebaseAuth.getCurrentUser();
 
-//        cUser = r2.getUser();
-        Log.v("Debug", "cUser " + cUser);
         if (fUser != null) {
             fUser.reload();
             emailIsVerified = fUser.isEmailVerified();
@@ -76,17 +66,16 @@ public class AwaitingVerification extends AppCompatActivity {
                 String vltID = sharedPreferences.getString("vaultID", "");
                 System.out.println("hEmail: " + hEmail + ". Pwd: " + hk + ". VaultID: " + vltID);
                 User cUser = new User(hEmail, hk, vltID);
-                String pushUser = dbU.push().getKey();
-                dbU.child(pushUser).push().setValue(cUser);
-                System.out.println("Sent to DB");
-//                String hshEm = r2.getHshEmail();
-//                AwaitingVerification aV = new AwaitingVerification();
-//                aV.hEm = r2.getHshEmail();
-                Log.v("Debug", "Email sent to " + fUser.getEmail());
-//                String pushUser = dbU.push().getKey();
+//                String userID = dbU.push().getKey();
+//                System.out.println(userID);
+                DatabaseReference pushRef = dbU.push();
+                String userID = pushRef.getKey();
+                pushRef.setValue(cUser);
+                System.out.println(userID);
+//                dbU.push().setValue(cUser);
 //                dbU.child(pushUser).push().setValue(cUser);
-//                Log.v("Debug", "cUser email:  " + cUser.getEmail());
-                ;
+                System.out.println("Sent to DB");
+                Log.v("Debug", "Email sent to " + fUser.getEmail());
                 fUser.delete();
                 Intent intent3 = new Intent(AwaitingVerification.this, Home.class);
                 startActivity(intent3);

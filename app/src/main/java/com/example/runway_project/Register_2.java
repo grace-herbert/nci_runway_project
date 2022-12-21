@@ -32,7 +32,6 @@ import com.google.firebase.database.ValueEventListener;
 public class Register_2 extends AppCompatActivity  {
     private String hshEmail;
     private String hk;
-    private String vaultID;
     private User user;
     private boolean isValidated;
     FirebaseAuth firebaseAuth;
@@ -187,48 +186,39 @@ public class Register_2 extends AppCompatActivity  {
 
 
     //@Override
-    private void validateAndSend(String email, String pwd, String pwdC) {
-        dbU.addListenerForSingleValueEvent(new ValueEventListener() {
+    private void validateAndSend(String email, String pwd, String pwdC)
+    {
+        dbU.addListenerForSingleValueEvent(new ValueEventListener()
+        {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
                 Hashing hsh = new Hashing(email, pwd, pwdC);
-//                String hshEmail = hsh.getHashEmail();
-                //Generator object
-                Gen g = new Gen();
-                //Generate ID
-                String userID = g.computeGen();
                 Validation vl = new Validation();
-                if (!email.isEmpty() || email != null || vl.emailHasValidFormat(email) || vl.validEmail(hshEmail)) {
+                if (!email.isEmpty() || email != null || vl.emailHasValidFormat(email) || vl.validEmail(hshEmail))
+                {
                     String emailChk = snapshot.child("userID").child("email").getValue().toString();
-                    if (emailChk.equals(hsh.getHashEmail())) {
+                    if (emailChk.equals(hsh.getHashEmail()))
+                    {
                         System.out.println("emailChk.equals(email)= " + emailChk.equals(hsh.getHashEmail()));
                         System.out.println(hsh.getHashEmail());
                         System.out.println("Match was found in DB");
-                    } else {
+                    } else
+                    {
                         if (vl.passwordValid(pwd, pwdC)) {
                             System.out.println("This is a valid email, it was not empty and was not found in the DB. The password was also valid");
-                            // get vaultID
-                            String vaultId = g.computeGen();
-                            System.out.println(vaultId);
-                            //Determine if ID already exists, if it doesn't set the values in the DB and enter home
-                            // if (snapshot.child("iD").getValue().equals(id)) {
-                            // So if dbU
-                            if (snapshot.getValue().equals(userID)) {
-                                //  Toast.makeText(context, "Error. Please try again", Toast.LENGTH_SHORT).show();
-                                System.out.println("ID found in DB");
-                            } else {
-                                System.out.println("We're in.");
-                                firebaseAuth = FirebaseAuth.getInstance();
-                                firebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+
+                            System.out.println("We're in.");
+                            firebaseAuth = FirebaseAuth.getInstance();
+                            firebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnSuccessListener(new OnSuccessListener<AuthResult>()
+                                {
                                     @Override
-                                    public void onSuccess(AuthResult authResult) {
+                                    public void onSuccess(AuthResult authResult)
+                                    {
                                         Log.v("Debug", "Email and Password going into firebaseAuth: " + email + " + " + pwd);
                                         fUser = firebaseAuth.getCurrentUser();
-                                        if(fUser != null){
-                                            Register_2 r2 = new Register_2();
-                                            r2.setHshEmail(hsh.getHashEmail());
-                                            System.out.println("r2 hshEm: " + hshEmail);
-//                                            setUser(hsh.getHashEmail(), hsh.getHk(), vaultId);
+                                        if (fUser != null)
+                                        {
                                             fUser.sendEmailVerification();
                                             Toast.makeText(Register_2.this, "Email verification has been sent. Please verify your email to continue.", Toast.LENGTH_LONG).show();
                                             Log.v("Debug", "Email sent to " + fUser.getEmail());
@@ -239,24 +229,24 @@ public class Register_2 extends AppCompatActivity  {
                                         }
                                     }
                                 });
-
-
                             }
-                        }
 
-                    }
-                } else {
+                        }
+                } else
+                {
                     System.out.println("Invalid information, please try again.");
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error)
+            {
                 System.out.println("Error: " + error);
             }
         });
 
     }
+
     public void setHshEmail(String hshEm){
         this.hshEmail = hshEm;
     }
