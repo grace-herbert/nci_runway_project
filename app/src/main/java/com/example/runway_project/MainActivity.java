@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TestOut t = new TestOut();
+                t.searchDB("testingrunway@gmail.com");
                 Intent intent = new Intent(MainActivity.this, Home.class);
                 startActivity(intent);
             }
@@ -123,7 +125,10 @@ public class MainActivity extends AppCompatActivity {
                         pwd.setText(" ");
                         count++;
                      //if email and hk correct send home  and reset count
-                    } else if (BCrypt.checkpw(emailStrg, String.valueOf((dbU.child("email")))) && (BCrypt.checkpw(hkStrg, String.valueOf((dbU.child("hk")))))) {
+//                    } else if (BCrypt.checkpw(emailStrg, String.valueOf((dbU.child("email")))) && (BCrypt.checkpw(hkStrg, String.valueOf((dbU.child("hk")))))) {
+                    } else if (BCrypt.checkpw(emailStrg, String.valueOf((dbU.orderByChild("email"))))){
+                        System.out.println(String.valueOf((dbU.orderByChild("email"))));
+//                        dbU.orderByChild("email").equalTo(BCrypt.checkpw(emailStrg, String.valueOf((dbU.child("email")))));
                         Toast.makeText(MainActivity.this, "Logged in.", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, Home.class);
                         startActivity(intent);

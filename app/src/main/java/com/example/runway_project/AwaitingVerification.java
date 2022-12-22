@@ -47,7 +47,7 @@ public class AwaitingVerification extends AppCompatActivity {
                 sendUser();
             }
         };
-        handler.postDelayed(runnable, 30000);
+        handler.postDelayed(runnable, 15000);
     }
 
     private void sendUser() {
@@ -66,14 +66,13 @@ public class AwaitingVerification extends AppCompatActivity {
                 String vltID = sharedPreferences.getString("vaultID", "");
                 System.out.println("hEmail: " + hEmail + ". Pwd: " + hk + ". VaultID: " + vltID);
                 User cUser = new User(hEmail, hk, vltID);
-//                String userID = dbU.push().getKey();
-//                System.out.println(userID);
                 DatabaseReference pushRef = dbU.push();
                 String userID = pushRef.getKey();
                 pushRef.setValue(cUser);
+                SharedPreferences.Editor sPEdit = sharedPreferences.edit();
+                sPEdit.putString("userID", userID);
+                sPEdit.commit();
                 System.out.println(userID);
-//                dbU.push().setValue(cUser);
-//                dbU.child(pushUser).push().setValue(cUser);
                 System.out.println("Sent to DB");
                 Log.v("Debug", "Email sent to " + fUser.getEmail());
                 fUser.delete();
@@ -88,18 +87,3 @@ public class AwaitingVerification extends AppCompatActivity {
         }
     }
 }
-
-////    User getcUser(){
-////        return cUser;
-////    }
-//
-//    String getEm(){
-//        return this.hshEmail;
-//    }
-//    void setVars(String hshEm, String hshP, String vlt){
-//        this.hshEmail = hshEm;
-//        this.hk = hshP;
-//        this.vaultID = vlt;
-//    }
-
-//}

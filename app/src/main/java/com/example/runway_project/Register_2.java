@@ -42,19 +42,22 @@ public class Register_2 extends AppCompatActivity  {
 //    ValidateCallback callback;
 
 
-    public Register_2() {
+    public Register_2()
+    {
         this.db = new Database();
         this.dbRef = db.getRefDB();
         this.dbU = db.getDBU();
     }
 
-    public void setIsValidated(boolean bool) {
+    public void setIsValidated(boolean bool)
+    {
         this.isValidated = bool;
     }
 
 
 
-    public boolean getIsValidated() {
+    public boolean getIsValidated()
+    {
         return this.isValidated;
     }
 
@@ -81,9 +84,11 @@ public class Register_2 extends AppCompatActivity  {
 
         //Methods to show/hide buttons
 
-        showEmlBtn.setOnClickListener(new View.OnClickListener() {
+        showEmlBtn.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 regEmail.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 showEmlBtn.setVisibility(View.INVISIBLE);
                 hideEmlBtn.setVisibility(View.VISIBLE);
@@ -91,9 +96,11 @@ public class Register_2 extends AppCompatActivity  {
             }
         });
 
-        hideEmlBtn.setOnClickListener(new View.OnClickListener() {
+        hideEmlBtn.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 regEmail.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 hideEmlBtn.setVisibility(View.INVISIBLE);
                 showEmlBtn.setVisibility(View.VISIBLE);
@@ -101,9 +108,11 @@ public class Register_2 extends AppCompatActivity  {
             }
         });
 
-        showPwdBtn.setOnClickListener(new View.OnClickListener() {
+        showPwdBtn.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 pwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 showPwdBtn.setVisibility(View.INVISIBLE);
                 hidePwdBtn.setVisibility(View.VISIBLE);
@@ -111,9 +120,11 @@ public class Register_2 extends AppCompatActivity  {
             }
         });
 
-        hidePwdBtn.setOnClickListener(new View.OnClickListener() {
+        hidePwdBtn.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 pwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 hidePwdBtn.setVisibility(View.INVISIBLE);
                 showPwdBtn.setVisibility(View.VISIBLE);
@@ -121,9 +132,11 @@ public class Register_2 extends AppCompatActivity  {
             }
         });
 
-        showPwdCBtn.setOnClickListener(new View.OnClickListener() {
+        showPwdCBtn.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 pwdConf.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 showPwdCBtn.setVisibility(View.INVISIBLE);
                 hidePwdCBtn.setVisibility(View.VISIBLE);
@@ -131,9 +144,11 @@ public class Register_2 extends AppCompatActivity  {
             }
         });
 
-        hidePwdCBtn.setOnClickListener(new View.OnClickListener() {
+        hidePwdCBtn.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 pwdConf.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 hidePwdCBtn.setVisibility(View.INVISIBLE);
                 showPwdCBtn.setVisibility(View.VISIBLE);
@@ -142,9 +157,8 @@ public class Register_2 extends AppCompatActivity  {
         });
 
 
-        reg2Btn.setOnClickListener(new View.OnClickListener() {
-
-
+        reg2Btn.setOnClickListener(new View.OnClickListener()
+        {
             boolean emailIsValid;
             boolean eValidFormat;
             boolean validPwd;
@@ -153,7 +167,8 @@ public class Register_2 extends AppCompatActivity  {
 
 
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 final String rgEmail = regEmail.getText().toString();
                 final String rgPwd = pwd.getText().toString();
                 final String rgPwdConf = pwdConf.getText().toString();
@@ -247,12 +262,14 @@ public class Register_2 extends AppCompatActivity  {
 
     }
 
-    public void setHshEmail(String hshEm){
+    public void setHshEmail(String hshEm)
+    {
         this.hshEmail = hshEm;
     }
 
 
-    public String getHshEmail(){
+    public String getHshEmail()
+    {
         return this.hshEmail;
     }
 
