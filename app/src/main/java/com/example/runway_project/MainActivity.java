@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 TestOut t = new TestOut();
                 t.searchDB("testingrunway@gmail.com");
+//                t.searchDB("herbert.grace.c@gmail.com");
                 Intent intent = new Intent(MainActivity.this, Home.class);
                 startActivity(intent);
             }
