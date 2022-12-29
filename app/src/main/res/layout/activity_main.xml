@@ -31,7 +31,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:src="@drawable/runway_logo_50" />
+        android:src="@drawable/rsz_runwaylogo_50" />
 
     <TextView
         android:id="@+id/loginTxt"

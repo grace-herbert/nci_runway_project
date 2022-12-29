@@ -1,5 +1,6 @@
 package com.example.runway_project;
 
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -8,7 +9,10 @@ import androidx.annotation.NonNull;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,35 +33,56 @@ public class Validation extends Register_2 {
     }
 
 
-    boolean isValid;
+    boolean emailFound = false;
 
-    boolean validEmail(String email) {
+    void validEmail(String email) {
 
-        if (!email.isEmpty() || email != null) {
-            dbRef.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
+        if (email != null) {
+
+            Query q = dbU.orderByChild("email");
+
+            q.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String emailCk = snapshot.child("email").getValue().toString();
-                    if (emailCk.equals(email)) {
-                        isValid = false;
-                        System.out.println("Match was found in DB");
+                    if (snapshot.exists()) {
+
+//                            while (!correctP && !triggerOut) {
+                        for (DataSnapshot searchEml : snapshot.getChildren()) {
+                            String emailVal = searchEml.child("email").getValue(String.class);
+                            if (emailVal != null) {
+                                try {
+                                    if (BCrypt.checkpw(email, emailVal)) {
+                                        emailFound = true;
+                                        System.out.println("Email found in DB = " + emailVal);
+                                        break;
+                                    } else {
+                                        System.out.println("Email is valid and not found in DB.");
+                                    }
+                                } catch (IllegalArgumentException e) {
+                                    System.out.println(e);
+                                }
+                            }
+                        }
                     } else {
-                        isValid = true;
-                        System.out.println("This is a valid email, it was not empty and was not found in the DB");
+                        System.out.println("Snapshot not exists");
                     }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    isValid = false;
-                    System.out.println("Twas cancelled.");
+
                 }
             });
-        } else {
-            Toast.makeText(this, "Please enter your email and password.", Toast.LENGTH_SHORT).show();
-            isValid = false;
+
         }
-        return isValid;
+//        System.out.println("IsValid = " + isValid);
+//        return isValid;
+    }
+
+    boolean getIsEmailFound(){
+//        validEmail(email);
+        System.out.println("emailFound = " + emailFound);
+        return this.emailFound;
     }
 
     //Pwd and pwdConf match

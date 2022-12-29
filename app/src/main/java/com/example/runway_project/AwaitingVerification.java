@@ -21,6 +21,7 @@ public class AwaitingVerification extends AppCompatActivity {
     Database db;
     DatabaseReference dbRef;
     DatabaseReference dbU;
+    private String hEmail;
 
     public AwaitingVerification(){
         this.db = new Database();
@@ -61,7 +62,7 @@ public class AwaitingVerification extends AppCompatActivity {
             Log.v("Debug", "emailIsVerified: " + emailIsVerified);
             if (emailIsVerified) {
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("SendPrefs", Context.MODE_PRIVATE);
-                String hEmail = sharedPreferences.getString("hshEmail", "");
+                hEmail = sharedPreferences.getString("hshEmail", "");
                 String hk = sharedPreferences.getString("hshk", "");
                 String vltID = sharedPreferences.getString("vaultID", "");
                 System.out.println("hEmail: " + hEmail + ". Pwd: " + hk + ". VaultID: " + vltID);
@@ -86,4 +87,9 @@ public class AwaitingVerification extends AppCompatActivity {
             Log.v("Debug", "EmailNull");
         }
     }
+
+//    private void updateEml(String hashedE){
+//        fUser.updateEmail(hashedE);
+//        System.out.println("Email updated to " + fUser.getEmail());
+//    }
 }

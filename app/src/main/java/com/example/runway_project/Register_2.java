@@ -169,9 +169,9 @@ public class Register_2 extends AppCompatActivity  {
             @Override
             public void onClick(View v)
             {
-                final String rgEmail = regEmail.getText().toString();
-                final String rgPwd = pwd.getText().toString();
-                final String rgPwdConf = pwdConf.getText().toString();
+                final String rgEmail = regEmail.getText().toString().trim();
+                final String rgPwd = pwd.getText().toString().trim();
+                final String rgPwdConf = pwdConf.getText().toString().trim();
 
                 Gen g = new Gen();
                 String vaultId = g.computeGen();
@@ -203,50 +203,49 @@ public class Register_2 extends AppCompatActivity  {
     //@Override
     private void validateAndSend(String email, String pwd, String pwdC)
     {
+        Validation vl = new Validation();
+        vl.validEmail(email);
         dbU.addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot)
             {
                 Hashing hsh = new Hashing(email, pwd, pwdC);
-                Validation vl = new Validation();
-                if (!email.isEmpty() || email != null || vl.emailHasValidFormat(email) || vl.validEmail(hshEmail))
+
+                if (email != null && vl.emailHasValidFormat(email))
                 {
-                    String emailChk = snapshot.child("userID").child("email").getValue().toString();
-                    if (emailChk.equals(hsh.getHashEmail()))
-                    {
-                        System.out.println("emailChk.equals(email)= " + emailChk.equals(hsh.getHashEmail()));
-                        System.out.println(hsh.getHashEmail());
-                        System.out.println("Match was found in DB");
-                    } else
-                    {
+                    if(!vl.getIsEmailFound()){
+                        System.out.println("Valid email is valid");
                         if (vl.passwordValid(pwd, pwdC)) {
                             System.out.println("This is a valid email, it was not empty and was not found in the DB. The password was also valid");
 
                             System.out.println("We're in.");
                             firebaseAuth = FirebaseAuth.getInstance();
                             firebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnSuccessListener(new OnSuccessListener<AuthResult>()
+                            {
+                                @Override
+                                public void onSuccess(AuthResult authResult)
                                 {
-                                    @Override
-                                    public void onSuccess(AuthResult authResult)
+                                    Log.v("Debug", "Email and Password going into firebaseAuth: " + email + " + " + pwd);
+                                    fUser = firebaseAuth.getCurrentUser();
+                                    if (fUser != null)
                                     {
-                                        Log.v("Debug", "Email and Password going into firebaseAuth: " + email + " + " + pwd);
-                                        fUser = firebaseAuth.getCurrentUser();
-                                        if (fUser != null)
-                                        {
-                                            fUser.sendEmailVerification();
-                                            Toast.makeText(Register_2.this, "Email verification has been sent. Please verify your email to continue.", Toast.LENGTH_LONG).show();
-                                            Log.v("Debug", "Email sent to " + fUser.getEmail());
-                                            Intent intent = new Intent(Register_2.this, AwaitingVerification.class);
-                                            intent.putExtra("hshEmail", hshEmail);
-                                            startActivity(intent);
-                                            System.out.println(fUser);
-                                        }
+                                        fUser.sendEmailVerification();
+                                        Toast.makeText(Register_2.this, "Email verification has been sent. Please verify your email to continue.", Toast.LENGTH_LONG).show();
+                                        Log.v("Debug", "Email sent to " + fUser.getEmail());
+                                        Intent intent = new Intent(Register_2.this, AwaitingVerification.class);
+                                        intent.putExtra("hshEmail", hshEmail);
+                                        startActivity(intent);
+                                        System.out.println(fUser);
                                     }
-                                });
-                            }
-
+                                }
+                            });
+                        }else {
+                            System.out.println("Password not valid");
                         }
+                    }else {
+                        System.out.println("Email is not valid");
+                    }
                 } else
                 {
                     System.out.println("Invalid information, please try again.");
@@ -272,6 +271,8 @@ public class Register_2 extends AppCompatActivity  {
     {
         return this.hshEmail;
     }
+
+
 
 //    public User getUser(){
 //        return this.user;
