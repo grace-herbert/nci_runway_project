@@ -18,6 +18,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validation extends Register_2 {
+    private Database db;
+    private DatabaseReference dbRef;
+    private DatabaseReference dbU;
+
+    public Validation(){
+        this.db = new Database();
+        this.dbRef = db.getRefDB();
+        this.dbU = db.getDBU();
+    }
 
     //regex pattern found from https://www.youtube.com/watch?v=OOdO785p3Qo
     boolean emailHasValidFormat(String email) {
@@ -25,7 +34,6 @@ public class Validation extends Register_2 {
         boolean emailIsValid;
         String regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
         Pattern ptn = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-//        emailIsValid = ptn.matcher(email).matches();
         Matcher mtr = ptn.matcher(email);
         emailIsValid = mtr.matches();
         System.out.println("Format was found to be: " + emailIsValid);
@@ -45,8 +53,6 @@ public class Validation extends Register_2 {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
-
-//                            while (!correctP && !triggerOut) {
                         for (DataSnapshot searchEml : snapshot.getChildren()) {
                             String emailVal = searchEml.child("email").getValue(String.class);
                             if (emailVal != null) {
@@ -75,12 +81,9 @@ public class Validation extends Register_2 {
             });
 
         }
-//        System.out.println("IsValid = " + isValid);
-//        return isValid;
     }
 
     boolean getIsEmailFound(){
-//        validEmail(email);
         System.out.println("emailFound = " + emailFound);
         return this.emailFound;
     }
@@ -97,7 +100,6 @@ public class Validation extends Register_2 {
                 Matcher mtr = ptn.matcher(pwd1);
                 boolean pwdMatches = mtr.matches();
                 if (pwdMatches) {
-//                    if (pwd1.matches("^[a-zA-Z .]*$")){
                     pwdIsValid = true;
                     System.out.println("Valid Password- Goes through");
                 } else {
@@ -107,7 +109,6 @@ public class Validation extends Register_2 {
             } else {
                 pwdIsValid = false;
                 System.out.println("Invalid Password: Passwords don't match");
-                //                Toast.makeText(this, "Please make sure the passwords match.", Toast.LENGTH_SHORT).show();
             }
         }
         return pwdIsValid;
@@ -115,5 +116,3 @@ public class Validation extends Register_2 {
     }
 
 }
-
-//        }

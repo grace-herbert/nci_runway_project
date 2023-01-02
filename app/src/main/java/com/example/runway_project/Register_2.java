@@ -29,35 +29,29 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
-public class Register_2 extends AppCompatActivity  {
+public class Register_2 extends AppCompatActivity {
     private String hshEmail;
     private String hk;
-    private User user;
     private boolean isValidated;
-    FirebaseAuth firebaseAuth;
-    FirebaseUser fUser;
-    Database db;
-    DatabaseReference dbRef;
-    DatabaseReference dbU;
-//    ValidateCallback callback;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser fUser;
+    private Database db;
+    private DatabaseReference dbRef;
+    private DatabaseReference dbU;
 
 
-    public Register_2()
-    {
+    public Register_2() {
         this.db = new Database();
         this.dbRef = db.getRefDB();
         this.dbU = db.getDBU();
     }
 
-    public void setIsValidated(boolean bool)
-    {
+    public void setIsValidated(boolean bool) {
         this.isValidated = bool;
     }
 
 
-
-    public boolean getIsValidated()
-    {
+    public boolean getIsValidated() {
         return this.isValidated;
     }
 
@@ -84,11 +78,9 @@ public class Register_2 extends AppCompatActivity  {
 
         //Methods to show/hide buttons
 
-        showEmlBtn.setOnClickListener(new View.OnClickListener()
-        {
+        showEmlBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 regEmail.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 showEmlBtn.setVisibility(View.INVISIBLE);
                 hideEmlBtn.setVisibility(View.VISIBLE);
@@ -96,11 +88,9 @@ public class Register_2 extends AppCompatActivity  {
             }
         });
 
-        hideEmlBtn.setOnClickListener(new View.OnClickListener()
-        {
+        hideEmlBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 regEmail.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 hideEmlBtn.setVisibility(View.INVISIBLE);
                 showEmlBtn.setVisibility(View.VISIBLE);
@@ -108,11 +98,9 @@ public class Register_2 extends AppCompatActivity  {
             }
         });
 
-        showPwdBtn.setOnClickListener(new View.OnClickListener()
-        {
+        showPwdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 pwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 showPwdBtn.setVisibility(View.INVISIBLE);
                 hidePwdBtn.setVisibility(View.VISIBLE);
@@ -120,11 +108,9 @@ public class Register_2 extends AppCompatActivity  {
             }
         });
 
-        hidePwdBtn.setOnClickListener(new View.OnClickListener()
-        {
+        hidePwdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 pwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 hidePwdBtn.setVisibility(View.INVISIBLE);
                 showPwdBtn.setVisibility(View.VISIBLE);
@@ -132,11 +118,9 @@ public class Register_2 extends AppCompatActivity  {
             }
         });
 
-        showPwdCBtn.setOnClickListener(new View.OnClickListener()
-        {
+        showPwdCBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 pwdConf.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 showPwdCBtn.setVisibility(View.INVISIBLE);
                 hidePwdCBtn.setVisibility(View.VISIBLE);
@@ -144,11 +128,9 @@ public class Register_2 extends AppCompatActivity  {
             }
         });
 
-        hidePwdCBtn.setOnClickListener(new View.OnClickListener()
-        {
+        hidePwdCBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 pwdConf.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 hidePwdCBtn.setVisibility(View.INVISIBLE);
                 showPwdCBtn.setVisibility(View.VISIBLE);
@@ -157,8 +139,7 @@ public class Register_2 extends AppCompatActivity  {
         });
 
 
-        reg2Btn.setOnClickListener(new View.OnClickListener()
-        {
+        reg2Btn.setOnClickListener(new View.OnClickListener() {
             boolean emailIsValid;
             boolean eValidFormat;
             boolean validPwd;
@@ -167,8 +148,7 @@ public class Register_2 extends AppCompatActivity  {
 
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 final String rgEmail = regEmail.getText().toString().trim();
                 final String rgPwd = pwd.getText().toString().trim();
                 final String rgPwdConf = pwdConf.getText().toString().trim();
@@ -184,7 +164,7 @@ public class Register_2 extends AppCompatActivity  {
 
                 sPEditor.commit();
 
-                validateAndSend(rgEmail,rgPwd,rgPwdConf);
+                validateAndSend(rgEmail, rgPwd, rgPwdConf);
                 regEmail.setText(" ");
                 pwd.setText(" ");
                 pwdConf.setText(" ");
@@ -201,35 +181,28 @@ public class Register_2 extends AppCompatActivity  {
 
 
     //@Override
-    private void validateAndSend(String email, String pwd, String pwdC)
-    {
+    private void validateAndSend(String email, String pwd, String pwdC) {
         Validation vl = new Validation();
         vl.validEmail(email);
-        dbU.addListenerForSingleValueEvent(new ValueEventListener()
-        {
+        dbU.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot)
-            {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Hashing hsh = new Hashing(email, pwd, pwdC);
 
-                if (email != null && vl.emailHasValidFormat(email))
-                {
-                    if(!vl.getIsEmailFound()){
+                if (email != null && vl.emailHasValidFormat(email)) {
+                    if (!vl.getIsEmailFound()) {
                         System.out.println("Valid email is valid");
                         if (vl.passwordValid(pwd, pwdC)) {
                             System.out.println("This is a valid email, it was not empty and was not found in the DB. The password was also valid");
 
                             System.out.println("We're in.");
                             firebaseAuth = FirebaseAuth.getInstance();
-                            firebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnSuccessListener(new OnSuccessListener<AuthResult>()
-                            {
+                            firebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                 @Override
-                                public void onSuccess(AuthResult authResult)
-                                {
+                                public void onSuccess(AuthResult authResult) {
                                     Log.v("Debug", "Email and Password going into firebaseAuth: " + email + " + " + pwd);
                                     fUser = firebaseAuth.getCurrentUser();
-                                    if (fUser != null)
-                                    {
+                                    if (fUser != null) {
                                         fUser.sendEmailVerification();
                                         Toast.makeText(Register_2.this, "Email verification has been sent. Please verify your email to continue.", Toast.LENGTH_LONG).show();
                                         Log.v("Debug", "Email sent to " + fUser.getEmail());
@@ -240,120 +213,32 @@ public class Register_2 extends AppCompatActivity  {
                                     }
                                 }
                             });
-                        }else {
+                        } else {
                             System.out.println("Password not valid");
                         }
-                    }else {
+                    } else {
                         System.out.println("Email is not valid");
                     }
-                } else
-                {
+                } else {
                     System.out.println("Invalid information, please try again.");
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error)
-            {
+            public void onCancelled(@NonNull DatabaseError error) {
                 System.out.println("Error: " + error);
             }
         });
 
     }
 
-    public void setHshEmail(String hshEm)
-    {
+    public void setHshEmail(String hshEm) {
         this.hshEmail = hshEm;
     }
 
 
-    public String getHshEmail()
-    {
+    public String getHshEmail() {
         return this.hshEmail;
     }
 
-
-
-//    public User getUser(){
-//        return this.user;
-//    }
-//
-//    private void setUser(String hshEm, String hshP, String vlt){
-//        this.user = new User(hshEm,hshP, vlt);
-//    }
-//
-//    public FirebaseUser getFUser(){
-//        return this.fUser;
-//    }
 }
-
-//user = new User(hsh.getHashEmail(), hsh.getHk(), vaultId);
-
-//    //@Override
-//    private void validateAndSend(String email, String pwd, String pwdC) {
-//        dbU.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                Hashing hsh = new Hashing(email, pwd, pwdC);
-//                //Generator object
-//                Gen g = new Gen();
-//                //Generate ID
-//                String userID = g.computeGen();
-//                Validation vl = new Validation();
-//                if (!email.isEmpty() || email != null || vl.emailHasValidFormat(email) || vl.validEmail(email)) {
-//                    String emailChk = snapshot.child("userID").child("email").getValue().toString();
-//                    if (emailChk.equals(hsh.getHashEmail())) {
-//                        System.out.println("emailChk.equals(email)= " + emailChk.equals(hsh.getHashEmail()));
-//                        System.out.println(hsh.getHashEmail());
-//                        System.out.println("Match was found in DB");
-//                    } else {
-//                        if (vl.passwordValid(pwd, pwdC)) {
-//                            System.out.println("This is a valid email, it was not empty and was not found in the DB. The password was also valid");
-//                            // get vaultID
-//                            String vaultId = g.computeGen();
-//                            System.out.println(vaultId);
-//                            //Determine if ID already exists, if it doesn't set the values in the DB and enter home
-//                            // if (snapshot.child("iD").getValue().equals(id)) {
-//                            // So if dbU
-//                            if (snapshot.getValue().equals(userID)) {
-//                                //  Toast.makeText(context, "Error. Please try again", Toast.LENGTH_SHORT).show();
-//                                System.out.println("ID found in DB");
-//                            } else {
-////                                Register_2 r2 = new Register_2();
-////                                r2.setIsValidated(true);
-//                                User user = new User(hsh.getHashEmail(), hsh.getHk(), vaultId);
-//                                String pushUser = dbU.push().getKey();
-////                                System.out.println(pushUser);
-//                                dbU.child(pushUser).push().setValue(user);
-//                                System.out.println("Sent to DB");
-////                                Toast.makeText(Register_2.this, "Congratulations! You are now registered.", Toast.LENGTH_SHORT).show();
-////                                Intent intent = new Intent(Register_2.this, Home.class);
-////                                startActivity(intent);
-//                                firebaseAuth = FirebaseAuth.getInstance();
-//                                firebaseAuth.createUserWithEmailAndPassword(email, pwd);
-//                                fUser = firebaseAuth.getCurrentUser();
-//                                if(fUser != null){
-//                                    fUser.sendEmailVerification();
-//                                    Toast.makeText(Register_2.this, "Registered! And email verification sent.", Toast.LENGTH_SHORT).show();
-//                                    Intent intent = new Intent(Register_2.this, AwaitingVerification.class);
-//                                    startActivity(intent);
-//                                    System.out.println(fUser);
-//                                }
-//
-//                            }
-//                        }
-//
-//                    }
-//                } else {
-//                    System.out.println("Invalid information, please try again.");
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                System.out.println("Error: " + error);
-//            }
-//        });
-//
-//    }
-//}

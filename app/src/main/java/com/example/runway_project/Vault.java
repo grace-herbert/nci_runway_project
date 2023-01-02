@@ -13,10 +13,13 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Debug;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,6 +53,8 @@ public class Vault extends AppCompatActivity {
     private NavigationView navigationView;
 
     private static final int CHOOSE_IMG_REQ = 1;
+    public static final String SHAREDV = "SharedV";
+    public static String vaultID;
     private Button chooseImgBtn;
     private EditText inputTitle;
     private ProgressBar progressBar;
@@ -60,12 +65,13 @@ public class Vault extends AppCompatActivity {
     private Uri imgUri;
     private String imgUriString;
     private StorageReference cldStorageRef;
+    private StorageReference vltCldStorageRef;
     private Database db = new Database();
     private DatabaseReference dbVltRef;
     private StorageReference storageRef;
-    private String vaultID;
+//    private String vaultID;
 
-
+    //Navigation
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(actionBarDrawerToggle.onOptionsItemSelected(item)){
@@ -74,11 +80,15 @@ public class Vault extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private String getVaultID(){
-        Gen genV = new Gen();
-        vaultID = genV.computeGen();
-        return vaultID;
-    }
+    //get the vaultID
+//    private void setVaultID(){
+//        this.vaultID = vltSP.getString("vltID", "");
+//        System.out.println("vaultID = " + vaultID);
+//    }
+
+//    private String getVaultID(){
+//        return this.vaultID;
+//    }
 
 
 
@@ -105,6 +115,15 @@ public class Vault extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
         //remove name from Actionbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //get the vaultID
+        SharedPreferences vltSP = getApplicationContext().getSharedPreferences(SHAREDV, Context.MODE_PRIVATE);
+//
+//        vaultID = vltSP.getString("vltID", "");
+        MainActivity m = new MainActivity();
+        vaultID = vltSP.getString("vltID", "default");
+        System.out.println("VaultID = " + vaultID);
+//        setVaultID();
+//        vaultID = getVaultID();
 
         chooseImgBtn = findViewById(R.id.chooseImgBtn);
         inputTitle = findViewById(R.id.enter_file_name);
@@ -113,7 +132,12 @@ public class Vault extends AppCompatActivity {
         viewImgs = findViewById(R.id.viewUploads);
         imageView = findViewById(R.id.imagesView);
 
-        cldStorageRef = FirebaseStorage.getInstance().getReference("Vault");
+        try {
+            cldStorageRef = FirebaseStorage.getInstance().getReference("Vault");
+            vltCldStorageRef = cldStorageRef.child(vaultID);
+        }catch (IllegalArgumentException e){
+            Log.v("Debug", "Illegal Arg Ex");
+        }
         dbVltRef = db.getDBV();
 
 
@@ -154,7 +178,7 @@ public class Vault extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.vltHomeMenu:
                         drawerL.closeDrawer(GravityCompat.START);
-                        intent = new Intent(Vault.this, Home.class);
+                        intent = new Intent(Vault.this, com.example.runway_project.Home.class);
                         startActivity(intent);
                         Log.v("Debug", "Home menu item clicked");
                         break;
@@ -189,39 +213,42 @@ public class Vault extends AppCompatActivity {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy_hh_mm_ss", Locale.UK); //no Ireland or Europe apparently, will check this later.
         Date now = new Date();
         String imgName = dateFormat.format(now);
+        String vChild =  "/"+vaultID.trim()+"/";
+        System.out.println("vChild: "+vChild);
 
-        storageRef = cldStorageRef.child("/testID/" + imgName);
-        storageRef.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                imgView.setImageURI(null);
-                progressBar.setProgress(0);
-                Log.v("Debug", "Successful upload");
-                Toast.makeText(Vault.this, "Image successfully uploaded", Toast.LENGTH_SHORT).show();
-                imgUriString = imgUri.toString();
-                Log.v("Debug", "ImgUriString: " + imgUriString);
-                vaultID = getVaultID();
+        try {
+            storageRef = cldStorageRef.child(vChild + imgName);
+            storageRef.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    imgView.setImageURI(null);
+                    progressBar.setProgress(0);
+                    Log.v("Debug", "Successful upload");
+                    Toast.makeText(Vault.this, "Image successfully uploaded", Toast.LENGTH_SHORT).show();
+                    imgUriString = imgUri.toString();
+                    Log.v("Debug", "ImgUriString: " + imgUriString);
+//                vaultID = getVaultID();
 //                dbVltRef.setValue(vaultID);
-                String dUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-                Log.v("Debug", "ldUrl: " + dUrl);
-                Log.v("Debug", "ImgName: " + imgName);
-                Upload uploadObj = new Upload(dUrl, imgName, imgUriString);
-                String upObjDate = uploadObj.getDate();
-                String upObjUrl = uploadObj.getImgUrl();
-                String upObjName = uploadObj.getImgName();
-                System.out.println("Date: " + upObjDate + ". Url: " + upObjUrl + ". Name: " + upObjName);
+                    String dUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                    Log.v("Debug", "ldUrl: " + dUrl);
+                    Log.v("Debug", "ImgName: " + imgName);
+                    Upload uploadObj = new Upload(dUrl, imgName, imgUriString);
+                    String upObjDate = uploadObj.getDate();
+                    String upObjUrl = uploadObj.getImgUrl();
+                    String upObjName = uploadObj.getImgName();
+                    System.out.println("Date: " + upObjDate + ". Url: " + upObjUrl + ". Name: " + upObjName);
 
 //                Map<String, Upload> vault = new HashMap<>();
-                //get the location to push to (key)
-                //this is going to the db Vault
-                String putVltID = dbVltRef.push().getKey();
-                dbVltRef.child(putVltID).push().setValue(uploadObj);
+                    //get the location to push to (key)
+                    //this is going to the db Vault
+                    String putVltID = dbVltRef.push().getKey();
+                    dbVltRef.child(putVltID).push().setValue(uploadObj);
 //                //we need another key location to push other info to. This in theory should be pushing to vaultID location
 //                String putImgInfo = dbVltRef.child("vaultID : " + vaultID).push().getKey();
 //                dbVltRef.child("vaultID : " + vaultID).child(putImgInfo).setValue(upld);
 //                Log.v("Debug", imgName);
 //                dbVltRef.child(putVltID).setValue(upld);
-                // the db vault is getting a child with the value of vaultID
+                    // the db vault is getting a child with the value of vaultID
 //                dbVltRef.child(putVltID).setValue("vaultID : " + vaultID);
 //                //we need another key location to push other info to. This in theory should be pushing to vaultID location
 //                String putImgInfo = dbVltRef.child("vaultID : " + vaultID).push().getKey();
@@ -229,57 +256,59 @@ public class Vault extends AppCompatActivity {
 //                Log.v("Debug", imgName);
 //                dbVltRef.child(putImgInfo).setValue(upld);
 //                vault.put(vaultID, new Upload(taskSnapshot.getMetadata().getReference().getDownloadUrl().toString(), imgName, imgUriString));
-                //String uID = dbVltRef.push(dbVltRef.push(vaultID, new Upload(taskSnapshot.getMetadata().getReference().getDownloadUrl().toString(), imgName, imgUriString)).key();
-                //dbVltRef..setValue(vault);
+                    //String uID = dbVltRef.push(dbVltRef.push(vaultID, new Upload(taskSnapshot.getMetadata().getReference().getDownloadUrl().toString(), imgName, imgUriString)).key();
+                    //dbVltRef..setValue(vault);
 //                String uID = dbVltRef.push().getKey();
 //                dbVltRef.child(vaultID).child(uID).setValue(upld);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Vault.this, "Image failed to upload", Toast.LENGTH_SHORT).show();
-                Log.v("Debug", "Failed to upload");
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Vault.this, "Image failed to upload", Toast.LENGTH_SHORT).show();
+                    Log.v("Debug", "Failed to upload");
 
 // own code below
-                if (progressBar.isShown())
-                    progressBar.setEnabled(false);
-                    progressBar.setVisibility(View.INVISIBLE);
-                //Toast.makeText(MainActivity.this,"Upload failed",Toast.LENGTH_SHORT).show();
-
-
-            }
-            //https://www.youtube.com/watch?v=lPfQN-Sfnjw&list=RDCMUC_Fh8kvtkVPkeihBs42jGcA&start_radio=1
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                double prgrs = 100.0 * snapshot.getBytesTransferred()/snapshot.getTotalByteCount();
-                progressBar.setProgress((int) prgrs);
-            }
-        });
-
-    }
-
-ActivityResultLauncher<Intent> chooseImgLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                if(result.getResultCode() == Activity.RESULT_OK){
-                    Intent data = result.getData();
-                    imgUri = data.getData();
-                    Picasso.get().load(imgUri).into(imageView);
+                    if (progressBar.isShown()) {
+                        progressBar.setEnabled(false);
+                        progressBar.setVisibility(View.INVISIBLE);
+                        //Toast.makeText(MainActivity.this,"Upload failed",Toast.LENGTH_SHORT).show();
+                    }
 
                 }
-            }
-
-
-        });
-
-        private void chooseImg(){
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            chooseImgLauncher.launch(intent);
-
-
+                //https://www.youtube.com/watch?v=lPfQN-Sfnjw&list=RDCMUC_Fh8kvtkVPkeihBs42jGcA&start_radio=1
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                    double prgrs = 100.0 * snapshot.getBytesTransferred()/snapshot.getTotalByteCount();
+                    progressBar.setProgress((int) prgrs);
+                }
+            });
+        }catch (NullPointerException e){
+            Log.d("Debug", "Null Pointer");
         }
+    }
+
+    ActivityResultLauncher<Intent> chooseImgLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if(result.getResultCode() == Activity.RESULT_OK){
+                Intent data = result.getData();
+                imgUri = data.getData();
+                Picasso.get().load(imgUri).into(imageView);
+
+            }
+        }
+
+
+    });
+
+    private void chooseImg(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        chooseImgLauncher.launch(intent);
+
+
+    }
 
 }
