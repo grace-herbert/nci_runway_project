@@ -7,17 +7,29 @@
     android:layout_height="match_parent"
     tools:context=".Vault">
 
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/vaultNav"
-        app:headerLayout="@layout/logo_menu"
-        app:menu="@menu/vault_menu"
-        android:fitsSystemWindows="true"
-        android:layout_gravity="start"
-        >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    </com.google.android.material.navigation.NavigationView>
+
+        <ImageButton
+            android:id="@+id/logoutImgBtn"
+            android:layout_width="416dp"
+            android:layout_height="58dp"
+            android:background="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/ic_baseline_logout_24"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
     <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -97,4 +109,17 @@
             android:textSize="16dp" />
 
     </RelativeLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/vaultNav"
+        app:headerLayout="@layout/logo_menu"
+        app:menu="@menu/vault_menu"
+        android:fitsSystemWindows="true"
+        android:layout_gravity="start"
+        >
+
+    </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>
+

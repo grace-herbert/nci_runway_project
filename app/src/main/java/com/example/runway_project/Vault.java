@@ -16,6 +16,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.ImageDecoder;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -41,6 +44,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -162,6 +167,16 @@ public class Vault extends AppCompatActivity {
             }
         });
 
+        //emergencyLogout
+        ImageButton emergLogout = this.findViewById(R.id.logoutImgBtn);
+        emergLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Vault.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
         //Navigation
         navigationView = findViewById(R.id.vaultNav);
         drawerL = findViewById(R.id.vaultDrawerLayout);
@@ -209,12 +224,13 @@ public class Vault extends AppCompatActivity {
 
     }
 
-    void uploadFile(ImageView imgView, ProgressBar progressBar) {
+    void uploadFile(ImageView imgView, ProgressBar progressBar)  {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy_hh_mm_ss", Locale.UK); //no Ireland or Europe apparently, will check this later.
         Date now = new Date();
         String imgName = dateFormat.format(now);
         String vChild =  "/"+vaultID.trim()+"/";
         System.out.println("vChild: "+vChild);
+
 
         try {
             storageRef = cldStorageRef.child(vChild + imgName);
@@ -238,28 +254,12 @@ public class Vault extends AppCompatActivity {
                     String upObjName = uploadObj.getImgName();
                     System.out.println("Date: " + upObjDate + ". Url: " + upObjUrl + ". Name: " + upObjName);
 
-//                Map<String, Upload> vault = new HashMap<>();
+//
                     //get the location to push to (key)
                     //this is going to the db Vault
                     String putVltID = dbVltRef.push().getKey();
                     dbVltRef.child(putVltID).push().setValue(uploadObj);
-//                //we need another key location to push other info to. This in theory should be pushing to vaultID location
-//                String putImgInfo = dbVltRef.child("vaultID : " + vaultID).push().getKey();
-//                dbVltRef.child("vaultID : " + vaultID).child(putImgInfo).setValue(upld);
-//                Log.v("Debug", imgName);
-//                dbVltRef.child(putVltID).setValue(upld);
-                    // the db vault is getting a child with the value of vaultID
-//                dbVltRef.child(putVltID).setValue("vaultID : " + vaultID);
-//                //we need another key location to push other info to. This in theory should be pushing to vaultID location
-//                String putImgInfo = dbVltRef.child("vaultID : " + vaultID).push().getKey();
-//                dbVltRef.child("vaultID : " + vaultID).child(putImgInfo).setValue(upld);
-//                Log.v("Debug", imgName);
-//                dbVltRef.child(putImgInfo).setValue(upld);
-//                vault.put(vaultID, new Upload(taskSnapshot.getMetadata().getReference().getDownloadUrl().toString(), imgName, imgUriString));
-                    //String uID = dbVltRef.push(dbVltRef.push(vaultID, new Upload(taskSnapshot.getMetadata().getReference().getDownloadUrl().toString(), imgName, imgUriString)).key();
-                    //dbVltRef..setValue(vault);
-//                String uID = dbVltRef.push().getKey();
-//                dbVltRef.child(vaultID).child(uID).setValue(upld);
+//
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

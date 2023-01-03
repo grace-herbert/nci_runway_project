@@ -9,6 +9,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -60,6 +61,11 @@ public class Register_2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register2);
+
+        //change colour of actionbar
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
+        //remove name from Actionbar
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         AppCompatButton showEmlBtn = this.findViewById(R.id.showEml);
         AppCompatButton hideEmlBtn = this.findViewById(R.id.hideEml);

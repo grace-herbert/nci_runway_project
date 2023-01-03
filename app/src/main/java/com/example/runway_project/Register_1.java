@@ -7,6 +7,7 @@ import androidx.appcompat.graphics.drawable.DrawableWrapper;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -43,6 +44,11 @@ public class Register_1 extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_register);
+
+        //change colour of actionbar
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
+        //remove name from Actionbar
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
             AppCompatButton showBtn = this.findViewById(R.id.showBtn);
             AppCompatButton hideBtn = this.findViewById(R.id.hideBtn);

@@ -11,6 +11,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -36,6 +38,16 @@ public class GetHelp extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
         //remove name from Actionbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        //emergencyLogout
+        ImageButton emergLogout = this.findViewById(R.id.logoutImgBtn);
+        emergLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GetHelp.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //Navigation
         navigationView = findViewById(R.id.ghNav);

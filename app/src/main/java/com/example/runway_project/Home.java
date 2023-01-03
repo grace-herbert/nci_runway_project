@@ -13,15 +13,20 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toolbar;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 public class Home extends AppCompatActivity {
     private DrawerLayout drawerL;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
+
 
 
     @Override
@@ -40,6 +45,27 @@ public class Home extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
         //remove name from Actionbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        //emergencyLogout
+        ImageButton emergLogout = this.findViewById(R.id.logoutImgBtn);
+        emergLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+//        emergLogout = findViewById(R.id.bottomNavigationView);
+//        emergLogout.setSelectedItemId(R.id.emergencyLogout);
+//        emergLogout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Home.this, MainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+
 
         //Navigation
         navigationView = findViewById(R.id.homeNav);
@@ -80,6 +106,11 @@ public class Home extends AppCompatActivity {
                         startActivity(intent);
                         Log.v("Debug", "Emergency info menu item clicked");
                         break;
+//                     case R.id.emergLogout:
+//                         intent = new Intent(Home.this, MainActivity.class);
+//                         startActivity(intent);
+//                         Log.v("Debug", "Emergency logout clicked");
+//                         break;
                 }
 
                     return true;
