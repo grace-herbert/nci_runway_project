@@ -45,7 +45,7 @@
     <EditText
         android:id="@+id/regEmail"
         android:layout_width="358dp"
-        android:layout_height="43dp"
+        android:layout_height="44dp"
         android:layout_below="@id/reg2ExpTxt"
         android:layout_marginTop="15dp"
         android:layout_marginStart="45dp"
@@ -74,11 +74,12 @@
 
     <EditText
         android:id="@+id/regPwd"
-        android:layout_width="315dp"
-        android:layout_height="46dp"
+        android:layout_width="358dp"
+        android:layout_height="44dp"
         android:layout_below="@id/pwdExpTxt"
-        android:layout_marginStart="45dp"
         android:layout_marginTop="15dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="45dp"
         android:background="@color/cardview_light_background"
         android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
         android:drawablePadding="10dp"
@@ -89,7 +90,7 @@
     <EditText
         android:id="@+id/regReEntPwd"
         android:layout_width="358dp"
-        android:layout_height="43dp"
+        android:layout_height="44dp"
         android:layout_below="@id/regPwd"
         android:layout_marginTop="15dp"
         android:layout_marginStart="45dp"
@@ -105,8 +106,9 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/showEml"
         android:layout_width="24dp"
-        android:layout_height="44dp"
+        android:layout_height="43dp"
         android:layout_alignBaseline="@id/regEmail"
+        android:layout_marginLeft="-53dp"
         android:layout_toRightOf="@id/regPwd"
         android:background="@color/cardview_light_background"
         android:drawableRight="@drawable/ic_baseline_visibility_off_24"
@@ -119,7 +121,7 @@
         android:layout_width="19dp"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/regEmail"
-        android:layout_marginLeft="1dp"
+        android:layout_marginLeft="-53dp"
         android:layout_toRightOf="@id/regPwd"
         android:background="@color/cardview_light_background"
         android:drawableRight="@drawable/ic_baseline_visibility_24"
@@ -130,6 +132,7 @@
         android:layout_width="24dp"
         android:layout_height="44dp"
         android:layout_alignBaseline="@id/regPwd"
+        android:layout_marginLeft="-53dp"
         android:layout_toRightOf="@id/regPwd"
         android:background="@color/cardview_light_background"
         android:drawableRight="@drawable/ic_baseline_visibility_off_24"
@@ -139,10 +142,10 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/hidePwd"
-        android:layout_width="19dp"
-        android:layout_height="wrap_content"
+        android:layout_width="24dp"
+        android:layout_height="44dp"
         android:layout_alignBaseline="@id/regPwd"
-        android:layout_marginLeft="1dp"
+        android:layout_marginLeft="-53dp"
         android:layout_toRightOf="@id/regPwd"
         android:background="@color/cardview_light_background"
         android:drawableRight="@drawable/ic_baseline_visibility_24"
@@ -151,7 +154,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/showPwdC"
         android:layout_width="24dp"
-        android:layout_height="44dp"
+        android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/regReEntPwd"
         android:layout_marginLeft="-53dp"
         android:layout_toRightOf="@id/regReEntPwd"
@@ -162,7 +165,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/hidePwdC"
         android:layout_width="24dp"
-        android:layout_height="44dp"
+        android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/regReEntPwd"
         android:layout_marginLeft="-53dp"
         android:layout_toRightOf="@id/regReEntPwd"
