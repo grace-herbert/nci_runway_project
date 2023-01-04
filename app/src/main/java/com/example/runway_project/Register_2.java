@@ -36,16 +36,16 @@ public class Register_2 extends AppCompatActivity {
     private boolean isValidated;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser fUser;
-    private Database db;
-    private DatabaseReference dbRef;
-    private DatabaseReference dbU;
+    private Database db = new Database();
+    private DatabaseReference dbRef = db.getRefDB();
+    private DatabaseReference dbU = db.getDBU();
 
 
-    public Register_2() {
-        this.db = new Database();
-        this.dbRef = db.getRefDB();
-        this.dbU = db.getDBU();
-    }
+//    public Register_2() {
+////        this.db = new Database();
+////        this.dbRef = db.getRefDB();
+////        this.dbU = db.getDBU();
+//    }
 
     public void setIsValidated(boolean bool) {
         this.isValidated = bool;

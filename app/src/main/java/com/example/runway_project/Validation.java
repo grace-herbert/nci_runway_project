@@ -18,15 +18,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validation extends Register_2 {
-    private Database db;
-    private DatabaseReference dbRef;
-    private DatabaseReference dbU;
+//public class Validation {
 
-    public Validation(){
-        this.db = new Database();
-        this.dbRef = db.getRefDB();
-        this.dbU = db.getDBU();
-    }
+    private Database db = new Database();;
+    private DatabaseReference dbRef = db.getRefDB();;
+    private DatabaseReference dbU = db.getDBU();
+
+//    public Validation(){
+////        this.db = new Database();
+////        this.dbRef = db.getRefDB();
+////        this.dbU = db.getDBU();
+//    }
 
     //regex pattern found from https://www.youtube.com/watch?v=OOdO785p3Qo
     boolean emailHasValidFormat(String email) {
@@ -91,12 +93,12 @@ public class Validation extends Register_2 {
     //Pwd and pwdConf match
     //neither are empty
     //pwds contain what they need to
-    boolean passwordValid(String pwd1, String pwd2) {
+    public boolean passwordValid(String pwd1, String pwd2) {
         boolean pwdIsValid = false;
         if (!pwd1.equals(" ") || !pwd2.equals(" ")) {
             if (pwd1.equals(pwd2)) {
-                String regex = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$";
-                Pattern ptn = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+                String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!£$%^&*|@#~-])(?=\\S+$).{10,}$";
+                Pattern ptn = Pattern.compile(regex);
                 Matcher mtr = ptn.matcher(pwd1);
                 boolean pwdMatches = mtr.matches();
                 if (pwdMatches) {
