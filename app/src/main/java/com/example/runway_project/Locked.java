@@ -57,50 +57,9 @@ public class Locked extends AppCompatActivity {
             };
 
             System.out.println("DateTime: " +dateTime);
-//            Long tempPeriod = 1000L * 60L * 6L;
+
             t.schedule(tt, period);
-//            t.scheduleAtFixedRate(tt, 0, 2000L);
-//            t.scheduleAtFixedRate(tt, dateTime, 5000L);
-//        } else if (isLocked){
-//            System.out.println("rechecking time of lock.");
-//            Long origDateTimeMillis = lockSP.getLong("origDateTimeInMillis", 10000L);
-//            Date dT = new Date(System.currentTimeMillis());
-//            Long currentDTMillis = dT.getTime();
-//
-//            Long difference = currentDTMillis - origDateTimeMillis;
-//            System.out.println("(currentDTMillis:) " + currentDTMillis + " - (origDateTimeMillis:) " + origDateTimeMillis + " = (difference: )" + difference);
-//            System.out.println((1000L * 60L * 2L));
-//            if(difference > (1000L * 60L * 2L)){
-//                System.out.println("if(difference > (1000L * 60L * 2L)) triggered");
-//                lockSPEditor.putBoolean("isLocked", false);
-//                lockSPEditor.commit();
-//                Intent intent = new Intent(Locked.this, MainActivity.class);
-//                startActivity(intent);
-//            }else{
-//                long newPeriod = period - difference;
-//                Calendar calendar = Calendar.getInstance();
-//                Date dateTime = calendar.getTime();
-//                Timer t = new Timer();
-//                TimerTask tt = new TimerTask() {
-//                    @Override
-//                    public void run() {
-//                        System.out.println("unlocking");
-//                        lockSPEditor.putBoolean("isLocked", false);
-//                        lockSPEditor.commit();
-//                        Intent intent = new Intent(Locked.this, MainActivity.class);
-//                        startActivity(intent);
-//
-//                    }
-//                };
-//
-//                System.out.println(dateTime);
-//
-////                t.scheduleWithFixedDelay()
-//                Long tempPeriod = 1000L * 60L * 2L;
-//                t.schedule(tt, tempPeriod);
-////            t.schedule(tt, newPeriod);
-////                t.scheduleAtFixedRate(tt, dateTime, newPeriod);
-//            }
-}
 
     }
+
+}

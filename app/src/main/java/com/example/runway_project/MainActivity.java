@@ -44,6 +44,13 @@ public class MainActivity extends AppCompatActivity {
     public static final String SHAREDV = "SharedV";
 
 
+    //solution to app closing on home button found: https://stackoverflow.com/questions/21901015/how-to-kill-the-application-with-the-home-button
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -57,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences lockSP = getApplicationContext().getSharedPreferences("Lock", Context.MODE_PRIVATE);
             SharedPreferences.Editor lockSPEditor = lockSP.edit();
             Boolean isLocked = lockSP.getBoolean("isLocked", false);
+
             if (!isLocked) {
 
             AppCompatButton showLPwdBtn = this.findViewById(R.id.showLPwd);
@@ -69,17 +77,15 @@ public class MainActivity extends AppCompatActivity {
             Button homeBtn = this.findViewById(R.id.homeButton);
 
 
-            tempBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    lockSPEditor.putBoolean("isLocked", true);
-//                    lockSPEditor.commit();
-                    Intent intent = new Intent(MainActivity.this, Locked.class);
-                    startActivity(intent);
-//                Intent intent = new Intent(MainActivity.this, Register_2.class);
-//                startActivity(intent);
-                }
-            });
+//            tempBtn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(MainActivity.this, Locked.class);
+//                    startActivity(intent);
+////                Intent intent = new Intent(MainActivity.this, Register_2.class);
+////                startActivity(intent);
+//                }
+//            });
 
             homeBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -141,8 +147,8 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         //send msg and send to locked page
                         Toast.makeText(MainActivity.this, "3 failed attempts. Account locked.", Toast.LENGTH_SHORT).show();
-                        lockSPEditor.putBoolean("isLocked", true);
-                        lockSPEditor.commit();
+//                        lockSPEditor.putBoolean("isLocked", true);
+//                        lockSPEditor.commit();
                         Intent intent = new Intent(MainActivity.this, Locked.class);
                         startActivity(intent);
                         //set time the incident has occurred here
