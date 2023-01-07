@@ -46,125 +46,137 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        //change colour of actionbar
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
-        //remove name from Actionbar
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        Log.v("Debug", "Emails in DB: " + String.valueOf((dbU.child("email")) + String.valueOf((dbU.child("hk")))));
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+            //change colour of actionbar
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
+            //remove name from Actionbar
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            Log.v("Debug", "Emails in DB: " + String.valueOf((dbU.child("email")) + String.valueOf((dbU.child("hk")))));
+
+            SharedPreferences lockSP = getApplicationContext().getSharedPreferences("Lock", Context.MODE_PRIVATE);
+            SharedPreferences.Editor lockSPEditor = lockSP.edit();
+            Boolean isLocked = lockSP.getBoolean("isLocked", false);
+            if (!isLocked) {
+
+            AppCompatButton showLPwdBtn = this.findViewById(R.id.showLPwd);
+            AppCompatButton hideLPwdBtn = this.findViewById(R.id.hideLPwd);
+
+            EditText email = this.findViewById(R.id.email);
+            EditText pwd = this.findViewById(R.id.password);
+            MaterialButton loginBtn = this.findViewById(R.id.loginBtn);
+            Button tempBtn = this.findViewById(R.id.tempButton);
+            Button homeBtn = this.findViewById(R.id.homeButton);
 
 
-
-        AppCompatButton showLPwdBtn = this.findViewById(R.id.showLPwd);
-        AppCompatButton hideLPwdBtn = this.findViewById(R.id.hideLPwd);
-
-        EditText email = this.findViewById(R.id.email);
-        EditText pwd = this.findViewById(R.id.password);
-        MaterialButton loginBtn = this.findViewById(R.id.loginBtn);
-        Button tempBtn = this.findViewById(R.id.tempButton);
-        Button homeBtn = this.findViewById(R.id.homeButton);
-
-
-
-        tempBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Vault.class);
-                startActivity(intent);
+            tempBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    lockSPEditor.putBoolean("isLocked", true);
+//                    lockSPEditor.commit();
+                    Intent intent = new Intent(MainActivity.this, Locked.class);
+                    startActivity(intent);
 //                Intent intent = new Intent(MainActivity.this, Register_2.class);
 //                startActivity(intent);
-            }
-        });
+                }
+            });
 
-        homeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            homeBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 //                TestOut t = new TestOut();
 //                t.login("herbert.grace.c@gmail.com", "TestThisN0w!");
 //                t.login(emailStrg, hkStrg);
 //                t.searchDB("herbert.grace.c@gmail.com");
-                Intent intent = new Intent(MainActivity.this, Home.class);
-                startActivity(intent);
-            }
-        });
-
-        showLPwdBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                showLPwdBtn.setVisibility(View.INVISIBLE);
-                hideLPwdBtn.setVisibility(View.VISIBLE);
-
-            }
-        });
-
-        hideLPwdBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                hideLPwdBtn.setVisibility(View.INVISIBLE);
-                showLPwdBtn.setVisibility(View.VISIBLE);
-
-            }
-        });
-
-
-
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-
-            int count = 0;
-            @Override
-            public void onClick(View v) {
-                //get the texts from the edittexts and set them toString
-                final String emailStrg = email.getText().toString().trim();
-                final String hkStrg = pwd.getText().toString().trim();
-                System.out.println("EmailStrg = " + emailStrg + ", hkStrg = " + hkStrg);
-                //if count is below 3
-                if (count < 2) {
-                    login(emailStrg, hkStrg, email, pwd);
-
-                    if(triggerOut){
-                        count++;
-                        Toast.makeText(MainActivity.this, "Please enter a valid email and password.", Toast.LENGTH_SHORT).show();
-                        email.setText("");
-                        pwd.setText("");
-
-                        System.out.println(count);
-                    }
-                }else{
-                    //send msg and send to locked page
-                    Toast.makeText(MainActivity.this, "3 failed attempts. Account locked.", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this, Locked.class);
+                    lockSPEditor.putBoolean("isLocked", false);
+                    lockSPEditor.commit();
+                    Intent intent = new Intent(MainActivity.this, Home.class);
                     startActivity(intent);
-                    //set time the incident has occurred here
                 }
-            }
-        });
+            });
+
+            showLPwdBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    showLPwdBtn.setVisibility(View.INVISIBLE);
+                    hideLPwdBtn.setVisibility(View.VISIBLE);
+
+                }
+            });
+
+            hideLPwdBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    hideLPwdBtn.setVisibility(View.INVISIBLE);
+                    showLPwdBtn.setVisibility(View.VISIBLE);
+
+                }
+            });
 
 
-        // for the Register text send to reg 1 page
-        TextView regLink = this.findViewById(R.id.regTxt);
+            loginBtn.setOnClickListener(new View.OnClickListener() {
 
-        regLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Register_1.class);
-                startActivity(intent);
-            }
-        });
+                int count = 0;
+
+                @Override
+                public void onClick(View v) {
+                    //get the texts from the edittexts and set them toString
+                    final String emailStrg = email.getText().toString().trim();
+                    final String hkStrg = pwd.getText().toString().trim();
+                    System.out.println("EmailStrg = " + emailStrg + ", hkStrg = " + hkStrg);
+                    //if count is below 3
+                    if (count < 2) {
+                        login(emailStrg, hkStrg, email, pwd);
+
+                        if (triggerOut) {
+                            count++;
+                            Toast.makeText(MainActivity.this, "Please enter a valid email and password.", Toast.LENGTH_SHORT).show();
+                            email.setText("");
+                            pwd.setText("");
+
+                            System.out.println(count);
+                        }
+                    } else {
+                        //send msg and send to locked page
+                        Toast.makeText(MainActivity.this, "3 failed attempts. Account locked.", Toast.LENGTH_SHORT).show();
+                        lockSPEditor.putBoolean("isLocked", true);
+                        lockSPEditor.commit();
+                        Intent intent = new Intent(MainActivity.this, Locked.class);
+                        startActivity(intent);
+                        //set time the incident has occurred here
+                    }
+                }
+            });
+
+
+            // for the Register text send to reg 1 page
+            TextView regLink = this.findViewById(R.id.regTxt);
+
+            regLink.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, Register_1.class);
+                    startActivity(intent);
+                }
+            });
+        }else{
+            Intent intent = new Intent(MainActivity.this, Locked.class);
+            startActivity(intent);
+        }
     }
 
-    private boolean login(String plainP, String pwdInput, EditText email, EditText pwd){
+        private boolean login (String plainP, String pwdInput, EditText email, EditText pwd){
 
-        if(email != null && pwd != null) {
-            Query q = dbU.orderByChild("email");
+            if (email != null && pwd != null) {
+                Query q = dbU.orderByChild("email");
 
-            q.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    SharedPreferences vltSP = getSharedPreferences(SHAREDV, Context.MODE_PRIVATE);
-                    if (snapshot.exists()) {
+                q.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        SharedPreferences vltSP = getSharedPreferences(SHAREDV, Context.MODE_PRIVATE);
+                        if (snapshot.exists()) {
 
                             while (!correctP && !triggerOut) {
                                 for (DataSnapshot searchEml : snapshot.getChildren()) {
@@ -200,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
                                                 }
                                                 break;
                                             } else {
-                                                System.out.println("BCrypt email doesn't match. i = " );
+                                                System.out.println("BCrypt email doesn't match. i = ");
 
                                             }
                                         } catch (IllegalArgumentException e) {
@@ -212,28 +224,28 @@ public class MainActivity extends AppCompatActivity {
 
                                 }
                             }
-                    } else {
-                        System.out.println("Snapshot not exists");
+                        } else {
+                            System.out.println("Snapshot not exists");
+                        }
                     }
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
-        }else {
-            Toast.makeText(MainActivity.this, "Please email and password.", Toast.LENGTH_SHORT).show();
-        }
+                    }
+                });
+            } else {
+                Toast.makeText(MainActivity.this, "Please email and password.", Toast.LENGTH_SHORT).show();
+            }
             return correctP;
-    }
+        }
 
-    private void setVltID(String vID){
-        this.vltID = vID;
-    }
+        private void setVltID (String vID){
+            this.vltID = vID;
+        }
 
-    public String getVltID(){
-        return this.vltID;
-    }
+        public String getVltID () {
+            return this.vltID;
+        }
 
 }

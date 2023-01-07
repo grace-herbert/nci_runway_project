@@ -2,7 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<!--    <item android:id="@+id/emergLogout" android:title="Emergency Logout" android:icon="@drawable/ic_baseline_logout_24" app:showAsAction="always"/>-->
     <item android:title="Vault" android:id="@+id/vaultItem" android:icon="@drawable/ic_baseline_screen_lock_portrait_24"/>
     <item android:title="Emergency Info"  android:id="@+id/emergInfoItem" android:icon="@drawable/ic_baseline_emergency_24"/>
     <item android:title="Get Help" android:id="@+id/getHelpItem" android:icon="@drawable/ic_baseline_perm_device_information_24"/>

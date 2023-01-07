@@ -7,70 +7,139 @@
     android:layout_height="match_parent"
     tools:context=".Home">
 
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
 
-      <TextView
-          android:id="@+id/home_Txt"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:gravity="center"
-          android:text="Welcome to Runway"
-          android:textColor="@color/black"
-          android:textSize="35dp"
-          android:textStyle="bold"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintVertical_bias="0.103" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        tools:context=".Home">
 
-      <ImageButton
-          android:id="@+id/logoutImgBtn"
-          android:layout_width="416dp"
-          android:layout_height="58dp"
-          android:background="@color/black"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_bias="1.0"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintVertical_bias="1.0"
-          app:srcCompat="@drawable/ic_baseline_logout_24"
-          />
+        <TextView
+            android:id="@+id/home_Txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="Welcome to Runway"
+            android:textColor="@color/black"
+            android:textSize="35dp"
+            android:textStyle="bold" />
 
-      <TextView
-          android:id="@+id/runwayInfo"
-          android:layout_width="365dp"
-          android:layout_height="268dp"
-          android:text="This app is designed to help those suffering through Domestic Violence and looking for help. That help can take many forms, whether its just looking for information on what help is available, looking for information on staying safe online or collecting your own photographic evidence and storing it in a safe place, you can find such information in this app."
-          android:textSize="20dp"
-          android:background="@color/purple_200"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/home_Txt"
-          app:layout_constraintVertical_bias="0.173" />
+        <ImageView
+            android:id="@+id/womanOnDeck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/home_Txt"
+            android:layout_marginTop="39dp"
+            android:src="@drawable/woman_on_deck"
+            app:layout_constraintBottom_toTopOf="@+id/runwayInfo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/home_Txt"
+            app:layout_constraintVertical_bias="0.56" />
+
+        <TextView
+            android:id="@+id/runwayInfo"
+            android:layout_width="365dp"
+            android:layout_height="268dp"
+            android:layout_below="@id/womanOnDeck"
+            android:layout_marginTop="38dp"
+            android:layout_marginBottom="56dp"
+            android:text="This app is designed to help those suffering through Domestic Violence and looking for help. That help can take many forms, whether its just looking for information on what help is available, looking for information on staying safe online from monitoring or collecting your own photographic evidence and storing it in a safe place, you can find such information in this app. \n
+            \n Below are links to pages you might find helpful in this app. The Vault contains a place where you can upload any photo's which you need to keep off of your phone or personal cloud storage which may be being monitored currently. This app uses Google Cloud Storage which keeps your files encrypted. Your email and passwords are stored in hashed format only in our Database and so none of that information is stored in clear text in the system."
+            android:textSize="20dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="NotSibling" />
+
+        <TextView
+            android:id="@+id/getHelpTxt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/runwayInfo"
+            android:layout_marginLeft="50dp"
+            android:textSize="20dp"
+            android:text="Get Help"/>
+
+        <TextView
+            android:id="@+id/emInfoTxt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/getHelpTxt"
+            android:layout_marginLeft="50dp"
+            android:textSize="20dp"
+            android:text="Emergency Information"/>
+
+        <TextView
+            android:id="@+id/sSOTxt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/emInfoTxt"
+            android:layout_marginLeft="50dp"
+            android:textSize="20dp"
+            android:text="Staying Safe Online"/>
+
+        <TextView
+            android:id="@+id/theVltTxt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/sSOTxt"
+            android:layout_marginLeft="50dp"
+            android:textSize="20dp"
+            android:text="The Vault"
+            android:layout_marginBottom="100dp"/>
 
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageButton
+            android:id="@+id/logoutImgBtn"
+            android:layout_width="416dp"
+            android:layout_height="58dp"
+            android:background="@color/black"
+            android:layout_below="@+id/theVltTxt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/ic_baseline_logout_24" />
 
-      <com.google.android.material.navigation.NavigationView
-          android:layout_width="wrap_content"
-          android:layout_height="match_parent"
-          android:id="@+id/homeNav"
-          app:headerLayout="@layout/logo_menu"
-          app:menu="@menu/home_menu"
-          android:fitsSystemWindows="true"
-          android:layout_gravity="start"
-          >
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-      </com.google.android.material.navigation.NavigationView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
 
 
+    </RelativeLayout>
 
+</ScrollView>
 
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/homeNav"
+        app:headerLayout="@layout/logo_menu"
+        app:menu="@menu/home_menu"
+        android:fitsSystemWindows="true"
+        android:layout_gravity="start"
+        >
+
+    </com.google.android.material.navigation.NavigationView>
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
+
+
