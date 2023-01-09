@@ -132,6 +132,12 @@ public class StayingSafeOnline extends AppCompatActivity {
         TextView canaries = findViewById(R.id.setUpCanaries);
 
         TextView incognitoHeading = findViewById(R.id.incogHeadingTxt);
+//        incognito.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(StayingSafeOnline.this, findViewById(R.id.incogHeadingTxt));
+//            }
+//        });
 
 //        incognito.setMovementMethod(LinkMovementMethod.getInstance());
 ////        unknownApps.setMovementMethod(findViewById(R.id.unknownAppsHeadingTxt));
