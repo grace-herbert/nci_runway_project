@@ -8,12 +8,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
 
 public class EmergencyInformation extends AppCompatActivity {
@@ -106,6 +108,18 @@ public class EmergencyInformation extends AppCompatActivity {
                 return true;
             }
 
+        });
+
+        //Call 999
+        MaterialButton callNow = findViewById(R.id.callNow);
+
+        callNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:999"));
+                startActivity(intent);
+            }
         });
     }
 }

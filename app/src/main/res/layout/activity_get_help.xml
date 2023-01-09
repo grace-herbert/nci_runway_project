@@ -7,40 +7,1019 @@
     android:layout_height="match_parent"
     tools:context=".GetHelp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/releaseChains"
+            android:layout_width="800dp"
+            android:layout_height="180dp"
+            android:src="@drawable/get_help"
+            android:scaleType="fitXY"/>
 
         <TextView
-            android:id="@+id/em_Txt"
-            android:layout_width="wrap_content"
+            android:id="@+id/ghInfoHeadingTxtV"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Get Help"
-            android:textColor="@color/black"
-            android:textSize="35dp"
+            android:text="\nGet Help\n"
+            android:layout_below="@+id/releaseChains"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.103" />
+            android:textSize="22dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghInfoTxtV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nThere are refuges and safe spaces all around Ireland for people suffering through Domestic Violence to seek help. Whether it's just someone to talk to or to find a place to go, there will be someone on the other line. Below is a list of national and local services for women.\n"
+            android:layout_below="@+id/ghInfoHeadingTxtV"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghNationalHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nNational Organisations\n"
+            android:layout_below="@+id/ghInfoTxtV"
+            android:textSize="22dp"
+            android:textStyle="italic"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghWomensAidHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nWomens Aid\n"
+            android:layout_below="@+id/ghNationalHeading"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghWomensAidTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 1800 341 900\n"
+            android:layout_below="@+id/ghWomensAidHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghSafeIrelandHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nSafe Ireland\n"
+            android:layout_below="@+id/ghWomensAidTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghSafeIrelandTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 090 6479078\n"
+            android:layout_below="@+id/ghSafeIrelandHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghWestHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nWest\n"
+            android:layout_below="@+id/ghSafeIrelandTxt"
+            android:textSize="22dp"
+            android:textStyle="italic"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghGalwayDVRHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nDomestic Violence Response (Galway)\n"
+            android:layout_below="@+id/ghWestHeading"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghGalwayDVRTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 091 866740\n"
+            android:layout_below="@+id/ghGalwayDVRHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghGalwayCOPEHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nCOPE Galway Domestic Abuse Service\n"
+            android:layout_below="@+id/ghGalwayDVRTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghGalwayCOPETxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 091 565985\n"
+            android:layout_below="@+id/ghGalwayCOPEHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghMayoWSSHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nMayo Women’s Support Service\n"
+            android:layout_below="@+id/ghGalwayCOPETxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghMayoWSSTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 094 9025409 / 087 6569672\n"
+            android:layout_below="@+id/ghMayoWSSHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghRoscommonSLDASHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nRoscommon Safe Link Domestic Abuse Service\n"
+            android:layout_below="@+id/ghMayoWSSTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghRoscommonSLDASTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 071 9664200\n"
+            android:layout_below="@+id/ghRoscommonSLDASHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghDVASHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nDomestic Violence Advocacy Service (Sligo, Leitrim and West Cavan)\n"
+            android:layout_below="@+id/ghRoscommonSLDASTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghDVASTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 071 9141515\n"
+            android:layout_below="@+id/ghDVASHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghNorthHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nNorth\n"
+            android:layout_below="@+id/ghDVASTxt"
+            android:textSize="22dp"
+            android:textStyle="italic"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghDDVSHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nDonegal Domestic Violence Services\n"
+            android:layout_below="@+id/ghNorthHeading"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghDDVSTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 1800 262677\n"
+            android:layout_below="@+id/ghDDVSHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghDonegalWomensCentreHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nDonegal Women's Centre\n"
+            android:layout_below="@+id/ghDDVSTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghDonegalWomensCentreTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 074 912 4985\n"
+            android:layout_below="@+id/ghDonegalWomensCentreHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghLifelineInishowenHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nLifeline Inishowen (Donegal)\n"
+            android:layout_below="@+id/ghDonegalWomensCentreTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghLifelineInishowenTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 074 937 3232\n"
+            android:layout_below="@+id/ghLifelineInishowenHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghTDVSHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nTearmann Domestic Violence Services (Cavan, Monaghan)\n"
+            android:layout_below="@+id/ghLifelineInishowenTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghTDVSTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 047 72311\n"
+            android:layout_below="@+id/ghTDVSHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghEastHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nEast\n"
+            android:layout_below="@+id/ghTDVSTxt"
+            android:textSize="22dp"
+            android:textStyle="italic"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghCarlowWomensAidHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nCarlow Women's Aid\n"
+            android:layout_below="@+id/ghEastHeading"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghCarlowWomensAidTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 1800 444 944\n"
+            android:layout_below="@+id/ghCarlowWomensAidHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghSonasDVCHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nSonas Domestic Violence Charity (Dublin)\n"
+            android:layout_below="@+id/ghCarlowWomensAidTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghSonasDVCTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 1800 222223\n"
+            android:layout_below="@+id/ghSonasDVCHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghIOVAWCHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nInchicore Outreach Violence Against Women Centre (Dublin)\n"
+            android:layout_below="@+id/ghSonasDVCTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghIOVAWCTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 01 453 3938\n"
+            android:layout_below="@+id/ghIOVAWCHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghADASFWACHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nAoibhneas Domestic Abuse Support for Women and Children (Dublin)\n"
+            android:layout_below="@+id/ghIOVAWCTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghADASFWACTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 1800 767767\n"
+            android:layout_below="@+id/ghADASFWACHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghSaoirseWRHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nSaoirse Women’s Refuge (Dublin)\n"
+            android:layout_below="@+id/ghADASFWACTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghSaoirseWRTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 01 463 0000\n"
+            android:layout_below="@+id/ghSaoirseWRHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghDublinWomensAidHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nWomens Aid (Dublin)\n"
+            android:layout_below="@+id/ghSaoirseWRTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghDublinWomensAidTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 1800 341 900\n"
+            android:layout_below="@+id/ghDublinWomensAidHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghTeachTearmainnHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nTeach Tearmainn (Kildare)\n"
+            android:layout_below="@+id/ghDublinWomensAidTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghTeachTearmainnTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 045 527584\n"
+            android:layout_below="@+id/ghTeachTearmainnHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghAmberHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nAMBER, Kilkenny Women’s Refuge\n"
+            android:layout_below="@+id/ghTeachTearmainnTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghAmberTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 0818 424244\n"
+            android:layout_below="@+id/ghAmberHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghLDASHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nLaois Domestic Abuse Service\n"
+            android:layout_below="@+id/ghAmberTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghLDASTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 057 8671100\n"
+            android:layout_below="@+id/ghLDASHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghLWLHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nLongford Women’s Link\n"
+            android:layout_below="@+id/ghLDASTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghLWLTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 043 33 41511\n"
+            android:layout_below="@+id/ghLWLHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghDWRHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nDrogheda Women’s Refuge (Louth)\n"
+            android:layout_below="@+id/ghLWLTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghDWRTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 041 9844550\n"
+            android:layout_below="@+id/ghDWRHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghWADundalkHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nWomen’s Aid Dundalk (Louth)\n"
+            android:layout_below="@+id/ghDWRTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghWADundalkTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 042 9333244\n"
+            android:layout_below="@+id/ghWADundalkHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghMeathWRSSHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nMeath Women’s Refuge and Support Service (Meath)\n"
+            android:layout_below="@+id/ghWADundalkTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghMeathWRSSTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 046 9022393\n"
+            android:layout_below="@+id/ghMeathWRSSHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghOffalyDVSSHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nOffaly Domestic Violence Support Service\n"
+            android:layout_below="@+id/ghMeathWRSSTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghOffalyDVSSTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 057 9351886\n"
+            android:layout_below="@+id/ghOffalyDVSSHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghEskerHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nEsker House Refuge (Westmeath)\n"
+            android:layout_below="@+id/ghOffalyDVSSTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghEskerTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 090 6474122\n"
+            android:layout_below="@+id/ghEskerHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghBrayWRHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nBray Women’s Refuge\n"
+            android:layout_below="@+id/ghEskerTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghBrayWRTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 01 286 6163\n"
+            android:layout_below="@+id/ghBrayWRHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghSouthHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nSouth\n"
+            android:layout_below="@+id/ghBrayWRTxt"
+            android:textSize="22dp"
+            android:textStyle="italic"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghYANAHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nYANA, North and East Cork Domestic Violence Project\n"
+            android:layout_below="@+id/ghSouthHeading"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghYANATxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 022 53915 / 024 25389\n"
+            android:layout_below="@+id/ghYANAHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghOSSHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nOSS Cork\n"
+            android:layout_below="@+id/ghYANATxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghOSSTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 1800 497 497\n"
+            android:layout_below="@+id/ghOSSHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghWCWADVPHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nWest Cork Women Against Violence Project\n"
+            android:layout_below="@+id/ghOSSTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghWCWADVPTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 1800 203 136\n"
+            android:layout_below="@+id/ghWCWADVPHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghCuanleeHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nCuanlee Refuge\n"
+            android:layout_below="@+id/ghWCWADVPTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghCuanleeTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 021 4277 698\n"
+            android:layout_below="@+id/ghCuanleeHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghMnaFeasaHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nMna Feasa (Cork)\n"
+            android:layout_below="@+id/ghCuanleeTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghMnaFeasaTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 021 4211757\n"
+            android:layout_below="@+id/ghMnaFeasaHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghGoodShepherdHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nGood Shepherd Cork \n"
+            android:layout_below="@+id/ghMnaFeasaTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghGoodShepherdTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 021 4274240\n"
+            android:layout_below="@+id/ghGoodShepherdHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghAKWRSSHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nAdapt Kerry Women’s Refuge and Support Service\n"
+            android:layout_below="@+id/ghGoodShepherdTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghAKWRSSTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 066 7129100\n"
+            android:layout_below="@+id/ghAKWRSSHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghADASHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nADAPT Domestic Abuse Services (Limerick\n"
+            android:layout_below="@+id/ghAKWRSSTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghADASTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 1800 200 504\n"
+            android:layout_below="@+id/ghADASHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghTippAscendHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nAscend Domestic Abuse Service for Women (Tipperary)\n"
+            android:layout_below="@+id/ghADASTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghTippAscendTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 0505 23999\n"
+            android:layout_below="@+id/ghTippAscendHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghTippCuanHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nCuan Saor Women’s Refuge and Support Service (Tipperary)\n"
+            android:layout_below="@+id/ghTippAscendTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghTippCuanTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 1800 576757\n"
+            android:layout_below="@+id/ghTippCuanHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghOasisHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nOasis House Refuge (Waterford)\n"
+            android:layout_below="@+id/ghTippCuanTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghOasisTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 0818 272 372\n"
+            android:layout_below="@+id/ghOasisHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghWexfordWRHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nWexford Women’s Refuge\n"
+            android:layout_below="@+id/ghOasisTxt"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:id="@+id/ghWexfordWRTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: 1800 220 444\n"
+            android:layout_below="@+id/ghWexfordWRHeading"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
 
         <ImageButton
             android:id="@+id/logoutImgBtn"
             android:layout_width="416dp"
             android:layout_height="58dp"
             android:background="@color/black"
+            android:layout_below="@+id/ghWexfordWRTxt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
-            app:srcCompat="@drawable/ic_baseline_logout_24"
-            />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:srcCompat="@drawable/ic_baseline_logout_24" />
 
+    </RelativeLayout>
+    </ScrollView>
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
