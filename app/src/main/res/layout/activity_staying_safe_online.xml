@@ -1,48 +1,390 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sSOdrawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".StayingSafeOnline">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
-        android:fitsSystemWindows="true"
-        android:theme="@style/Theme.Runway_project.AppBarOverlay">
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar">
+            android:visibility="visible">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+            <ImageView
+                android:id="@+id/onlineImg"
+                android:layout_width="800dp"
+                android:layout_height="180dp"
+                android:src="@drawable/rsz_1online_1"
+                android:scaleType="fitXY"/>
+
+            <TextView
+               android:id="@+id/sSOHeadingTxtV"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_below="@+id/onlineImg"
+                android:text="\n Staying Safe Online.\n"
+                android:textStyle="bold"
+                android:textSize="22dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+               />
+
+            <TextView
+                android:id="@+id/sSOTxtV"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/Theme.Runway_project.PopupOverlay" />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sSOHeadingTxtV"
+                android:text="Monitoring devices is a common way for abusers to monitor their partners activities and hold them in fear. If you feel like your device is being monitored, there are a number of ways which you can look for information safely online. These include:
+\n"
+                android:textSize="18dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+            <TextView
+                android:id="@+id/incogLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sSOTxtV"
+                android:text="\n Using an incognito tab\n"
+                android:textSize="18dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                />
 
-    <include layout="@layout/content_scrolling" />
+            <TextView
+                android:id="@+id/chkAppsLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/incogLink"
+                android:text="Check your phone for unknown apps\n"
+                android:textSize="18dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+            <TextView
+                android:id="@+id/looseTheFitbitLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/chkAppsLink"
+                android:text="Loose the Fitbit\n"
+                android:textSize="18dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                />
+
+            <TextView
+                android:id="@+id/incomingVigilanceLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/looseTheFitbitLink"
+                android:text="Be vigilant about incoming emails/messages you may receive\n"
+                android:textSize="18dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                />
+
+            <TextView
+                android:id="@+id/turnOffPhotoSyncLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/incomingVigilanceLink"
+                android:text="Turn off your Google Photo's Sync\n"
+                android:textSize="18dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                />
+
+            <TextView
+                android:id="@+id/turnOffLocationTrackingLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/turnOffPhotoSyncLink"
+                android:text="Turn off location tracking\n"
+                android:textSize="18dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                />
+
+            <TextView
+                android:id="@+id/downloadAntiVLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/turnOffLocationTrackingLink"
+                android:text="Download an Antivirus\n"
+                android:textSize="18dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                />
+
+            <TextView
+                android:id="@+id/downloadVPNLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/downloadAntiVLink"
+                android:text="Download a VPN\n"
+                android:textSize="18dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                />
+
+            <TextView
+                android:id="@+id/setUpCanaries"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/downloadVPNLink"
+                android:text="Set Up Canaries\n"
+                android:textSize="18dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                />
+
+            <TextView
+                android:id="@+id/incogHeadingTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/setUpCanaries"
+                android:text="\n \nUsing an Incognito Tab\n"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/incogTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/incogHeadingTxt"
+                android:text="\nMost Browser Apps these days have an incognito/private window option which doesn't save your activities in the Browser History or on your device. This option can be used when you need to look up information which you do not want an abusive partner seeing.\n"
+                android:textSize="18dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/unknownAppsHeadingTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/incogTxt"
+                android:text="\n \nUnknown Apps\n"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/unknownAppsTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/unknownAppsHeadingTxt"
+                android:text="\nOne of the ways in which an abusive partner may monitor you is through software. Check your phone regularly for apps which you do not recognise. Uninstall anything that you don't recognise.\n"
+                android:textSize="18dp"
+                />
+
+            <TextView
+                android:id="@+id/looseTheFitbitHeadingTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/unknownAppsTxt"
+                android:text="\n \nLoose The Fitbit\n"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/looseTheFitbitTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/looseTheFitbitHeadingTxt"
+                android:text="\nFitness trackers are commonly used by abusive partners to track their partners location, activites and body. This can lead to incredibly intense monitoring. If you feel that this is something your partner will start tracking or is tracking, it might be a good idea for the watch to have an 'accident'.\n"
+                android:textSize="18dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/beVigilantHeadingTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/looseTheFitbitTxt"
+                android:text="\n \nBe Vigilant\n"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/beVigilantTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/beVigilantHeadingTxt"
+                android:text="\nThis goes without saying, as the default for those in an abusive relationship is vigilance and resilience. In this context we are talking about being aware of the information coming into and out of your phone such as emails or in an instant messaging app. \n"
+                android:textSize="18dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/turnOffPhotoSyncHeadingTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/beVigilantTxt"
+                android:text="\n \nTurn Off PhotoSync\n"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/turnOffPhotoSyncTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/turnOffPhotoSyncHeadingTxt"
+                android:text="\nIf you are looking to take picture's such as photographic evidence of the abuses be sure to: \n 1. Turn off the automatic syncing from your Photo storage\n 2. Take the photo's\n 3. Send them somewhere safe. \n 4. If you have sent the photo's using email or instant messenger, be sure to check the sent folders and clear them. ADVICE: Do not send through Whatsapp, the backups can be hard to find and stay on your device. 5. Ensure to delete from your gallery.  \n"
+                android:textSize="18dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/turnOffLocationTrackingHeadingTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/turnOffPhotoSyncTxt"
+                android:text="\n \nTurn Off Location Tracking\n"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/turnOffLocationTrackingTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/turnOffLocationTrackingHeadingTxt"
+                android:text="\nThe Location Tracking on your phone can be used to monitor you through software, to avoid this, turn off location tracking from your settings.  \n"
+                android:textSize="18dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/downloadAntiVHeadingTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/turnOffLocationTrackingTxt"
+                android:text="\n \nDownload AntiVirus Software\n"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/downloadAntiVTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/downloadAntiVHeadingTxt"
+                android:text="\nA good Antivirus software usually contains antispyware too, this software will search for and alert you if any of the common spywares are on your phone.\n"
+                android:textSize="18dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/downloadAVPNHeadingTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/downloadAntiVTxt"
+                android:text="\n \nDownload a VPN\n"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/downloadAVPNTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/downloadAVPNHeadingTxt"
+                android:text="\nVPN's prevent your IP address being tracked. And if any questions are asked about it, you can say you have it to watch another Countries Netflix.\n"
+                android:textSize="18dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/setUpCanariesHeadingTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/downloadAVPNTxt"
+                android:text="\n \nSet Up Canaries\n"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/setUpCanariesTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/setUpCanariesHeadingTxt"
+                android:text="\nCanaries are trackers that you can set throughout your email and phone to alert you to whether certain area's are being accessed. A How To for this will be coming soon on this app.\n"
+                android:textSize="18dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <ImageButton
+                android:id="@+id/logoutImgBtn"
+                android:layout_width="416dp"
+                android:layout_height="58dp"
+                android:background="@color/black"
+                android:layout_below="@+id/setUpCanariesTxt"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                app:srcCompat="@drawable/ic_baseline_logout_24" />
+
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/fab_margin"
-        app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:layout_height="match_parent"
+        android:id="@+id/sSONav"
+        app:headerLayout="@layout/logo_menu"
+        app:menu="@menu/sso_menu"
+        android:fitsSystemWindows="true"
+        android:layout_gravity="start"
+        >
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </com.google.android.material.navigation.NavigationView>
+
+
+</androidx.drawerlayout.widget.DrawerLayout>
+
+

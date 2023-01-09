@@ -216,6 +216,12 @@ public class Vault extends AppCompatActivity {
                         startActivity(intent);
                         Log.v("Debug", "Get help info menu item clicked");
                         break;
+                    case R.id.vltSSOItem:
+                        drawerL.closeDrawer(GravityCompat.START);
+                        intent = new Intent(Vault.this, StayingSafeOnline.class);
+                        startActivity(intent);
+                        Log.v("Debug", "Get help info menu item clicked");
+                        break;
                     case R.id.vltLogoutMenu:
                         drawerL.closeDrawer(GravityCompat.START);
                         intent = new Intent(Vault.this, MainActivity.class);

@@ -94,6 +94,12 @@ public class Home extends AppCompatActivity {
                         startActivity(intent);
                         Log.v("Debug", "Get help info menu item clicked");
                         break;
+                    case R.id.hmSSOItem:
+                        drawerL.closeDrawer(GravityCompat.START);
+                        intent = new Intent(Home.this, StayingSafeOnline.class);
+                        startActivity(intent);
+                        Log.v("Debug", "Get help info menu item clicked");
+                        break;
                     case R.id.logoutItem:
                         drawerL.closeDrawer(GravityCompat.START);
                         intent = new Intent(Home.this, MainActivity.class);

@@ -89,6 +89,12 @@ public class GetHelp extends AppCompatActivity {
                         startActivity(intent);
                         Log.v("Debug", "Get help info menu item clicked");
                         break;
+                    case R.id.ghSSOItem:
+                        drawerL.closeDrawer(GravityCompat.START);
+                        intent = new Intent(GetHelp.this, StayingSafeOnline.class);
+                        startActivity(intent);
+                        Log.v("Debug", "Get help info menu item clicked");
+                        break;
                     case R.id.ghLogoutItem:
                         drawerL.closeDrawer(GravityCompat.START);
                         intent = new Intent(GetHelp.this, MainActivity.class);

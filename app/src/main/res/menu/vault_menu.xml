@@ -5,5 +5,6 @@
     <item android:title="Home" android:id="@+id/vltHomeMenu" android:icon="@drawable/ic_baseline_home_24"/>
     <item android:title="Emergency Info"  android:id="@+id/vltEmergInfo" android:icon="@drawable/ic_baseline_emergency_24"/>
     <item android:title="Get Help" android:id="@+id/vltGetHelpMenu" android:icon="@drawable/ic_baseline_perm_device_information_24"/>
+    <item android:title="Staying Safe Online" android:id="@+id/vltSSOItem" android:icon="@drawable/ic_baseline_computer_24"/>
     <item android:title="Logout" android:id="@+id/vltLogoutMenu" android:icon="@drawable/ic_baseline_logout_24"/>
 </menu>

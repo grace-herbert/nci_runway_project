@@ -4,6 +4,7 @@
 
 <!--    <item android:id="@+id/emergLogout" android:title="@+id/emergencyLogout" android:icon="@drawable/ic_baseline_logout_24" app:showAsAction="always"/>-->
     <item android:title="Home" android:id="@+id/ghHomeItem" android:icon="@drawable/ic_baseline_home_24"/>
+    <item android:title="Staying Safe Online" android:id="@+id/ghSSOItem" android:icon="@drawable/ic_baseline_computer_24"/>
     <item android:title="Vault" android:id="@+id/ghVaultItem" android:icon="@drawable/ic_baseline_screen_lock_portrait_24"/>
     <item android:title="Emergency Info"  android:id="@+id/ghEmergInfoItem" android:icon="@drawable/ic_baseline_emergency_24"/>
 <!--    <item android:title="Get Help" android:id="@+id/emGetHelpItem" android:icon="@drawable/ic_baseline_perm_device_information_24"/>-->

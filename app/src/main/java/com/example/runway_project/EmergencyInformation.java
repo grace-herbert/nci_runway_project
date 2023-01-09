@@ -89,6 +89,12 @@ public class EmergencyInformation extends AppCompatActivity {
                         startActivity(intent);
                         Log.v("Debug", "Get help info menu item clicked");
                         break;
+                    case R.id.emSSOItem:
+                        drawerL.closeDrawer(GravityCompat.START);
+                        intent = new Intent(EmergencyInformation.this, StayingSafeOnline.class);
+                        startActivity(intent);
+                        Log.v("Debug", "Get help info menu item clicked");
+                        break;
                     case R.id.emLogoutItem:
                         drawerL.closeDrawer(GravityCompat.START);
                         intent = new Intent(EmergencyInformation.this, MainActivity.class);
