@@ -53,10 +53,10 @@ public class StayingSafeOnline extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staying_safe_online);
-//        //change colour of actionbar
-//        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
-//        //remove name from Actionbar
-//        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //change colour of actionbar
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
+        //remove name from Actionbar
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //emergencyLogout
         ImageButton emergLogout = this.findViewById(R.id.logoutImgBtn);
@@ -76,7 +76,7 @@ public class StayingSafeOnline extends AppCompatActivity {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerL, R.string.open_menu, R.string.close_menu);
         drawerL.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

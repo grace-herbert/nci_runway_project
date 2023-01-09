@@ -17,8 +17,8 @@
         <activity
             android:name=".StayingSafeOnline"
             android:exported="false"
-            android:label="@string/title_activity_staying_safe_online"
-            android:theme="@style/Theme.Runway_project.NoActionBar">
+            android:label="@string/title_activity_staying_safe_online">
+<!--            android:theme="@style/Theme.Runway_project.NoActionBar">-->
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
