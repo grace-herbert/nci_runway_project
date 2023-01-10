@@ -1,30 +1,21 @@
 package com.example.runway_project;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.runway_project.databinding.ActivityStayingSafeOnlineBinding;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
 
 public class StayingSafeOnline extends AppCompatActivity {
 
@@ -120,18 +111,18 @@ public class StayingSafeOnline extends AppCompatActivity {
             }
 
         });
-
-        TextView incognito = findViewById(R.id.incogLink);
-        TextView unknownApps = findViewById(R.id.chkAppsLink);
-        TextView looseFitbit = findViewById(R.id.looseTheFitbitLink);
-        TextView beVigilant = findViewById(R.id.incomingVigilanceLink);
-        TextView photoSync = findViewById(R.id.turnOffPhotoSyncLink);
-        TextView locationTracking = findViewById(R.id.turnOffLocationTrackingLink);
-        TextView antiV = findViewById(R.id.downloadAntiVLink);
-        TextView vpn = findViewById(R.id.downloadVPNLink);
-        TextView canaries = findViewById(R.id.setUpCanaries);
-
-        TextView incognitoHeading = findViewById(R.id.incogHeadingTxt);
+//
+//        TextView incognito = findViewById(R.id.incogLink);
+//        TextView unknownApps = findViewById(R.id.chkAppsLink);
+//        TextView looseFitbit = findViewById(R.id.looseTheFitbitLink);
+//        TextView beVigilant = findViewById(R.id.incomingVigilanceLink);
+//        TextView photoSync = findViewById(R.id.turnOffPhotoSyncLink);
+//        TextView locationTracking = findViewById(R.id.turnOffLocationTrackingLink);
+//        TextView antiV = findViewById(R.id.downloadAntiVLink);
+//        TextView vpn = findViewById(R.id.downloadVPNLink);
+//        TextView canaries = findViewById(R.id.setUpCanaries);
+//
+//        TextView incognitoHeading = findViewById(R.id.incogHeadingTxt);
 //        incognito.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

@@ -8,21 +8,31 @@
     android:visibility="visible"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/tempButton"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Temp"
-        />
+        android:fillViewport="true">
 
-    <Button
-        android:id="@+id/homeButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Home"
-        android:layout_below="@id/tempButton"
-        />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            tools:context=".MainActivity">
 
+<!--    <Button-->
+<!--        android:id="@+id/tempButton"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Temp"-->
+<!--        />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/homeButton"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Home"-->
+<!--        android:layout_below="@id/tempButton"-->
+<!--        />-->
 
     <ImageView
         android:id="@+id/logo"
@@ -114,6 +124,7 @@
         android:drawableRight="@drawable/ic_baseline_visibility_off_24"
         android:visibility="visible" />
 
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/hideLPwd"
         android:layout_width="19dp"
@@ -125,48 +136,6 @@
         android:drawableRight="@drawable/ic_baseline_visibility_24"
         android:visibility="invisible" />
 
-
-    <!--    <com.google.android.material.textfield.TextInputLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content">-->
-
-    <!--        <com.google.android.material.textfield.TextInputEditText-->
-    <!--&lt;!&ndash;            android:id="@+id/username"&ndash;&gt;-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_below="@id/loginTxt"-->
-    <!--            android:layout_marginLeft="20dp"-->
-    <!--            android:layout_marginRight="20dp"-->
-    <!--            android:hint="Username"-->
-
-    <!--            />-->
-    <!--    </com.google.android.material.textfield.TextInputLayout>-->
-
-
-    <!--    <LinearLayout-->
-    <!--        android:id="@+id/socialicons"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_alignParentBottom="true"-->
-    <!--        android:gravity="center">-->
-
-    <!--        <ImageView-->
-    <!--            android:layout_width="48dp"-->
-    <!--            android:layout_height="48dp"-->
-    <!--            android:layout_margin="20dp"-->
-    <!--            android:src="@drawable/img_2220" />-->
-
-    <!--        <ImageView-->
-    <!--            android:layout_width="48dp"-->
-    <!--            android:layout_height="48dp"-->
-    <!--            android:layout_margin="20dp"-->
-    <!--            android:src="@drawable/fb" />-->
-
-    <!--        <ImageView-->
-    <!--            android:layout_width="48dp"-->
-    <!--            android:layout_height="48dp"-->
-    <!--            android:layout_margin="20dp"-->
-    <!--            android:src="@drawable/insta" />-->
-    <!--    </LinearLayout>-->
-
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

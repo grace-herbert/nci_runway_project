@@ -7,6 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".EmergencyInformation">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -84,6 +89,7 @@
 
 
     </RelativeLayout>
+    </ScrollView>
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"

@@ -1,11 +1,5 @@
 package com.example.runway_project;
 
-import static android.content.ContentValues.TAG;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,9 +12,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,12 +36,6 @@ public class Register_2 extends AppCompatActivity {
     private DatabaseReference dbRef = db.getRefDB();
     private DatabaseReference dbU = db.getDBU();
 
-
-//    public Register_2() {
-////        this.db = new Database();
-////        this.dbRef = db.getRefDB();
-////        this.dbU = db.getDBU();
-//    }
 
     public void setIsValidated(boolean bool) {
         this.isValidated = bool;
@@ -157,8 +147,6 @@ public class Register_2 extends AppCompatActivity {
             boolean eValidFormat;
             boolean validPwd;
             boolean methodCalled;
-//            boolean isValidated;
-
 
             @Override
             public void onClick(View v) {
@@ -181,10 +169,6 @@ public class Register_2 extends AppCompatActivity {
                 regEmail.setText(" ");
                 pwd.setText(" ");
                 pwdConf.setText(" ");
-
-                Log.v("Debug", "rgEmail: " + rgEmail + "\nrgPwd: " + rgPwd + "\nrgPwdConf: " + rgPwdConf);
-                Log.v("Debug", " R validation bool 2: " + emailIsValid);
-
             }
 
 
@@ -204,42 +188,39 @@ public class Register_2 extends AppCompatActivity {
 
                 if (email != null && vl.emailHasValidFormat(email)) {
                     if (!vl.getIsEmailFound()) {
-                        System.out.println("Valid email is valid");
+                        Log.d("Debug","e22");
                         if (vl.passwordValid(pwd, pwdC)) {
-                            System.out.println("This is a valid email, it was not empty and was not found in the DB. The password was also valid");
-
-                            System.out.println("We're in.");
+                            Log.d("Debug","p22");
+                            Log.d("Debug","e22");
                             firebaseAuth = FirebaseAuth.getInstance();
                             firebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
-                                    Log.v("Debug", "Email and Password going into firebaseAuth: " + email + " + " + pwd);
+                                    Log.v("Debug", "fi22");
                                     fUser = firebaseAuth.getCurrentUser();
                                     if (fUser != null) {
                                         fUser.sendEmailVerification();
                                         Toast.makeText(Register_2.this, "Email verification has been sent. Please verify your email to continue.", Toast.LENGTH_LONG).show();
-                                        Log.v("Debug", "Email sent to " + fUser.getEmail());
                                         Intent intent = new Intent(Register_2.this, AwaitingVerification.class);
                                         intent.putExtra("hshEmail", hshEmail);
                                         startActivity(intent);
-                                        System.out.println(fUser);
                                     }
                                 }
                             });
                         } else {
-                            System.out.println("Password not valid");
+                            Log.d("Debug","p33");
                         }
                     } else {
-                        System.out.println("Email is not valid");
+                        Log.d("Debug","e33");
                     }
                 } else {
-                    System.out.println("Invalid information, please try again.");
+                    Log.d("Debug","i33");
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("Error: " + error);
+                Log.e("ERROR","d33");
             }
         });
 

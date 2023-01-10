@@ -1,27 +1,12 @@
 package com.example.runway_project;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.ImageDecoder;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Debug;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,7 +18,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.internal.Storage;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -44,13 +38,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 public class Vault extends AppCompatActivity {
     private DrawerLayout drawerL;
@@ -58,8 +48,8 @@ public class Vault extends AppCompatActivity {
     private NavigationView navigationView;
 
     private static final int CHOOSE_IMG_REQ = 1;
-    public static final String SHAREDV = "SharedV";
-    public static String vaultID;
+    private static final String SHAREDV = "SharedV";
+    private static String vaultID;
     private Button chooseImgBtn;
     private EditText inputTitle;
     private ProgressBar progressBar;
@@ -74,7 +64,6 @@ public class Vault extends AppCompatActivity {
     private Database db = new Database();
     private DatabaseReference dbVltRef;
     private StorageReference storageRef;
-//    private String vaultID;
 
     //Navigation
     @Override
@@ -83,40 +72,6 @@ public class Vault extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    //get the vaultID
-//    private void setVaultID(){
-//        this.vaultID = vltSP.getString("vltID", "");
-//        System.out.println("vaultID = " + vaultID);
-//    }
-
-//    private String getVaultID(){
-//        return this.vaultID;
-//    }
-
-
-
-
-
-    //        Storage storage = new Storage();
-//
-//        StorageReference storageRef = storage.getReference("gs://runwayproject-39823.appspot.com");
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode == CHOOSE_IMG_REQ && resultCode == RESULT_OK && data != null && data.getData() != null){
-//            imgUri = data.getData();
-//            Picasso.get().load(imgUri).into(imageView);
-//        }
-//    }
-
-    //solution to app closing on home button found: https://stackoverflow.com/questions/21901015/how-to-kill-the-application-with-the-home-button
-    @Override
-    public void onPause() {
-        super.onPause();
-        this.finish();
     }
 
     @Override
@@ -129,13 +84,9 @@ public class Vault extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         //get the vaultID
         SharedPreferences vltSP = getApplicationContext().getSharedPreferences(SHAREDV, Context.MODE_PRIVATE);
-//
-//        vaultID = vltSP.getString("vltID", "");
+
         MainActivity m = new MainActivity();
         vaultID = vltSP.getString("vltID", "default");
-        System.out.println("VaultID = " + vaultID);
-//        setVaultID();
-//        vaultID = getVaultID();
 
         chooseImgBtn = findViewById(R.id.chooseImgBtn);
         inputTitle = findViewById(R.id.enter_file_name);
@@ -148,7 +99,7 @@ public class Vault extends AppCompatActivity {
             cldStorageRef = FirebaseStorage.getInstance().getReference("Vault");
             vltCldStorageRef = cldStorageRef.child(vaultID);
         }catch (IllegalArgumentException e){
-            Log.v("Debug", "Illegal Arg Ex");
+            Log.e("ERROR", e.getMessage());
         }
         dbVltRef = db.getDBV();
 
@@ -202,31 +153,31 @@ public class Vault extends AppCompatActivity {
                         drawerL.closeDrawer(GravityCompat.START);
                         intent = new Intent(Vault.this, com.example.runway_project.Home.class);
                         startActivity(intent);
-                        Log.v("Debug", "Home menu item clicked");
+                        Log.d("Debug", "Home menu item clicked");
                         break;
                     case R.id.vltEmergInfo:
                         drawerL.closeDrawer(GravityCompat.START);
                         intent = new Intent(Vault.this, EmergencyInformation.class);
                         startActivity(intent);
-                        Log.v("Debug", "Emergency info menu item clicked");
+                        Log.d("Debug", "Emergency info menu item clicked");
                         break;
                     case R.id.vltGetHelpMenu:
                         drawerL.closeDrawer(GravityCompat.START);
                         intent = new Intent(Vault.this, GetHelp.class);
                         startActivity(intent);
-                        Log.v("Debug", "Get help info menu item clicked");
+                        Log.d("Debug", "Get help info menu item clicked");
                         break;
                     case R.id.vltSSOItem:
                         drawerL.closeDrawer(GravityCompat.START);
                         intent = new Intent(Vault.this, StayingSafeOnline.class);
                         startActivity(intent);
-                        Log.v("Debug", "Get help info menu item clicked");
+                        Log.d("Debug", "Get help info menu item clicked");
                         break;
                     case R.id.vltLogoutMenu:
                         drawerL.closeDrawer(GravityCompat.START);
                         intent = new Intent(Vault.this, MainActivity.class);
                         startActivity(intent);
-                        Log.v("Debug", "Emergency info menu item clicked");
+                        Log.d("Debug", "Emergency info menu item clicked");
                         break;
                 }
 
@@ -242,7 +193,6 @@ public class Vault extends AppCompatActivity {
         Date now = new Date();
         String imgName = dateFormat.format(now);
         String vChild =  "/"+vaultID.trim()+"/";
-        System.out.println("vChild: "+vChild);
 
 
         try {
@@ -252,20 +202,14 @@ public class Vault extends AppCompatActivity {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     imgView.setImageURI(null);
                     progressBar.setProgress(0);
-                    Log.v("Debug", "Successful upload");
+                    Log.v("Debug", "u22");
                     Toast.makeText(Vault.this, "Image successfully uploaded", Toast.LENGTH_SHORT).show();
                     imgUriString = imgUri.toString();
-                    Log.v("Debug", "ImgUriString: " + imgUriString);
-//                vaultID = getVaultID();
-//                dbVltRef.setValue(vaultID);
                     String dUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-                    Log.v("Debug", "ldUrl: " + dUrl);
-                    Log.v("Debug", "ImgName: " + imgName);
                     Upload uploadObj = new Upload(dUrl, imgName, imgUriString);
                     String upObjDate = uploadObj.getDate();
                     String upObjUrl = uploadObj.getImgUrl();
                     String upObjName = uploadObj.getImgName();
-                    System.out.println("Date: " + upObjDate + ". Url: " + upObjUrl + ". Name: " + upObjName);
 
 //
                     //get the location to push to (key)
@@ -278,13 +222,11 @@ public class Vault extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Toast.makeText(Vault.this, "Image failed to upload", Toast.LENGTH_SHORT).show();
-                    Log.v("Debug", "Failed to upload");
+                    Log.e("ERROR", "u33");
 
-// own code below
                     if (progressBar.isShown()) {
                         progressBar.setEnabled(false);
                         progressBar.setVisibility(View.INVISIBLE);
-                        //Toast.makeText(MainActivity.this,"Upload failed",Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -297,7 +239,7 @@ public class Vault extends AppCompatActivity {
                 }
             });
         }catch (NullPointerException e){
-            Log.d("Debug", "Null Pointer");
+            Log.e("ERROR", e.getMessage());
         }
     }
 

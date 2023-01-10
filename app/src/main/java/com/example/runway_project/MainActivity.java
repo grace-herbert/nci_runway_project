@@ -1,15 +1,10 @@
 package com.example.runway_project;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Debug;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
@@ -19,19 +14,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import org.mindrot.jbcrypt.BCrypt;
-
-import java.util.Calendar;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private Database db =  new Database();
     private DatabaseReference dbRef = db.getRefDB();
     private DatabaseReference dbU = db.getDBU();
-    public static String vltID;
-    public static final String SHAREDV = "SharedV";
+    private static String vltID;
+    private static final String SHAREDV = "SharedV";
 
 
     //solution to app closing on home button found: https://stackoverflow.com/questions/21901015/how-to-kill-the-application-with-the-home-button
@@ -59,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
             //remove name from Actionbar
             getSupportActionBar().setDisplayShowTitleEnabled(false);
-            Log.v("Debug", "Emails in DB: " + String.valueOf((dbU.child("email")) + String.valueOf((dbU.child("hk")))));
 
             SharedPreferences lockSP = getApplicationContext().getSharedPreferences("Lock", Context.MODE_PRIVATE);
             SharedPreferences.Editor lockSPEditor = lockSP.edit();
@@ -73,33 +66,33 @@ public class MainActivity extends AppCompatActivity {
             EditText email = this.findViewById(R.id.email);
             EditText pwd = this.findViewById(R.id.password);
             MaterialButton loginBtn = this.findViewById(R.id.loginBtn);
-            Button tempBtn = this.findViewById(R.id.tempButton);
-            Button homeBtn = this.findViewById(R.id.homeButton);
+//            Button tempBtn = this.findViewById(R.id.tempButton);
+//            Button homeBtn = this.findViewById(R.id.homeButton);
 
 
-//            tempBtn.setOnClickListener(new View.OnClickListener() {
+////            tempBtn.setOnClickListener(new View.OnClickListener() {
+////                @Override
+////                public void onClick(View v) {
+////                    Intent intent = new Intent(MainActivity.this, Locked.class);
+////                    startActivity(intent);
+//////                Intent intent = new Intent(MainActivity.this, Register_2.class);
+//////                startActivity(intent);
+////                }
+////            });
+//
+//            homeBtn.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
-//                    Intent intent = new Intent(MainActivity.this, Locked.class);
+////                TestOut t = new TestOut();
+////                t.login("herbert.grace.c@gmail.com", "TestThisN0w!");
+////                t.login(emailStrg, hkStrg);
+////                t.searchDB("herbert.grace.c@gmail.com");
+//                    lockSPEditor.putBoolean("isLocked", false);
+//                    lockSPEditor.commit();
+//                    Intent intent = new Intent(MainActivity.this, Home.class);
 //                    startActivity(intent);
-////                Intent intent = new Intent(MainActivity.this, Register_2.class);
-////                startActivity(intent);
 //                }
 //            });
-
-            homeBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                TestOut t = new TestOut();
-//                t.login("herbert.grace.c@gmail.com", "TestThisN0w!");
-//                t.login(emailStrg, hkStrg);
-//                t.searchDB("herbert.grace.c@gmail.com");
-                    lockSPEditor.putBoolean("isLocked", false);
-                    lockSPEditor.commit();
-                    Intent intent = new Intent(MainActivity.this, Home.class);
-                    startActivity(intent);
-                }
-            });
 
             showLPwdBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -131,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
                     //get the texts from the edittexts and set them toString
                     final String emailStrg = email.getText().toString().trim();
                     final String hkStrg = pwd.getText().toString().trim();
-                    System.out.println("EmailStrg = " + emailStrg + ", hkStrg = " + hkStrg);
                     //if count is below 3
                     if (count < 2) {
                         login(emailStrg, hkStrg, email, pwd);
@@ -142,13 +134,11 @@ public class MainActivity extends AppCompatActivity {
                             email.setText("");
                             pwd.setText("");
 
-                            System.out.println(count);
+                            Log.d("Debug", "Count" + count);
                         }
                     } else {
                         //send msg and send to locked page
                         Toast.makeText(MainActivity.this, "3 failed attempts. Account locked.", Toast.LENGTH_SHORT).show();
-//                        lockSPEditor.putBoolean("isLocked", true);
-//                        lockSPEditor.commit();
                         Intent intent = new Intent(MainActivity.this, Locked.class);
                         startActivity(intent);
                         //set time the incident has occurred here
@@ -193,22 +183,17 @@ public class MainActivity extends AppCompatActivity {
                                                 String hkCheck = searchEml.child("hk").getValue(String.class);
                                                 vltID = searchEml.child("vaultID").getValue(String.class);
                                                 if (BCrypt.checkpw(pwdInput, hkCheck)) {
-                                                    System.out.println("hkCheck true");
+                                                    Log.d("Debug", "p22");
                                                     correctP = true;
-//                                                    setVltID(vID);
                                                     SharedPreferences.Editor vSPEditor = vltSP.edit();
                                                     vSPEditor.putString("vltID", vltID);
                                                     vSPEditor.commit();
-                                                    System.out.println("hk : " + hkCheck);
-                                                    System.out.println("vlt : " + vltID);
-                                                    System.out.println("Email = " + emailVal);
                                                     Toast.makeText(MainActivity.this, "Logged in.", Toast.LENGTH_SHORT).show();
                                                     Intent intent = new Intent(MainActivity.this, Home.class);
                                                     startActivity(intent);
 
                                                 } else {
                                                     triggerOut = true;
-                                                    System.out.println("hkCheck false");
                                                     correctP = false;
                                                     Toast.makeText(MainActivity.this, "Please enter a valid email and password.", Toast.LENGTH_SHORT).show();
                                                     email.setText("");
@@ -217,27 +202,22 @@ public class MainActivity extends AppCompatActivity {
 
                                                 }
                                                 break;
-                                            } else {
-                                                System.out.println("BCrypt email doesn't match. i = ");
-
                                             }
                                         } catch (IllegalArgumentException e) {
-                                            System.out.println("Whoops!");
+                                            Log.e("ERROR", "ill33");
                                         }
-                                    } else {
-                                        System.out.println("Email null");
                                     }
 
                                 }
                             }
                         } else {
-                            System.out.println("Snapshot not exists");
+                            Log.d("Debug", "!s22");
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        Log.e("ERROR", "d33");
                     }
                 });
             } else {

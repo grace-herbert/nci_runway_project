@@ -1,5 +1,7 @@
 package com.example.runway_project;
 
+import android.util.Log;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,14 +17,14 @@ public class ValidPassword{
                 boolean pwdMatches = mtr.matches();
                 if (pwdMatches) {
                     pwdIsValid = true;
-                    System.out.println("Valid Password- Goes through");
+                    Log.d("Debug","p22");
                 } else {
                     pwdIsValid = false;
-                    System.out.println("Invalid Password: Characters");
+                    Log.d("Debug","p33");
                 }
             } else {
                 pwdIsValid = false;
-                System.out.println("Invalid Password: Passwords don't match");
+                Log.d("Debug","p44");
             }
         }
         return pwdIsValid;

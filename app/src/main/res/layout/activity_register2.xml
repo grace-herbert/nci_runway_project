@@ -8,6 +8,13 @@
     android:visibility="visible"
     tools:context=".MainActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/logo"
@@ -103,6 +110,7 @@
         android:inputType="textPassword"
         />
 
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/showEml"
         android:layout_width="24dp"
@@ -185,66 +193,6 @@
         android:text="Register"
         android:textColor="@color/black" />
 
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/regTxt"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_below="@id/loginBtn"-->
-    <!--        android:layout_margin="15dp"-->
-    <!--        android:layout_marginStart="58dp"-->
-    <!--        android:layout_marginTop="58dp"-->
-    <!--        android:layout_marginEnd="58dp"-->
-    <!--        android:layout_marginBottom="58dp"-->
-    <!--        android:gravity="center"-->
-    <!--        android:text="or Register here"-->
-    <!--        android:textColor="@color/white"-->
-    <!--        android:textSize="15dp"-->
-    <!--        android:textStyle="normal" />-->
-
-
-
-    <!--    <com.google.android.material.textfield.TextInputLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content">-->
-
-    <!--        <com.google.android.material.textfield.TextInputEditText-->
-    <!--&lt;!&ndash;            android:id="@+id/username"&ndash;&gt;-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_below="@id/loginTxt"-->
-    <!--            android:layout_marginLeft="20dp"-->
-    <!--            android:layout_marginRight="20dp"-->
-    <!--            android:hint="Username"-->
-
-    <!--            />-->
-    <!--    </com.google.android.material.textfield.TextInputLayout>-->
-
-
-    <!--    <LinearLayout-->
-    <!--        android:id="@+id/socialicons"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_alignParentBottom="true"-->
-    <!--        android:gravity="center">-->
-
-    <!--        <ImageView-->
-    <!--            android:layout_width="48dp"-->
-    <!--            android:layout_height="48dp"-->
-    <!--            android:layout_margin="20dp"-->
-    <!--            android:src="@drawable/img_2220" />-->
-
-    <!--        <ImageView-->
-    <!--            android:layout_width="48dp"-->
-    <!--            android:layout_height="48dp"-->
-    <!--            android:layout_margin="20dp"-->
-    <!--            android:src="@drawable/fb" />-->
-
-    <!--        <ImageView-->
-    <!--            android:layout_width="48dp"-->
-    <!--            android:layout_height="48dp"-->
-    <!--            android:layout_margin="20dp"-->
-    <!--            android:src="@drawable/insta" />-->
-    <!--    </LinearLayout>-->
-
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

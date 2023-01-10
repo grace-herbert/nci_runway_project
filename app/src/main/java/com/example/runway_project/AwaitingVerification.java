@@ -44,7 +44,7 @@ public class AwaitingVerification extends AppCompatActivity {
             public void run() {
                 Intent intent = new Intent(AwaitingVerification.this, AwaitingVerification.class);
                 startActivity(intent);
-                System.out.println("Refreshed");
+                Log.d("Debug", "r22");
                 sendUser();
             }
         };
@@ -59,13 +59,12 @@ public class AwaitingVerification extends AppCompatActivity {
         if (fUser != null) {
             fUser.reload();
             emailIsVerified = fUser.isEmailVerified();
-            Log.v("Debug", "emailIsVerified: " + emailIsVerified);
+            Log.d("Debug", "e28");
             if (emailIsVerified) {
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("SendPrefs", Context.MODE_PRIVATE);
                 hEmail = sharedPreferences.getString("hshEmail", "");
                 String hk = sharedPreferences.getString("hshk", "");
                 String vltID = sharedPreferences.getString("vaultID", "");
-                System.out.println("hEmail: " + hEmail + ". Pwd: " + hk + ". VaultID: " + vltID);
                 User cUser = new User(hEmail, hk, vltID);
                 DatabaseReference pushRef = dbU.push();
                 String userID = pushRef.getKey();
@@ -73,23 +72,17 @@ public class AwaitingVerification extends AppCompatActivity {
                 SharedPreferences.Editor sPEdit = sharedPreferences.edit();
                 sPEdit.putString("userID", userID);
                 sPEdit.commit();
-                System.out.println(userID);
-                System.out.println("Sent to DB");
-                Log.v("Debug", "Email sent to " + fUser.getEmail());
+                Log.d("Debug", "d22");
                 fUser.delete();
                 Intent intent3 = new Intent(AwaitingVerification.this, Home.class);
                 startActivity(intent3);
 
             }else{
-                Log.v("Debug", "EmailUnverified");
+                Log.v("Debug", "e25");
             }
         }else{
-            Log.v("Debug", "EmailNull");
+            Log.v("Debug", "e26");
         }
     }
 
-//    private void updateEml(String hashedE){
-//        fUser.updateEmail(hashedE);
-//        System.out.println("Email updated to " + fUser.getEmail());
-//    }
 }

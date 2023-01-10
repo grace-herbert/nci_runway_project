@@ -1,33 +1,24 @@
 package com.example.runway_project;
 
-import androidx.annotation.ColorInt;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.graphics.drawable.DrawableWrapper;
-import androidx.appcompat.widget.AppCompatButton;
-
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.Calendar;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Register_1 extends AppCompatActivity {
 
@@ -81,8 +72,6 @@ public class Register_1 extends AppCompatActivity {
                 }
             });
 
-//            final String VNo = voucher.getText().toString();
-
 
             MaterialButton vouchBtn = this.findViewById(R.id.vouchBtn);
 
@@ -97,11 +86,12 @@ public class Register_1 extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if(snapshot.getValue().equals(VNo)){
-                                    System.out.println("True " + VNo);
+                                    Log.d("Debug","r122");
                                     Intent intent = new Intent(Register_1.this, Register_2.class);
                                     startActivity(intent);
                                 }else{
                                     count++;
+                                    Log.d("Debug", "r133");
                                     Toast.makeText(Register_1.this, "Wrong Voucher No.", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -111,42 +101,12 @@ public class Register_1 extends AppCompatActivity {
                             }
                         });
                     } else {
+                        Log.d("Debug", "r133");
                         Toast.makeText(Register_1.this, "Wrong Voucher No. entered. Please try again later.", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Register_1.this, Locked.class);
                         startActivity(intent);
-                        //vouchBtn.setEnabled(false);
                     }
                 }
             });
         }
     }
-
-//if(count < 3){
-//        if(voucherNo.getText() == "TestingThis0UT"){
-//            Intent intent = new Intent(Register.this, Register_2.class);
-//            startActivity(intent);
-//            count = 0;
-//        }else{
-//            count++;
-//            Toast.makeText(Register.this, "Wrong Voucher No.", Toast.LENGTH_SHORT).show();
-//        }
-//    }else{
-//        Toast.makeText(Register.this, "Wrong Voucher No. entered. Please try again later.", Toast.LENGTH_SHORT).show();
-//        vouchBtn.setEnabled(false);
-//    }
-//}
-
-//                if (count < 3 && voucherNo.getText() == "TestingThis0UT") {
-//                    Intent intent = new Intent(Register.this, Register_2.class);
-//                    startActivity(intent);
-//                    count = 0;
-//                } else if (count < 3 && voucherNo.getText() != "TestingThis0UT") {
-//                    count++;
-//                    Toast.makeText(Register.this, "Wrong Voucher No.", Toast.LENGTH_SHORT).show();
-//
-//
-//                } else {
-//                    Toast.makeText(Register.this, "Wrong Voucher No. entered. Please try again later.", Toast.LENGTH_SHORT).show();
-//                    vouchBtn.setEnabled(false);
-//                }
-//            }

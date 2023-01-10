@@ -1,8 +1,6 @@
 package com.example.runway_project;
 
-import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -24,21 +22,16 @@ public class Validation extends Register_2 {
     private DatabaseReference dbRef = db.getRefDB();;
     private DatabaseReference dbU = db.getDBU();
 
-//    public Validation(){
-////        this.db = new Database();
-////        this.dbRef = db.getRefDB();
-////        this.dbU = db.getDBU();
-//    }
+
 
     //regex pattern found from https://www.youtube.com/watch?v=OOdO785p3Qo
     boolean emailHasValidFormat(String email) {
-        System.out.println(email);
         boolean emailIsValid;
         String regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
         Pattern ptn = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher mtr = ptn.matcher(email);
         emailIsValid = mtr.matches();
-        System.out.println("Format was found to be: " + emailIsValid);
+        Log.d("Debug","f22");
         return emailIsValid;
     }
 
@@ -61,24 +54,24 @@ public class Validation extends Register_2 {
                                 try {
                                     if (BCrypt.checkpw(email, emailVal)) {
                                         emailFound = true;
-                                        System.out.println("Email found in DB = " + emailVal);
+                                        Log.d("Debug","e22");
                                         break;
                                     } else {
-                                        System.out.println("Email is valid and not found in DB.");
+                                        Log.d("Debug","e24");
                                     }
                                 } catch (IllegalArgumentException e) {
-                                    System.out.println(e);
+                                    Log.e("ERROR",e.getMessage());
                                 }
                             }
                         }
                     } else {
-                        System.out.println("Snapshot not exists");
+                        Log.d("Debug","!s22");
                     }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
+                    Log.e("ERROR", String.valueOf(error.getCode()));
                 }
             });
 
@@ -86,7 +79,7 @@ public class Validation extends Register_2 {
     }
 
     boolean getIsEmailFound(){
-        System.out.println("emailFound = " + emailFound);
+        Log.d("Debug","e22 " + emailFound);
         return this.emailFound;
     }
 
@@ -103,14 +96,14 @@ public class Validation extends Register_2 {
                 boolean pwdMatches = mtr.matches();
                 if (pwdMatches) {
                     pwdIsValid = true;
-                    System.out.println("Valid Password- Goes through");
+                    Log.d("Debug","p22");
                 } else {
                     pwdIsValid = false;
-                    System.out.println("Invalid Password: Characters");
+                    Log.d("Debug","p33");
                 }
             } else {
                 pwdIsValid = false;
-                System.out.println("Invalid Password: Passwords don't match");
+                Log.d("Debug","p33");
             }
         }
         return pwdIsValid;

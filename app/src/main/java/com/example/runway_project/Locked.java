@@ -1,15 +1,14 @@
 package com.example.runway_project;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -39,7 +38,6 @@ public class Locked extends AppCompatActivity {
             Date dT = new Date(System.currentTimeMillis());
             Long dTInMillis = dT.getTime();
             lockSPEditor.putLong("origDateTimeInMillis", dTInMillis);
-//            lockSPEditor.putString("dateTime", simpleDateFormat.format(dateTime));
             lockSPEditor.commit();
             //some timing option must be placed on this screen to eventually activate the MainActivity after 72hrs
 
@@ -47,7 +45,7 @@ public class Locked extends AppCompatActivity {
             TimerTask tt = new TimerTask() {
                 @Override
                 public void run() {
-                    System.out.println("run triggering");
+                    Log.d("Debug", "ul22");
                     lockSPEditor.putBoolean("isLocked", false);
                     lockSPEditor.commit();
                     Intent intent = new Intent(Locked.this, MainActivity.class);
@@ -56,7 +54,7 @@ public class Locked extends AppCompatActivity {
                 }
             };
 
-            System.out.println("DateTime: " +dateTime);
+        Log.d("Debug", "DateTime: " +dateTime);
 
             t.schedule(tt, period);
 

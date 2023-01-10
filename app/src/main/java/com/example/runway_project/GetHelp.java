@@ -174,7 +174,7 @@ public class GetHelp extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        TextView dDVS = findViewById(R.id.ghDVASTxt);
+        TextView dDVS = findViewById(R.id.ghDDVSTxt);
         dDVS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -291,7 +291,7 @@ public class GetHelp extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        TextView lWL = findViewById(R.id.ghLDASTxt);
+        TextView lWL = findViewById(R.id.ghLWLTxt);
         lWL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
