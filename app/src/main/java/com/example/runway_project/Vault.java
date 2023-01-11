@@ -99,7 +99,7 @@ public class Vault extends AppCompatActivity {
             cldStorageRef = FirebaseStorage.getInstance().getReference("Vault");
             vltCldStorageRef = cldStorageRef.child(vaultID);
         }catch (IllegalArgumentException e){
-            Log.e("ERROR", e.getMessage());
+            Log.e("ERROR", "ill33");
         }
         dbVltRef = db.getDBV();
 
@@ -239,7 +239,7 @@ public class Vault extends AppCompatActivity {
                 }
             });
         }catch (NullPointerException e){
-            Log.e("ERROR", e.getMessage());
+            Log.e("ERROR", "np33");
         }
     }
 
