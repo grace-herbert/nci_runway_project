@@ -10,13 +10,25 @@ public class HashingTest extends TestCase {
     private String hk;
     private String hkC;
 
-    private String testEmail1 = "test@test.ie";
-    private String testEmail2 = "test2@test.ie";
-    private String testPwd1 = "testthis";
-    private String testPwd2 = "testing";
-    private String testPwd3 = "test";
-    private String testImg2 = "image";
-    private String testImg1 = "image2";
+    private String testEmail1;
+    private String testEmail2;
+    private String testPwd1;
+    private String testPwd2;
+    private String testPwd3;
+    private String testImg2;
+    private String testImg1;
+
+    public void setVars(){
+        testEmail1 = "test@test.ie";
+        testEmail2 = "test2@test.ie";
+        testPwd1 = "testthis";
+        testPwd2 = "testing";
+        testPwd3 = "test";
+        testImg2 = "image";
+        testImg1 = "image2";
+    }
+
+
 
 
     Hashing h = new Hashing(testEmail1,testPwd1);
