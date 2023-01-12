@@ -96,6 +96,12 @@ public class Home extends AppCompatActivity {
                         startActivity(intent);
                         Log.v("Debug", "Get help info menu item clicked");
                         break;
+                    case R.id.hmGalleryItem:
+                        drawerL.closeDrawer(GravityCompat.START);
+                        intent = new Intent(Home.this, Gallery.class);
+                        startActivity(intent);
+                        Log.v("Debug", "Gallery menu item clicked");
+                        break;
                     case R.id.logoutItem:
                         drawerL.closeDrawer(GravityCompat.START);
                         intent = new Intent(Home.this, MainActivity.class);

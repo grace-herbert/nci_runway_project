@@ -55,6 +55,7 @@ public class Vault extends AppCompatActivity {
     private ProgressBar progressBar;
     private Button uploadBtn;
     private TextView viewImgs;
+    private TextView viewUploads;
     private ImageView imageView;
     private String imgName;
     private Uri imgUri;
@@ -94,6 +95,18 @@ public class Vault extends AppCompatActivity {
         uploadBtn = findViewById(R.id.uploadBtn);
         viewImgs = findViewById(R.id.viewUploads);
         imageView = findViewById(R.id.imagesView);
+        viewUploads = findViewById(R.id.viewUploads);
+
+        viewUploads.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Vault.this, Gallery.class);
+                startActivity(intent);
+            }
+        });
+
+
+
 
         try {
             cldStorageRef = FirebaseStorage.getInstance().getReference("Vault");
@@ -189,9 +202,17 @@ public class Vault extends AppCompatActivity {
     }
 
     void uploadFile(ImageView imgView, ProgressBar progressBar)  {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy_hh_mm_ss", Locale.UK); //no Ireland or Europe apparently, will check this later.
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss", Locale.UK); //no Ireland or Europe apparently, will check this later.
         Date now = new Date();
-        String imgName = dateFormat.format(now);
+        String titleInput = inputTitle.getText().toString();
+        String imgName;
+        String date = dateFormat.format(now);
+        if(titleInput == null || titleInput.isEmpty()){
+            imgName = dateFormat.format(now);
+        }else{
+            imgName = titleInput;
+        }
+
         String vChild =  "/"+vaultID.trim()+"/";
 
 
@@ -206,16 +227,20 @@ public class Vault extends AppCompatActivity {
                     Toast.makeText(Vault.this, "Image successfully uploaded", Toast.LENGTH_SHORT).show();
                     imgUriString = imgUri.toString();
                     String dUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-                    Upload uploadObj = new Upload(dUrl, imgName, imgUriString);
+                    Upload uploadObj = new Upload(dUrl, imgName, date);
                     String upObjDate = uploadObj.getDate();
                     String upObjUrl = uploadObj.getImgUrl();
                     String upObjName = uploadObj.getImgName();
 
-//
+//User cUser = new User(hEmail, hk, vltID);
+//                DatabaseReference pushRef = dbU.push();
+//                String userID = pushRef.getKey();
+//                pushRef.setValue(cUser);
                     //get the location to push to (key)
                     //this is going to the db Vault
-                    String putVltID = dbVltRef.push().getKey();
-                    dbVltRef.child(putVltID).push().setValue(uploadObj);
+//                    String putVltID = dbVltRef+vChild;
+                    DatabaseReference usrVlt = dbVltRef.child(vChild);
+                    usrVlt.push().setValue(uploadObj);
 //
                 }
             }).addOnFailureListener(new OnFailureListener() {

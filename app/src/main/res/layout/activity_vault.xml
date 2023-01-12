@@ -37,8 +37,7 @@
         android:layout_height="wrap_content"
         android:fillViewport="true">
 
-    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"
@@ -60,17 +59,17 @@
             android:layout_marginEnd="9dp"
             android:hint="Enter file name here." />
 
+
         <ImageView
             android:id="@+id/imagesView"
-            android:layout_width="395dp"
-            android:layout_height="389dp"
+            android:layout_width="355dp"
+            android:layout_height="313dp"
             android:layout_above="@id/progressBar"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
-            android:layout_marginBottom="34dp" />
-
+            android:layout_marginBottom="28dp" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -81,37 +80,43 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="176dp" />
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="229dp" />
 
         <Button
             android:id="@+id/uploadBtn"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
+            android:layout_width="157dp"
+            android:layout_height="58dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="140dp"
-            android:layout_marginEnd="140dp"
-            android:layout_marginBottom="100dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="100dp"
+            android:layout_marginBottom="164dp"
             android:text="Upload" />
 
         <TextView
-            android:id="@+id/viewUploads"
-            android:layout_width="251dp"
-            android:layout_height="47dp"
-            android:layout_alignRight="@+id/uploadBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/uploadBtn"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="250dp"
-            android:layout_marginEnd="140dp"
-            android:layout_marginRight="14dp"
-            android:layout_marginBottom="100dp"
-            android:gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="164dp"
+            android:layout_marginEnd="16dp"
+            android:text="View Uploads in Gallery"></TextView>
+
+        <TextView
+            android:id="@+id/viewUploads"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/uploadBtn"
+            android:layout_marginTop="-105dp"
             android:text="View Uploads"
-            android:textSize="16dp" />
+            android:textSize="22dp"
+            android:gravity="center"
+            android:textStyle="bold"/>
 
     </RelativeLayout>
     </ScrollView>

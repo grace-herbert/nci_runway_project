@@ -25,7 +25,7 @@ public class Upload {
 
     }
 
-    public Upload(String imgUrl, String date, String imgName){
+    public Upload(String imgUrl, String imgName, String date){
         //this.vaultID = vaultID;
         this.imgUrl = imgUrl;
         this.date = date;
