@@ -48,7 +48,7 @@ public class AwaitingVerification extends AppCompatActivity {
                 sendUser();
             }
         };
-        handler.postDelayed(runnable, 15000);
+        handler.postDelayed(runnable, 5000);
     }
 
     private void sendUser() {
@@ -65,15 +65,15 @@ public class AwaitingVerification extends AppCompatActivity {
                 hEmail = sharedPreferences.getString("hshEmail", "");
                 String hk = sharedPreferences.getString("hshk", "");
                 String vltID = sharedPreferences.getString("vaultID", "");
-                User cUser = new User(hEmail, hk, vltID);
-                DatabaseReference pushRef = dbU.push();
+                String uID = fUser.getUid();
+                User cUser = new User(uID, hEmail, hk, vltID);
+                DatabaseReference pushRef = dbU.child(uID);
                 String userID = pushRef.getKey();
                 pushRef.setValue(cUser);
                 SharedPreferences.Editor sPEdit = sharedPreferences.edit();
                 sPEdit.putString("userID", userID);
                 sPEdit.commit();
                 Log.d("Debug", "d22");
-                fUser.delete();
                 Intent intent3 = new Intent(AwaitingVerification.this, Home.class);
                 startActivity(intent3);
 

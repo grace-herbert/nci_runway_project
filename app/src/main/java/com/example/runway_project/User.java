@@ -2,11 +2,13 @@ package com.example.runway_project;
 
 public class User {
 
+    private String uID;
     private String email;
     private String hk;
     private String vaultID;
 
-    public User(String email, String hk, String vaultID){
+    public User(String uID, String email, String hk, String vaultID){
+        this.uID = uID;
         this.email = email;
         this.hk = hk;
         this.vaultID = vaultID;

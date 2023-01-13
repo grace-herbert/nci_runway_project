@@ -19,17 +19,6 @@ public class Gallery extends AppCompatActivity {
     private String vltID;
     private RecyclerView galleryRecyclerView;
 //helped by code from https://www.youtube.com/watch?v=g-Qcb5PjsGo
-    public void onStart() {
-
-        super.onStart();
-        FirebaseRecyclerAdapter<ImageItem, ViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ImageItem, ViewHolder>(ImageItem.class, R.layout.card, ViewHolder.class, usrVltRef) {
-            @Override
-            protected void populateViewHolder(ViewHolder viewHolder, ImageItem imageItem, int i) {
-                viewHolder.getTitleAndImg(getApplicationContext(), imageItem.getImgName(),imageItem.getImgUrl(),imageItem.getDate());
-            }
-        };
-        galleryRecyclerView.setAdapter(firebaseRecyclerAdapter);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,5 +33,17 @@ public class Gallery extends AppCompatActivity {
 
         vltRef = (dbRef.child("/"+vltID+"/"));
         usrVltRef = vltRef.getRef();
+    }
+
+    public void onStart() {
+
+        super.onStart();
+        FirebaseRecyclerAdapter<ImageItem, ViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ImageItem, ViewHolder>(ImageItem.class, R.layout.card, ViewHolder.class, usrVltRef) {
+            @Override
+            protected void populateViewHolder(ViewHolder viewHolder, ImageItem imageItem, int i) {
+                viewHolder.getTitleAndImg(getApplicationContext(), imageItem.getImgName(),imageItem.getImgUrl(),imageItem.getDate());
+            }
+        };
+        galleryRecyclerView.setAdapter(firebaseRecyclerAdapter);
     }
 }
