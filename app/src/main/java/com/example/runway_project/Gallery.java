@@ -15,13 +15,14 @@ public class Gallery extends AppCompatActivity {
     private Database db =  new Database();
     private DatabaseReference dbRef = db.getRefDB();
     private DatabaseReference vltRef;
+    private DatabaseReference usrVltRef;
     private String vltID;
     private RecyclerView galleryRecyclerView;
-
+//helped by code from https://www.youtube.com/watch?v=g-Qcb5PjsGo
     public void onStart() {
 
         super.onStart();
-        FirebaseRecyclerAdapter<ImageItem, ViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ImageItem, ViewHolder>(ImageItem.class, R.layout.card, ViewHolder.class, vltRef) {
+        FirebaseRecyclerAdapter<ImageItem, ViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ImageItem, ViewHolder>(ImageItem.class, R.layout.card, ViewHolder.class, usrVltRef) {
             @Override
             protected void populateViewHolder(ViewHolder viewHolder, ImageItem imageItem, int i) {
                 viewHolder.getTitleAndImg(getApplicationContext(), imageItem.getImgName(),imageItem.getImgUrl(),imageItem.getDate());
@@ -42,5 +43,6 @@ public class Gallery extends AppCompatActivity {
         galleryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         vltRef = (dbRef.child("/"+vltID+"/"));
+        usrVltRef = vltRef.getRef();
     }
 }

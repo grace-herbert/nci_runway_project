@@ -15,6 +15,15 @@
         android:theme="@style/Theme.Runway_project"
         tools:targetApi="31">
         <activity
+            android:name=".Gallery"
+            android:exported="false"
+            android:label="gallery">
+            <!--            android:theme="@style/Theme.Runway_project.NoActionBar">-->
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".StayingSafeOnline"
             android:exported="false"
             android:label="@string/title_activity_staying_safe_online">

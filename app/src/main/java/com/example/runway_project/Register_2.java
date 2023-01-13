@@ -209,12 +209,15 @@ public class Register_2 extends AppCompatActivity {
                             });
                         } else {
                             Log.d("Debug","p33");
+                            Toast.makeText(Register_2.this, "Invalid password. Please try again.", Toast.LENGTH_LONG).show();
                         }
                     } else {
                         Log.d("Debug","e33");
+                        Toast.makeText(Register_2.this, "Invalid email. Please try again.", Toast.LENGTH_LONG).show();
                     }
                 } else {
                     Log.d("Debug","i33");
+                    Toast.makeText(Register_2.this, "Information nvalid. Please try again.", Toast.LENGTH_LONG).show();
                 }
             }
 

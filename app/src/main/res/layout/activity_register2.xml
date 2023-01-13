@@ -74,7 +74,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:gravity="center"
-        android:text="Please choose a password greater than 10 letters long, that you have never used before. A strong password is a momorable sentence put together with no spaces using numbers, mixed capitalisation and symbols. "
+        android:text="Please choose a password which is at least 10 Characters long, has at least 1 Capital letter, 1 lowercase letter, 1 number and one symbol. A strong password is a memorable sentence put together with no spaces that you have never used before with mixed capitalisation and symbols. "
         android:textColor="@color/white"
         android:textSize="12dp"
         android:textStyle="normal" />
@@ -181,17 +181,17 @@
         android:drawableRight="@drawable/ic_baseline_visibility_24"
         android:visibility="invisible" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/reg2Btn"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/regReEntPwd"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="150dp"
-        android:backgroundTint="@color/cardview_light_background"
-        android:text="Register"
-        android:textColor="@color/black" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/reg2Btn"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/regReEntPwd"
+                android:layout_marginStart="120dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="120dp"
+                android:backgroundTint="@color/cardview_light_background"
+                android:text="Register"
+                android:textColor="@color/black" />
 
         </RelativeLayout>
     </ScrollView>

@@ -37,7 +37,7 @@
         android:layout_below="@id/register_1_Txt"
         android:layout_margin="8dp"
         android:gravity="center"
-        android:text="You may need to check your Junk mail folder. Once your account has been verified \n you will be logged in."
+        android:text="You may need to check your Junk mail folder. Once your account has been verified you will be logged in.\n \nThis may take a few mins, please don't navigate away from this page."
         android:textColor="@color/white"
         android:textSize="15dp"
         android:textStyle="normal" />

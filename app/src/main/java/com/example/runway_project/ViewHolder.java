@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
-
+//helped by code from https://www.youtube.com/watch?v=g-Qcb5PjsGo
 public class ViewHolder extends RecyclerView.ViewHolder{
     View viewImg;
     public ViewHolder(View itemView) {
