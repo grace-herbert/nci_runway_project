@@ -93,6 +93,21 @@
         android:text="Enter"
         android:textColor="@color/black" />
 
+    <TextView
+        android:id="@+id/privacy_policy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vouchBtn"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:text="Privacy Policy"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        android:textStyle="normal" />
+
 
 
 </RelativeLayout>

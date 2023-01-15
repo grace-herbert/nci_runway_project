@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,7 +49,7 @@ public class AwaitingVerification extends AppCompatActivity {
                 sendUser();
             }
         };
-        handler.postDelayed(runnable, 15000);
+        handler.postDelayed(runnable, 5000);
     }
 
     private void sendUser() {

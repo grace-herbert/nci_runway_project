@@ -54,7 +54,7 @@ public class Gen {
         int randNo1 =  (int) Math.floor(Math.random()*(35-0+1)+1);
         int randNo2 =  (int) Math.floor(Math.random()*(41-0+1)+1);
         String genString = ((idS2 + randNo) + (idS1 +randNo2)) + idI;
-        System.out.println("genString " + genString);
+//        System.out.println("genString " + genString);
         return genString;
 
     }

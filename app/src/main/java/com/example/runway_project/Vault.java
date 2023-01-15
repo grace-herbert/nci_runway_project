@@ -127,7 +127,7 @@ public class Vault extends AppCompatActivity {
         uploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadFile(imageView, progressBar);
+                uploadPhoto(imageView, progressBar);
             }
         });
 
@@ -201,7 +201,7 @@ public class Vault extends AppCompatActivity {
 
     }
 
-    void uploadFile(ImageView imgView, ProgressBar progressBar)  {
+    void uploadPhoto(ImageView imgView, ProgressBar progressBar)  {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss", Locale.UK); //no Ireland or Europe apparently, will check this later.
         Date now = new Date();
         String titleInput = inputTitle.getText().toString();
@@ -228,17 +228,6 @@ public class Vault extends AppCompatActivity {
                     imgUriString = imgUri.toString();
                     String dUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
                     Upload uploadObj = new Upload(dUrl, imgName, date);
-                    String upObjDate = uploadObj.getDate();
-                    String upObjUrl = uploadObj.getImgUrl();
-                    String upObjName = uploadObj.getImgName();
-
-//User cUser = new User(hEmail, hk, vltID);
-//                DatabaseReference pushRef = dbU.push();
-//                String userID = pushRef.getKey();
-//                pushRef.setValue(cUser);
-                    //get the location to push to (key)
-                    //this is going to the db Vault
-//                    String putVltID = dbVltRef+vChild;
                     DatabaseReference usrVlt = dbVltRef.child(vChild);
                     usrVlt.push().setValue(uploadObj);
 //

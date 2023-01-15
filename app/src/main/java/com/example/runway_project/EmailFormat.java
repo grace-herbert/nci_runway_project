@@ -14,7 +14,7 @@ public class EmailFormat {
     //        emailIsValid = ptn.matcher(email).matches();
             Matcher mtr = ptn.matcher(email);
             emailIsValid = mtr.matches();
-            Log.d("Debug", "f22");
+//            Log.d("Debug", "f22");
             return emailIsValid;
     }
 }

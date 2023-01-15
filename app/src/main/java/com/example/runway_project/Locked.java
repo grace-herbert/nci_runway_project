@@ -3,6 +3,7 @@ package com.example.runway_project;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -24,13 +25,19 @@ public class Locked extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_locked);
+        //change colour of actionbar
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
+        //remove name from Actionbar
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.UK);
         SharedPreferences lockSP = getSharedPreferences("Lock", Context.MODE_PRIVATE);
         SharedPreferences.Editor lockSPEditor = lockSP.edit();
         //check if the app has been locked already or if this is a new lock.
         isLocked = lockSP.getBoolean("isLocked", false);
         // 72hr period
-        long period = 1000L * 60L * 60L * 24 * 3L;
+//        long period = 1000L * 60L * 60L * 24 * 3L;
+        //test period below
+        long period = 1000L * 60L *1;
 
             lockSPEditor.putBoolean("isLocked", true);
             Calendar calendar = Calendar.getInstance();

@@ -30,23 +30,31 @@
         <TextView
             android:id="@+id/cardTitle"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="60dp"
             android:layout_marginTop="20dp"
             android:text="Title"
             android:textStyle="bold"
             android:textSize="22dp"
             android:layout_below="@+id/cardImg"/>
-        />
         <TextView
             android:id="@+id/cardDate"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="60dp"
             android:layout_marginTop="20dp"
             android:text="Date"
             android:textStyle="bold"
             android:textSize="22dp"
             android:layout_below="@+id/cardTitle"/>
-        />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cardDate"
+            android:layout_marginTop="20dp"
+            android:text="Download"
+            android:background="@color/black"
+            />
+
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
