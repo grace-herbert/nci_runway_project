@@ -10,6 +10,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -78,6 +79,14 @@ public class Register_2 extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("SendPrefs", Context.MODE_PRIVATE);
 
+        TextView privacyPolicy = this.findViewById(R.id.privacy_policy);
+        privacyPolicy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Register_2.this, PrivacyPolicy.class);
+                startActivity(intent);
+            }
+        });
 
         //Methods to show/hide buttons
 
@@ -217,7 +226,7 @@ public class Register_2 extends AppCompatActivity {
                     }
                 } else {
                     Log.d("Debug","i33");
-                    Toast.makeText(Register_2.this, "Information nvalid. Please try again.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Register_2.this, "Information Invalid. Please try again.", Toast.LENGTH_LONG).show();
                 }
             }
 

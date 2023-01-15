@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -65,15 +66,15 @@ public class AwaitingVerification extends AppCompatActivity {
                 hEmail = sharedPreferences.getString("hshEmail", "");
                 String hk = sharedPreferences.getString("hshk", "");
                 String vltID = sharedPreferences.getString("vaultID", "");
-                String uID = fUser.getUid();
-                User cUser = new User(uID, hEmail, hk, vltID);
-                DatabaseReference pushRef = dbU.child(uID);
+                User cUser = new User(hEmail, hk, vltID);
+                DatabaseReference pushRef = dbU.push();
                 String userID = pushRef.getKey();
                 pushRef.setValue(cUser);
                 SharedPreferences.Editor sPEdit = sharedPreferences.edit();
                 sPEdit.putString("userID", userID);
                 sPEdit.commit();
                 Log.d("Debug", "d22");
+                fUser.delete();
                 Intent intent3 = new Intent(AwaitingVerification.this, Home.class);
                 startActivity(intent3);
 

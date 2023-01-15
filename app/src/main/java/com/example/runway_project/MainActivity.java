@@ -38,12 +38,12 @@ public class MainActivity extends AppCompatActivity {
     private static final String SHAREDV = "SharedV";
 
 
-    //solution to app closing on home button found: https://stackoverflow.com/questions/21901015/how-to-kill-the-application-with-the-home-button
-    @Override
-    public void onPause() {
-        super.onPause();
-        this.finish();
-    }
+//    //solution to app closing on home button found: https://stackoverflow.com/questions/21901015/how-to-kill-the-application-with-the-home-button
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        this.finish();
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             EditText email = this.findViewById(R.id.email);
             EditText pwd = this.findViewById(R.id.password);
             MaterialButton loginBtn = this.findViewById(R.id.loginBtn);
+            TextView privacyPolicy = this.findViewById(R.id.privacy_policy);
 //            Button tempBtn = this.findViewById(R.id.tempButton);
 //            Button homeBtn = this.findViewById(R.id.homeButton);
 
@@ -93,6 +94,14 @@ public class MainActivity extends AppCompatActivity {
 //                    startActivity(intent);
 //                }
 //            });
+
+                privacyPolicy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, PrivacyPolicy.class);
+                    startActivity(intent);
+                }
+            });
 
             showLPwdBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -125,11 +134,12 @@ public class MainActivity extends AppCompatActivity {
                     final String emailStrg = email.getText().toString().trim();
                     final String hkStrg = pwd.getText().toString().trim();
                     //if count is below 3
-                    if (count < 2) {
+                    count++;
+                    if (count < 3) {
                         login(emailStrg, hkStrg, email, pwd);
 
                         if (triggerOut) {
-                            count++;
+//                            count++;
                             Toast.makeText(MainActivity.this, "Please enter a valid email and password.", Toast.LENGTH_SHORT).show();
                             email.setText("");
                             pwd.setText("");
@@ -163,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-        private boolean login (String plainP, String pwdInput, EditText email, EditText pwd){
+        private boolean login (String plainE, String pwdInput, EditText email, EditText pwd){
 
             if (email != null && pwd != null) {
                 Query q = dbU.orderByChild("email");
@@ -179,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
                                     String emailVal = searchEml.child("email").getValue(String.class);
                                     if (emailVal != null) {
                                         try {
-                                            if (BCrypt.checkpw(plainP, emailVal)) {
+                                            if (BCrypt.checkpw(plainE, emailVal)) {
                                                 String hkCheck = searchEml.child("hk").getValue(String.class);
                                                 vltID = searchEml.child("vaultID").getValue(String.class);
                                                 if (BCrypt.checkpw(pwdInput, hkCheck)) {

@@ -8,6 +8,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -51,6 +52,14 @@ public class Register_1 extends AppCompatActivity {
             AppCompatButton hideBtn = this.findViewById(R.id.hideBtn);
             EditText voucher = this.findViewById(R.id.voucherNo);
 
+            TextView privacyPolicy = this.findViewById(R.id.privacy_policy);
+            privacyPolicy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Register_1.this, PrivacyPolicy.class);
+                    startActivity(intent);
+                }
+            });
 
             showBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -90,6 +99,7 @@ public class Register_1 extends AppCompatActivity {
                                     Intent intent = new Intent(Register_1.this, Register_2.class);
                                     startActivity(intent);
                                 }else{
+                                    voucher.setText(" ");
                                     count++;
                                     Log.d("Debug", "r133");
                                     Toast.makeText(Register_1.this, "Wrong Voucher No.", Toast.LENGTH_SHORT).show();
