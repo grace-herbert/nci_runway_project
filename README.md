@@ -1,3 +1,8 @@
+This app is designed for women experiencing Domestic Violence, it is supposed to look like a regular fashion app from the outside
+and so there is a two step Registration where they get a code or "voucher No." from an NGO to prevent just anyone registering and seeing 
+the actual nature of the app, which is for women to get information and seek help and to collect evidence they can't keep on their own phones.
+
+
 # nci_runway_project
 This app should be run in android studio
 To register with the app you need the voucherNo. in the appendices of the report
